@@ -129,6 +129,7 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 * @param	string	$name		Session cookie name
 	 * @return	bool
 	 */
+	#[\ReturnTypeWillChange]
 	public function open($save_path, $name)
 	{
 		if ( ! is_dir($save_path))
@@ -163,6 +164,7 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 * @param	string	$session_id	Session ID
 	 * @return	string	Serialized session data
 	 */
+	#[\ReturnTypeWillChange]
 	public function read($session_id)
 	{
 		// This might seem weird, but PHP 5.6 introduces session_reset(),
@@ -173,17 +175,9 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 
 			if (($this->_file_handle = @fopen($this->_file_path.$session_id, 'c+b')) === FALSE)
 			{
-				if (file_exists($this->_file_path.$session_id))
-				{
-					@unlink($this->_file_path.$session_id);
-					$this->_file_handle = @fopen($this->_file_path.$session_id, 'c+b');
-				}
-				if ($this->_file_handle === FALSE)
-				{
-					log_message('error', "Session: Unable to open file '".$this->_file_path.$session_id."'.");
-					$this->_fingerprint = md5('');
-					return '';
-				}
+				log_message('error', "Session: Unable to open file '".$this->_file_path.$session_id."'.");
+				$this->_fingerprint = md5('');
+				return '';
 			}
 
 			if (@flock($this->_file_handle, LOCK_EX) === FALSE)
@@ -218,18 +212,28 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 		}
 
 		$session_data = '';
-		for ($read = 0, $length = filesize($this->_file_path.$session_id); $read < $length; $read += self::strlen($buffer))
-		{
-			if (($buffer = fread($this->_file_handle, $length - $read)) === FALSE)
-			{
-				break;
-			}
+		clearstatcache(TRUE, $this->_file_path.$session_id);
+		$file_size = @filesize($this->_file_path.$session_id);
 
-			$session_data .= $buffer;
+		if ($file_size !== FALSE && $file_size > 0)
+		{
+			for ($read = 0; $read < $file_size; $read += self::strlen($buffer))
+			{
+				if (($buffer = fread($this->_file_handle, $file_size - $read)) === FALSE)
+				{
+					break;
+				}
+
+				$session_data .= $buffer;
+			}
+		}
+		else
+		{
+			$session_data = (string) stream_get_contents($this->_file_handle);
 		}
 
 		$this->_fingerprint = md5($session_data);
-		return $session_data;
+		return (string) $session_data;
 	}
 
 	// ------------------------------------------------------------------------
@@ -243,11 +247,12 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 * @param	string	$session_data	Serialized session data
 	 * @return	bool
 	 */
+	#[\ReturnTypeWillChange]
 	public function write($session_id, $session_data)
 	{
 		// If the two IDs don't match, we have a session_regenerate_id() call
 		// and we need to close the old handle and open a new one
-		if ($session_id !== $this->_session_id && ($this->close() === $this->_failure OR $this->read($session_id) === $this->_failure))
+		if ($session_id !== $this->_session_id && ($this->close() === $this->_failure OR $this->read($session_id) === ''))
 		{
 			return $this->_failure;
 		}
@@ -300,6 +305,7 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 *
 	 * @return	bool
 	 */
+	#[\ReturnTypeWillChange]
 	public function close()
 	{
 		if (is_resource($this->_file_handle))
@@ -323,6 +329,7 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 * @param	string	$session_id	Session ID
 	 * @return	bool
 	 */
+	#[\ReturnTypeWillChange]
 	public function destroy($session_id)
 	{
 		if ($this->close() === $this->_success)
@@ -364,6 +371,7 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 * @param	int 	$maxlifetime	Maximum lifetime of sessions
 	 * @return	bool
 	 */
+	#[\ReturnTypeWillChange]
 	public function gc($maxlifetime)
 	{
 		if ( ! is_dir($this->_config['save_path']) OR ($directory = opendir($this->_config['save_path'])) === FALSE)
@@ -413,6 +421,7 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 * @param	string	$id
 	 * @return	bool
 	 */
+	#[\ReturnTypeWillChange]
 	public function validateSessionId($id)
 	{
 		$result = is_file($this->_file_path.$id);

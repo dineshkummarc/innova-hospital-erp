@@ -390,15 +390,18 @@
         <?php } ?>
 
         <?php
-        if (!isset($math_captcha_question)) {
+        $captcha_salt = 'InnovaHospitalERP_Captcha_Salt_2026';
+        if (!isset($math_captcha_question) || !isset($math_captcha_token)) {
             $num1 = rand(1, 15);
             $num2 = rand(1, 9);
             $math_captcha_question = "$num1 + $num2 = ?";
+            $math_captcha_token = hash_hmac('sha256', (string)($num1 + $num2), $captcha_salt);
             $this->session->set_userdata('login_math_captcha_answer', $num1 + $num2);
         }
         ?>
 
         <form id="loginForm" method="post" action="<?php echo site_url('auth/login'); ?>">
+            <input type="hidden" name="captcha_token" id="loginCaptchaToken" value="<?php echo $math_captcha_token; ?>">
             <div class="input-group">
               <input type="email" name="identity" class="form-control" placeholder="<?php echo lang('email') ?>" required>
             <div class="input-group-append">
@@ -505,6 +508,9 @@
           success: function(response) {
             if (response && response.question) {
               $('.loginMathQuestion').text(response.question);
+              if (response.token) {
+                $('#loginCaptchaToken').val(response.token);
+              }
               $('.loginCaptchaAnswer').val('').focus();
             }
           },

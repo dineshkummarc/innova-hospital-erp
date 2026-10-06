@@ -51,10 +51,16 @@ class Auth extends MX_Controller {
             // Verify Math Security Captcha
             $user_math_answer = $this->input->post('captcha_answer');
             $session_math_answer = $this->session->userdata('login_math_captcha_answer');
+            $captcha_token = $this->input->post('captcha_token');
+            $captcha_salt = 'InnovaHospitalERP_Captcha_Salt_2026';
 
             $captcha_verified = false;
-            if ($user_math_answer !== null && $session_math_answer !== null && trim($user_math_answer) !== '') {
-                if ((int)trim($user_math_answer) === (int)$session_math_answer) {
+            if ($user_math_answer !== null && trim($user_math_answer) !== '') {
+                $ans_trimmed = trim($user_math_answer);
+                if ($session_math_answer !== null && (int)$ans_trimmed === (int)$session_math_answer) {
+                    $captcha_verified = true;
+                    $this->session->unset_userdata('login_math_captcha_answer');
+                } elseif (!empty($captcha_token) && hash_equals(hash_hmac('sha256', $ans_trimmed, $captcha_salt), $captcha_token)) {
                     $captcha_verified = true;
                     $this->session->unset_userdata('login_math_captcha_answer');
                 }
@@ -122,6 +128,9 @@ class Auth extends MX_Controller {
                 }
                 $this->logs_model->insertLogs($data);
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
+                if (session_status() === PHP_SESSION_ACTIVE) {
+                    session_write_close();
+                }
                 redirect('home', 'refresh');
             } else {
                 //if the login was un-successful
@@ -148,6 +157,8 @@ class Auth extends MX_Controller {
             $num1 = rand(1, 15);
             $num2 = rand(1, 9);
             $data['math_captcha_question'] = "$num1 + $num2 = ?";
+            $captcha_salt = 'InnovaHospitalERP_Captcha_Salt_2026';
+            $data['math_captcha_token'] = hash_hmac('sha256', (string)($num1 + $num2), $captcha_salt);
             $this->session->set_userdata('login_math_captcha_answer', $num1 + $num2);
 
             $this->load->model('settings/settings_model');
@@ -163,11 +174,14 @@ class Auth extends MX_Controller {
         $num2 = rand(1, 9);
         $answer = $num1 + $num2;
         $this->session->set_userdata('login_math_captcha_answer', $answer);
+        $captcha_salt = 'InnovaHospitalERP_Captcha_Salt_2026';
+        $token = hash_hmac('sha256', (string)$answer, $captcha_salt);
 
         header('Content-Type: application/json');
         echo json_encode([
             'status' => 'success',
-            'question' => "$num1 + $num2 = ?"
+            'question' => "$num1 + $num2 = ?",
+            'token' => $token
         ]);
         exit;
     }
