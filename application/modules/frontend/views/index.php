@@ -2,8 +2,18 @@
 <html lang="en">
 <?php
 $settings = $this->frontend_model->getSettings();
-$title = !empty($settings->title) ? explode(' ', $settings->title) : array('');
-$site_title = !empty($settings->title) ? $settings->title : 'Life Care Hospital';
+if (empty($settings)) {
+    $settings = new stdClass();
+}
+if (empty($settings->title)) $settings->title = 'Innova SaaS';
+if (empty($settings->email)) $settings->email = 'innovacomputersbd@gmail.com';
+if (empty($settings->phone)) $settings->phone = '01817682323';
+if (empty($settings->address)) $settings->address = 'Masterpara, Subarnachar, Noakhali';
+
+$title_parts = explode(' ', trim($settings->title));
+$title_first = $title_parts[0];
+$title_rest = count($title_parts) > 1 ? implode(' ', array_slice($title_parts, 1)) : '';
+$site_title = $settings->title;
 $site_description = !empty($settings->description) ? $settings->description : (!empty($settings->block_1_text_under_title) ? $settings->block_1_text_under_title : $site_title);
 ?>
 
@@ -178,7 +188,7 @@ $site_description = !empty($settings->description) ? $settings->description : (!
                         </div>
                         <div>
                             <span class="text-lg sm:text-xl font-extrabold leading-tight">
-                                <span class="text-secondary-900"><?php echo $title[0]; ?></span><span class="text-primary-600"><?php echo isset($title[1]) ? $title[1] : ''; ?></span>
+                                <span class="text-secondary-900"><?php echo $title_first; ?></span> <span class="text-primary-600"><?php echo $title_rest; ?></span>
                             </span>
                             <span class="hidden lg:block text-[10px] text-gray-500 -mt-0.5">Healthcare Management Solutions</span>
                         </div>
@@ -1092,8 +1102,7 @@ $site_description = !empty($settings->description) ? $settings->description : (!
                         </div>
                         <div>
                             <span class="text-lg font-extrabold">
-                                <span class="text-white"><?php echo $title[0]; ?></span>
-                                <span class="text-primary-600"><?php echo isset($title[1]) ? $title[1] : ''; ?></span>
+                                <span class="text-white"><?php echo $title_first; ?></span> <span class="text-primary-600"><?php echo $title_rest; ?></span>
                             </span>
                         </div>
                     </div>

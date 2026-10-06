@@ -134,6 +134,14 @@ if command -v mysql >/dev/null 2>&1; then
 
         # Ensure paymentGateway view exists for Linux MySQL case-sensitivity compatibility
         mysql $MYSQL_AUTH -D "$DB_NAME" -e "CREATE OR REPLACE VIEW \`paymentGateway\` AS SELECT * FROM \`paymentgateway\`;" 2>/dev/null || true
+
+        # Ensure Innova SaaS branding is applied in database
+        mysql $MYSQL_AUTH -D "$DB_NAME" -e "
+            UPDATE website_settings SET title = 'Innova SaaS', email = 'innovacomputersbd@gmail.com', contact_us_email = 'innovacomputersbd@gmail.com', phone = '01817682323', emergency = '01817682323', support = '01817682323', address = 'Masterpara, Subarnachar, Noakhali' WHERE id = 1;
+            UPDATE settings SET system_vendor = 'Innova SaaS', title = 'Innova Hospital ERP', email = 'innovacomputersbd@gmail.com', phone = '01817682323', address = 'Masterpara, Subarnachar, Noakhali' WHERE hospital_id = 'superadmin' OR id = 11;
+            UPDATE email_settings SET admin_email = 'innovacomputersbd@gmail.com' WHERE hospital_id = 'superadmin' OR id = 34;
+        " 2>/dev/null || true
+        echo -e "${GREEN}[✔] Innova SaaS branding applied to database.${NC}"
     else
         echo -e "${RED}[!] Could not connect to MySQL with the credentials in .env.${NC}"
         echo -e "${YELLOW}Please verify DB_USER and DB_PASS in $ENV_FILE or ensure MySQL is running.${NC}"
@@ -169,7 +177,11 @@ else
         php -r "
             \$conn = new mysqli('$DB_HOST', '$DB_USER', '$DB_PASS', '$DB_NAME', (int)'$DB_PORT');
             \$conn->query('CREATE OR REPLACE VIEW \`paymentGateway\` AS SELECT * FROM \`paymentgateway\`;');
+            \$conn->query(\"UPDATE website_settings SET title = 'Innova SaaS', email = 'innovacomputersbd@gmail.com', contact_us_email = 'innovacomputersbd@gmail.com', phone = '01817682323', emergency = '01817682323', support = '01817682323', address = 'Masterpara, Subarnachar, Noakhali' WHERE id = 1;\");
+            \$conn->query(\"UPDATE settings SET system_vendor = 'Innova SaaS', title = 'Innova Hospital ERP', email = 'innovacomputersbd@gmail.com', phone = '01817682323', address = 'Masterpara, Subarnachar, Noakhali' WHERE hospital_id = 'superadmin' OR id = 11;\");
+            \$conn->query(\"UPDATE email_settings SET admin_email = 'innovacomputersbd@gmail.com' WHERE hospital_id = 'superadmin' OR id = 34;\");
         " 2>/dev/null || true
+        echo -e "${GREEN}[✔] Innova SaaS branding applied to database.${NC}"
     else
         echo -e "${YELLOW}[!] Notice: Could not auto-verify MySQL. Please ensure DB credentials are set in .env.${NC}"
     fi
