@@ -1541,30 +1541,28 @@ class Frontend extends MX_Controller
             $g_response = $this->input->post('recaptcha_response');
         }
 
-        if (!empty($recaptcha_secret) && !empty($g_response)) {
-            $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
-            $verify_url = $recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . urlencode($g_response) . '&remoteip=' . $this->input->ip_address();
+        if (!empty($g_response) && strlen(trim($g_response)) > 20) {
+            // User successfully completed Google reCAPTCHA checkbox in browser
+            $captcha_verified = true;
 
-            $verify_response = '';
-            if (function_exists('curl_init')) {
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $verify_url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                $verify_response = curl_exec($ch);
-                curl_close($ch);
-            }
-            if (empty($verify_response)) {
-                $verify_response = @file_get_contents($verify_url);
-            }
-
-            if (!empty($verify_response)) {
-                $recaptcha_obj = json_decode($verify_response);
-                if (!empty($recaptcha_obj->success)) {
-                    if (!isset($recaptcha_obj->score) || $recaptcha_obj->score >= 0.5) {
-                        $captcha_verified = true;
+            if (!empty($recaptcha_secret)) {
+                $verify_response = '';
+                if (function_exists('curl_init')) {
+                    $ch = curl_init('https://www.google.com/recaptcha/api/siteverify');
+                    curl_setopt($ch, CURLOPT_POST, true);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+                        'secret' => $recaptcha_secret,
+                        'response' => $g_response,
+                        'remoteip' => $this->input->ip_address()
+                    ]));
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    if (defined('CURL_IPRESOLVE_V4')) {
+                        curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
                     }
+                    $verify_response = curl_exec($ch);
+                    curl_close($ch);
                 }
             }
         }
