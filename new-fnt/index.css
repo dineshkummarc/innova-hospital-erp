@@ -1,0 +1,473 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: poppins, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.brand_color {
+  color: #00b838;
+  color: #00A36C
+}
+
+.brand_bg {
+  background-color: #00b838;
+}
+
+.brand_gradient {
+  background: linear-gradient(180deg, #ebf9f2 0%, #fffffe 100%);
+}
+
+.brand_light {
+  background-color: #b8ebc7;
+}
+
+.sec_brand_color {
+  color: #7ff4f0;
+}
+
+.sec_brand_bg {
+  background-color: #7ff4f0;
+}
+
+.yellow_bg {
+  background-color: #ffc107;
+}
+
+.yellow {
+  color: #ffc107;
+}
+
+#mobile_menu {
+  display: flex;
+  position: absolute;
+  top: 10;
+  right: 4;
+  justify-content: right;
+  flex-direction: column;
+}
+
+.max_1000 {
+  max-width: 1000;
+}
+
+.hero_section {
+  background: linear-gradient(180deg, #ebf9f2 0%, #fffffe 100%);
+}
+
+.section_title {
+  font-size: 3rem;
+  font-weight: 800;
+  font-family: "Poppins", sans-serif;
+  position: relative;
+}
+
+@media only screen and (max-width: 1500px) {
+  .section_title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-family: "Poppins", sans-serif;
+    position: relative;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .section_title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    font-family: Nunito;
+    position: relative;
+  }
+}
+
+.para {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.active {
+  background-color: #00b838;
+  color: white;
+}
+
+.active_bg {
+  cursor: pointer;
+}
+
+.active_bg:hover {
+  background-color: white;
+  color: black;
+}
+
+.active_bg:hover .active_icon {
+  display: block;
+}
+
+.container_area {
+  max-width: 1150px;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+}
+
+.mini_container {
+  max-width: 950px;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+}
+
+.active_icon {
+  display: none;
+}
+
+.active_icon:hover {
+  display: block;
+  color: blue;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  background-color: #00b838;
+  color: white;
+}
+
+.card_svg {
+  width: 100px;
+  height: 100px;
+}
+
+.card_title {
+  font-size: 16px;
+  color: #2a5082;
+}
+
+.gray_text {
+  color: gray;
+  padding: 10px 0;
+  font-weight: 400;
+}
+
+.card:hover .card_title {
+  color: white;
+}
+
+.card:hover .card_text {
+  display: none;
+}
+
+.card_hover_text {
+  display: none;
+}
+
+.line {
+  height: 2px;
+  width: 100%;
+  background-color: #a3d4ff;
+}
+
+.card:hover .card_hover_text {
+  display: block;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 400;
+  text-align: center;
+}
+
+.service {
+  position: relative;
+}
+
+.service::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  z-index: 10;
+  background-image: linear-gradient(to bottom,
+      rgba(174, 173, 173, 0) 0%,
+      rgba(255, 255, 255, 1) 100%);
+  /* Adjust the alpha (last value) to control the darkness */
+}
+
+.flex_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding: 6px 10px;
+}
+
+.flex_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle {
+  display: flex;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.hide {
+  height: 0;
+  width: 0;
+  position: absolute;
+  display: none;
+}
+
+.parent .toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.child {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.register_button {
+  background: #2028DF;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: 500;
+  border-color: #2028DF;
+}
+
+.secondary_color {
+  color: #333;
+}
+
+.secondary_background {
+  background-color: #2028DF;
+}
+
+.accent_background {
+  background: #00A36C;
+}
+
+
+
+
+
+
+
+
+/* <style> */
+
+.hero_section {
+  background: #636187;
+}
+
+.banner {
+  background: #636187;
+}
+
+.slide_title {
+  color: #fff;
+}
+
+.slide_para {
+  color: #fff;
+  font-weight: 200;
+}
+
+
+.menu-item {
+  color: #fff;
+  font-weight: 200;
+  font-size: 12px;
+}
+
+.hero-image {
+  margin-top: 110px;
+}
+
+.register_button {
+  background: transparent;
+  border: 1px solid #efefef;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 200;
+  padding: 10px 20px;
+}
+
+.register_button_inside {
+  background: #f5b754;
+  color: #000;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 200;
+  padding: 10px 20px;
+}
+
+
+.buy_button {
+  background: transparent;
+  border: 1px solid #efefef;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 200;
+  padding: 10px 20px;
+  margin-left: 20px;
+}
+
+.second_section {
+  background: #112;
+  padding-bottom: 80px;
+}
+
+.second_section .section_title {
+  color: #aaa;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+.second_section .sub_itle {
+  color: #f5b754;
+  letter-spacing: 6px;
+}
+
+.second_section .section_title p {
+  color: #fff;
+}
+
+.second_section .section_title .text-xl {
+  color: #fff;
+}
+
+
+.second_section_para {
+  color: #fff;
+  font-weight: 200;
+}
+
+.section_second_title_2 {
+  color: #aaa;
+}
+
+.section_second_para_2 {
+  color: #fff;
+  font-weight: 200;
+}
+
+.why_chose_pur_product {
+  padding: 60px;
+}
+
+.why_chose_pur_product .sub_title {
+  color: #f5b754;
+  letter-spacing: 6px;
+  font-weight: 700;
+}
+
+.why_chose_pur_product .section_title {
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+.why_chose_pur_product .para {
+  font-weight: 200;
+}
+
+.subtitle {
+  color: #f5b754;
+  letter-spacing: 6px;
+  font-weight: 700;
+  text-align: center;
+}
+
+
+#package {
+  background: #F1F2E1;
+}
+
+
+#package .section_title {
+  font-size: 2rem;
+  letter-spacing: 4;
+  font-weight: 700;
+}
+
+#register .section_title {
+  font-size: 2rem;
+  letter-spacing: 4;
+  font-weight: 700;
+  margin-bottom: -20px;
+}
+
+.section_title {
+  font-size: 2rem;
+  letter-spacing: 4;
+  font-weight: 700;
+}
+
+
+select {
+  background: #fff;
+}
+
+.form_button {
+  background: #f5b754;
+  color: #333;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 10px;
+}
+
+.faq {
+  background: #f1f2e1;
+  padding: 100px 0;
+}
+
+.faq .section_title {
+  margin-top: -30px;
+}
+
+.review {
+  padding: 100px 0px;
+}
+
+.footer {
+  background: #112;
+  padding: 70px 0;
+}
+
+.footer .section {
+  color: #fff;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.footer .menu-item {
+  color: #fff;
+  font-weight: 200;
+  font-size: 14px;
+}
+
+.footer_para {
+  font-size: 12px;
+  font-weight: 200;
+}
+
+.footer_img {
+  margin-left: -15px;
+}
+
+
+/* </style> */

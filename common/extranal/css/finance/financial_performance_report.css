@@ -1,0 +1,478 @@
+/* ==========================================================================
+   LifeCare Hospital - Financial Performance & Profit/Loss Report CSS
+   ========================================================================== */
+
+:root {
+    --fin-blue: #2563eb;
+    --fin-blue-light: #eff6ff;
+    --fin-green: #16a34a;
+    --fin-green-light: #f0fdf4;
+    --fin-red: #dc2626;
+    --fin-red-light: #fef2f2;
+    --fin-purple: #9333ea;
+    --fin-purple-light: #faf5ff;
+    --fin-orange: #ea580c;
+    --fin-orange-light: #fff7ed;
+    --fin-teal: #0d9488;
+    --fin-teal-light: #f0fdfa;
+    --fin-border: #e2e8f0;
+    --fin-text-main: #1e293b;
+    --fin-text-muted: #64748b;
+}
+
+/* Control Bar & Filter Header */
+.fin-header-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid var(--fin-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    padding: 18px 24px;
+    margin-bottom: 24px;
+}
+
+.fin-title-group h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--fin-text-main);
+    margin: 0 0 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.fin-title-group p {
+    font-size: 13px;
+    color: var(--fin-text-muted);
+    margin: 0;
+}
+
+.fin-btn-group {
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 8px;
+    display: inline-flex;
+    gap: 4px;
+}
+
+.fin-btn-period {
+    border: none;
+    background: transparent;
+    padding: 6px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.fin-btn-period:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.fin-btn-period.active {
+    background: var(--fin-blue);
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.fin-date-input-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.fin-date-input-wrap i {
+    position: absolute;
+    left: 12px;
+    color: var(--fin-text-muted);
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.fin-date-input {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 7px 12px 7px 34px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fin-text-main);
+    background: #ffffff;
+    outline: none;
+    min-width: 220px;
+    transition: border-color 0.2s ease;
+}
+
+.fin-date-input:focus {
+    border-color: var(--fin-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.fin-btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 15px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.fin-btn-action:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+    color: #0f172a;
+    text-decoration: none;
+}
+
+.fin-btn-primary {
+    background: var(--fin-blue);
+    border-color: var(--fin-blue);
+    color: #ffffff;
+}
+
+.fin-btn-primary:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    color: #ffffff;
+}
+
+/* 12 Summary Cards Grid */
+.fin-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 1200px) {
+    .fin-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 768px) {
+    .fin-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 480px) {
+    .fin-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.fin-stat-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid var(--fin-border);
+    padding: 16px 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fin-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+}
+
+.fin-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.fin-card-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+/* Color Themes for Cards */
+.fin-theme-blue .fin-card-icon-wrap { background: var(--fin-blue-light); color: var(--fin-blue); }
+.fin-theme-orange .fin-card-icon-wrap { background: var(--fin-orange-light); color: var(--fin-orange); }
+.fin-theme-red .fin-card-icon-wrap { background: var(--fin-red-light); color: var(--fin-red); }
+.fin-theme-green .fin-card-icon-wrap { background: var(--fin-green-light); color: var(--fin-green); }
+.fin-theme-teal .fin-card-icon-wrap { background: var(--fin-teal-light); color: var(--fin-teal); }
+.fin-theme-purple .fin-card-icon-wrap { background: var(--fin-purple-light); color: var(--fin-purple); }
+
+.fin-card-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--fin-text-muted);
+    margin-bottom: 4px;
+}
+
+.fin-card-val {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--fin-text-main);
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.fin-card-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.fin-trend-up {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.fin-trend-down {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.fin-trend-neutral {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.fin-card-subtext {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-left: 6px;
+}
+
+/* Content Sections & Cards */
+.fin-section-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid var(--fin-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.fin-section-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--fin-border);
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fin-section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--fin-text-main);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fin-section-body {
+    padding: 20px;
+}
+
+/* Tables */
+.fin-table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.fin-table thead th {
+    background: #f8fafc;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--fin-border);
+    border-top: none;
+}
+
+.fin-table tbody td {
+    padding: 11px 14px;
+    font-size: 13px;
+    color: var(--fin-text-main);
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+.fin-table tbody tr:hover td {
+    background: #f8fafc;
+}
+
+.fin-table tfoot td {
+    padding: 12px 14px;
+    font-size: 14px;
+    font-weight: 700;
+    background: #f8fafc;
+    border-top: 2px solid var(--fin-border);
+    border-bottom: none;
+}
+
+/* Key-Value Lists */
+.fin-kv-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.fin-kv-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #e2e8f0;
+    font-size: 13.5px;
+}
+
+.fin-kv-item:last-child {
+    border-bottom: none;
+}
+
+.fin-kv-label {
+    color: #475569;
+    font-weight: 500;
+}
+
+.fin-kv-value {
+    font-weight: 700;
+    color: var(--fin-text-main);
+}
+
+.fin-kv-highlight {
+    background: #f8fafc;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border-bottom: none;
+}
+
+.fin-kv-highlight .fin-kv-value {
+    font-size: 15px;
+}
+
+/* Step-by-step Profit Card */
+.fin-profit-step {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 12px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    margin-bottom: 6px;
+}
+
+.fin-profit-step.plus {
+    background: #f0fdf4;
+    color: #166534;
+}
+
+.fin-profit-step.minus {
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.fin-profit-step.total {
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 14px 16px;
+    margin-top: 12px;
+}
+
+/* Chart Canvas Wrappers */
+.fin-chart-wrap {
+    position: relative;
+    width: 100%;
+    min-height: 280px;
+}
+
+.fin-donut-wrap {
+    position: relative;
+    width: 100%;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fin-donut-center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+}
+
+.fin-donut-center-val {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--fin-text-main);
+    display: block;
+}
+
+.fin-donut-center-lbl {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--fin-text-muted);
+    text-transform: uppercase;
+}
+
+/* Badges */
+.fin-badge-pill {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Print Specific */
+@media print {
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+    .no-print,
+    .main-sidebar,
+    .main-header,
+    .content-header,
+    .site-footer,
+    .fin-header-card,
+    .fin-btn-action {
+        display: none !important;
+    }
+    .content-wrapper {
+        margin-left: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+    }
+    .fin-section-card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        page-break-inside: avoid;
+    }
+}

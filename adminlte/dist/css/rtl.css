@@ -1,0 +1,55 @@
+/* Existing styles for larger screens */
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+    margin-right: 250px;
+    margin-left: 0px;
+}
+
+.sidebar-mini .nav-sidebar,
+.sidebar-mini .nav-sidebar .nav-link,
+.sidebar-mini .nav-sidebar>.nav-header {
+    float: left;
+}
+
+
+/* Add responsive adjustments for RTL layouts on mobile devices */
+@media (max-width: 767px) {
+
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+        /* Reset margins for mobile */
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+
+    /* Correct the sidebar menu for mobile RTL */
+    .sidebar-mini .nav-sidebar,
+    .sidebar-mini .nav-sidebar .nav-link,
+    .sidebar-mini .nav-sidebar>.nav-header {
+        float: left;
+        /* Adjust for RTL */
+    }
+
+    /* This is not direct AdminLTE code but a representation based on standard behavior */
+    .sidebar-collapse .main-sidebar {
+        margin-left: -250px;
+        /* or transform: translateX(-250px); depending on implementation */
+        transition: margin-left 0.3s ease-in-out;
+    }
+
+    .sidebar-closed .main-sidebar {
+        width: 0;
+        overflow: hidden;
+        transition: width 0.3s ease-in-out;
+    }
+
+
+
+
+
+
+    /* Additional mobile-specific RTL adjustments */
+    /* This is where you could add more mobile-specific styles, like adjusting padding, text alignment, etc. */
+}

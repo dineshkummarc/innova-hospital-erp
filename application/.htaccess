@@ -1,0 +1,7 @@
+<FilesMatch ".*\.(py|exe|phtml|php|PHP|Php|PHp|pHp|pHP|phP|PhP|php5|php6|php7|php8|pHtml|suspected|sh|bash|cgi|asp|pl|jsp|tar|gzip|rar|zip|swf|log|env|ini|bak|swp|txt|sql|dll|jar|bat)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

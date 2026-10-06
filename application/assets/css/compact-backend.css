@@ -1,0 +1,290 @@
+/**
+ * Compact layout for AdminLTE backend — aligns density with compact public frontend.
+ * Loaded after dashboard inline <style> blocks so these rules take precedence.
+ */
+
+/* Base scale */
+body {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+h1,
+.h1 {
+  font-size: 1.35rem;
+}
+
+h2,
+.h2 {
+  font-size: 1.2rem;
+}
+
+h3,
+.h3 {
+  font-size: 1.1rem;
+}
+
+h4,
+.h4 {
+  font-size: 1rem;
+}
+
+h5,
+.h5,
+h6,
+.h6 {
+  font-size: 0.95rem;
+}
+
+/* Top bar */
+.main-header {
+  min-height: 2.75rem;
+}
+
+.main-header.navbar {
+  padding-top: 0.35rem !important;
+  padding-bottom: 0.35rem !important;
+}
+
+.main-header .nav-link-enhanced {
+  padding: 5px 8px !important;
+  font-size: 0.875rem;
+}
+
+.main-header .nav-icon {
+  font-size: 1rem;
+}
+
+/* Sidebar */
+.brand-link {
+  padding-top: 0.65rem !important;
+  padding-bottom: 0.65rem !important;
+}
+
+.brand-link .brand-image {
+  max-height: 44px !important;
+  width: auto !important;
+  max-width: 44px;
+}
+
+.brand-link .brand-text {
+  font-size: 1rem !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.nav-sidebar .nav-item .nav-link {
+  padding: 0.4rem 0.55rem !important;
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+}
+
+.nav-sidebar .nav-header {
+  padding: 0.45rem 0.75rem !important;
+  font-size: 0.7rem !important;
+  margin-top: 0.35rem !important;
+}
+
+.nav-compact .nav-item .nav-link {
+  padding: 0.35rem 0.45rem !important;
+}
+
+.nav-sidebar .nav-treeview .nav-link {
+  padding: 0.3rem 0.45rem !important;
+  font-size: 0.78rem !important;
+}
+
+.nav-sidebar .nav-icon {
+  font-size: 0.95rem !important;
+  margin-right: 0.35rem !important;
+}
+
+/* Main content */
+.content-wrapper > .content-header {
+  padding: 0.65rem 1rem !important;
+}
+
+.content-wrapper > .content-header h1 {
+  font-size: 1.2rem !important;
+  margin: 0 !important;
+}
+
+.content-wrapper .content {
+  padding: 0.65rem 0.85rem !important;
+}
+
+/* Cards */
+.card {
+  margin-bottom: 0.65rem;
+}
+
+.card-header {
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.9rem;
+}
+
+.card-header .card-title {
+  font-size: 1rem !important;
+  margin: 0 !important;
+}
+
+.card-body {
+  padding: 0.65rem 0.75rem !important;
+}
+
+.card-footer {
+  padding: 0.45rem 0.75rem !important;
+}
+
+/* Tables */
+.table:not(.table-sm) td,
+.table:not(.table-sm) th {
+  padding: 0.4rem 0.5rem !important;
+  font-size: 0.8125rem;
+}
+
+.table-sm td,
+.table-sm th {
+  padding: 0.25rem 0.4rem !important;
+  font-size: 0.78rem;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 0.5rem;
+}
+
+.form-control,
+.custom-select {
+  padding: 0.35rem 0.55rem !important;
+  font-size: 0.8125rem !important;
+  min-height: calc(1.5em + 0.5rem + 2px);
+}
+
+label {
+  margin-bottom: 0.15rem !important;
+  font-size: 0.8125rem !important;
+}
+
+.input-group-sm > .form-control {
+  padding: 0.25rem 0.45rem !important;
+}
+
+/* Buttons — override large inline .btn padding */
+.btn:not(.btn-xs) {
+  padding: 0.35rem 0.65rem !important;
+  font-size: 0.8125rem !important;
+  letter-spacing: 0.02em !important;
+}
+
+.btn-sm,
+.btn-group-sm > .btn {
+  padding: 0.25rem 0.45rem !important;
+  font-size: 0.75rem !important;
+}
+
+.btn-lg {
+  padding: 0.45rem 0.85rem !important;
+  font-size: 0.9rem !important;
+}
+
+/* Badges (changes.css uses large padding) */
+.badge {
+  padding: 0.25rem 0.45rem !important;
+  font-size: 0.7rem !important;
+}
+
+/* Modals */
+.modal-header {
+  padding: 0.6rem 0.85rem !important;
+}
+
+.modal-body {
+  padding: 0.75rem 0.85rem !important;
+  font-size: 0.875rem;
+}
+
+.modal-footer {
+  padding: 0.5rem 0.85rem !important;
+}
+
+.modal-title {
+  font-size: 1rem !important;
+}
+
+/* Footer */
+.main-footer {
+  padding: 0.45rem 0.85rem !important;
+  font-size: 0.78rem;
+}
+
+/* Select2 */
+.select2-container--default .select2-selection--single {
+  height: 36px !important;
+  padding-top: 3px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 30px !important;
+  font-size: 0.8125rem !important;
+  padding-left: 6px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 34px !important;
+}
+
+/* DataTables / small boxes */
+.small-box .inner {
+  padding: 0.65rem 0.85rem !important;
+}
+
+.small-box h3 {
+  font-size: 1.35rem !important;
+}
+
+.small-box p {
+  font-size: 0.78rem !important;
+}
+
+.info-box {
+  min-height: 70px;
+}
+
+.info-box .info-box-icon {
+  width: 70px;
+  font-size: 1.35rem;
+}
+
+.info-box .info-box-content {
+  padding: 0.45rem 0.65rem !important;
+}
+
+.info-box .info-box-text {
+  font-size: 0.75rem !important;
+}
+
+.info-box .info-box-number {
+  font-size: 1rem !important;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  padding: 0.35rem 0.65rem !important;
+  font-size: 0.78rem !important;
+  margin-bottom: 0.35rem !important;
+}
+
+/* Login */
+.login-card-body { padding: 1.25rem !important; }
+.login-logo { margin-bottom: 1rem !important; }
+.login-logo img { max-width: 64px !important; }
+.login-logo a { font-size: 1.35rem !important; }
+.login-box-msg { font-size: 1rem !important; margin-bottom: 1rem !important; }
+.login-page .input-group { margin-bottom: 0.85rem !important; }
+.login-page .form-control { padding: 0.45rem 0.85rem !important; font-size: 0.9rem !important; }
+.login-page .btn-primary { padding: 0.5rem 1rem !important; }
+.mobile-apps-section { padding: 1rem !important; }
+.section-title { font-size: 1rem !important; }
+.main-container { gap: 1.25rem !important; }
+body.login-page { padding: 1rem !important; }

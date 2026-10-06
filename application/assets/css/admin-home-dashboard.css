@@ -1,0 +1,325 @@
+/**
+ * Admin home dashboard — refined “world class” shell (scoped to .admin-home)
+ */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+.admin-home {
+  --ah-bg: #f1f5f9;
+  --ah-surface: #ffffff;
+  --ah-border: rgba(15, 23, 42, 0.08);
+  --ah-text: #0f172a;
+  --ah-muted: #64748b;
+  --ah-accent: #0ea5e9;
+  --ah-accent2: #6366f1;
+  --ah-success: #059669;
+  --ah-radius: 14px;
+  --ah-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.06);
+  --ah-shadow-hover: 0 4px 12px rgba(15, 23, 42, 0.1), 0 16px 40px rgba(99, 102, 241, 0.08);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.admin-home.content-wrapper {
+  background: var(--ah-bg) !important;
+}
+
+/* Hero */
+.admin-home .content-header.admin-home-hero {
+  background: transparent;
+  margin: 0;
+  padding: 0 !important;
+}
+
+.admin-home-hero__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.25rem 0 1rem;
+  border-radius: var(--ah-radius);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 45%, #312e81 100%);
+  color: #f8fafc;
+  box-shadow: var(--ah-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-home-hero__inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 100% 0%, rgba(14, 165, 233, 0.35), transparent 50%),
+    radial-gradient(ellipse 60% 50% at 0% 100%, rgba(99, 102, 241, 0.3), transparent 45%);
+  pointer-events: none;
+}
+
+.admin-home-hero__user {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1.25rem;
+}
+
+.admin-home-avatar {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.admin-home-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #0f172a;
+  margin: 0 !important;
+}
+
+.admin-home-hero__eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin: 0 0 0.2rem;
+}
+
+.admin-home-hero__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.admin-home-hero__subtitle {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  max-width: 36rem;
+  line-height: 1.45;
+}
+
+.admin-home-hero__actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1.25rem 0 0;
+}
+
+.admin-home-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  padding: 0.4rem 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.admin-home-hero__actions .btn {
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  padding: 0.45rem 1rem !important;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.admin-home-hero__actions .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.admin-home-hero__actions .btn-primary {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+  color: #fff !important;
+}
+
+.admin-home-hero__actions .btn-success {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #fff !important;
+}
+
+@media (max-width: 767.98px) {
+  .admin-home-hero__inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .admin-home-hero__actions {
+    padding: 0 1.25rem 1rem;
+    justify-content: flex-start;
+  }
+  .admin-home-hero__title {
+    font-size: 1.25rem;
+  }
+}
+
+/* Content area */
+.admin-home .content {
+  padding-top: 0.5rem;
+}
+
+.admin-home .content > .container-fluid {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+/* Metric / stat cards */
+.admin-home .stat-card {
+  border: 1px solid var(--ah-border) !important;
+  border-radius: var(--ah-radius) !important;
+  box-shadow: var(--ah-shadow) !important;
+  background: var(--ah-surface) !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease !important;
+  overflow: hidden;
+}
+
+.admin-home .stat-card:hover {
+  box-shadow: var(--ah-shadow-hover) !important;
+  transform: translateY(-2px);
+  border-color: rgba(14, 165, 233, 0.25) !important;
+}
+
+.admin-home .stat-card a {
+  color: inherit;
+}
+
+.admin-home .stat-card-body {
+  padding: 1.1rem 1rem !important;
+}
+
+.admin-home .stat-card .badge {
+  background: transparent !important;
+  color: var(--ah-muted) !important;
+  font-weight: 600;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.admin-home .dashboard-title,
+.admin-home h2.dashboard-title {
+  font-size: clamp(1.25rem, 2.5vw, 1.85rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+  margin-top: 0.35rem !important;
+}
+
+.admin-home .sub-text {
+  font-size: 0.75rem !important;
+  color: var(--ah-muted) !important;
+}
+
+.admin-home .percentage-change {
+  margin-top: 0.5rem;
+  font-size: 0.8rem !important;
+}
+
+/* Fix unreadable tiny text from legacy breakpoints */
+.admin-home .stat-text {
+  font-size: clamp(0.75rem, 1.2vw, 0.95rem) !important;
+  color: var(--ah-muted) !important;
+}
+
+.admin-home .stat-number {
+  font-size: clamp(1.15rem, 2.2vw, 2.25rem) !important;
+}
+
+/* AdminLTE small-box */
+.admin-home .small-box {
+  border-radius: var(--ah-radius) !important;
+  box-shadow: var(--ah-shadow) !important;
+  border: 1px solid var(--ah-border) !important;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-home .small-box:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ah-shadow-hover) !important;
+}
+
+.admin-home .small-box .inner {
+  padding: 0.85rem 1rem !important;
+}
+
+.admin-home .small-box .inner h3 {
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+}
+
+.admin-home .small-box .icon {
+  font-size: 2.5rem !important;
+  opacity: 0.35;
+}
+
+.admin-home .small-box p.text-lg {
+  font-size: 0.85rem !important;
+  font-weight: 500;
+  opacity: 0.95;
+}
+
+/* Generic cards & chart containers */
+.admin-home .card:not(.stat-card) {
+  border-radius: var(--ah-radius) !important;
+  border: 1px solid var(--ah-border) !important;
+  box-shadow: var(--ah-shadow) !important;
+  background: var(--ah-surface) !important;
+}
+
+.admin-home .card-header {
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.65rem 1rem !important;
+  background: linear-gradient(180deg, #fafbfc 0%, #f1f5f9 100%) !important;
+  border-bottom: 1px solid var(--ah-border) !important;
+  color: var(--ah-text);
+}
+
+.admin-home #chart_div,
+.admin-home #chart_div_superadmin,
+.admin-home #piechart_3d,
+.admin-home #piechart_3d_superadmin {
+  min-height: 280px;
+  padding: 0.75rem;
+}
+
+.admin-home .state-overview,
+.admin-home .state_overview_design {
+  margin-bottom: 0.5rem;
+}
+
+/* Calendar & tables in home */
+.admin-home .table {
+  font-size: 0.875rem;
+}
+
+.admin-home .btn.detailsbutton {
+  border-radius: 8px;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.6rem;
+}
+
+/* Welcome legacy (if any class remains) */
+.admin-home .welcome-text {
+  font-size: inherit !important;
+}
+
+.admin-home .analytics {
+  background: var(--ah-bg) !important;
+}

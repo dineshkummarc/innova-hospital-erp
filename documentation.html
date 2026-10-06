@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Hospital Management SaaS – Multi Hospital, Prescription &amp; Treatment Generator — User Documentation</title>
+  <meta name="description" content="Product guide for AI Hospital Management SaaS: what it does, roles, features, languages, workflows, demos, and integrations—written for staff and administrators." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e' }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    [data-section] { scroll-margin-top: 6rem; }
+    @media (min-width: 1024px) {
+      [data-section] { scroll-margin-top: 5.5rem; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+  <!-- Top bar -->
+  <header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+    <div class="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
+      <div class="flex items-center gap-3">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-xs font-bold leading-tight text-white shadow-sm">AI</div>
+        <div class="min-w-0 max-w-md">
+          <p class="truncate text-sm font-semibold text-slate-900 sm:whitespace-normal">AI Hospital Management SaaS</p>
+          <p class="hidden text-xs text-slate-500 sm:block">Multi Hospital, Prescription &amp; Treatment Generator</p>
+          <p class="text-xs text-slate-500 sm:hidden">User documentation</p>
+        </div>
+      </div>
+      <nav class="flex flex-wrap items-center gap-2 text-sm">
+        <a href="#overview" class="rounded-lg px-3 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Overview</a>
+        <a href="#installation" class="rounded-lg px-3 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Installation</a>
+        <a href="#roles" class="rounded-lg px-3 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Roles</a>
+        <a href="#modules" class="rounded-lg px-3 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Modules</a>
+        <a href="#workflows" class="rounded-lg px-3 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Workflows</a>
+        <a href="#integrations" class="rounded-lg px-3 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Integrations</a>
+        <a href="#demo-links" class="rounded-lg px-3 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Live demo</a>
+        <a href="#support" class="rounded-lg bg-brand-600 px-3 py-1.5 font-medium text-white shadow hover:bg-brand-700">Help</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="mx-auto max-w-[1400px] px-4 py-8 sm:px-6 lg:py-10">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10 xl:gap-12">
+      <!-- Sidebar: sticky on large screens, full width first on mobile -->
+      <aside aria-label="On this page" class="w-full shrink-0 lg:w-60 xl:w-64 lg:sticky lg:top-20 lg:z-30 lg:max-h-[calc(100vh-5rem)] lg:overflow-y-auto lg:overscroll-contain lg:pr-1">
+        <nav class="space-y-1 rounded-xl border border-slate-200 bg-white p-4 text-sm shadow-sm">
+          <p class="mb-3 font-semibold text-slate-900">On this page</p>
+          <a href="#top" class="block rounded-lg py-1.5 pl-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Introduction</a>
+          <a href="#installation" class="block rounded-lg py-1.5 pl-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Installation</a>
+          <a href="#demo-links" class="block rounded-lg py-1.5 pl-3 text-brand-700 hover:bg-brand-50 hover:text-brand-900">Live demo</a>
+          <a href="#demo-credentials" class="block rounded-lg py-1.5 pl-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Demo credentials</a>
+          <a href="#overview" class="block rounded-lg py-1.5 pl-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900">1. Overview</a>
+          <a href="#roles" class="block rounded-lg py-1.5 pl-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900">2. User roles</a>
+          <a href="#modules" class="block rounded-lg py-1.5 pl-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900">3. Modules &amp; features</a>
+          <a href="#workflows" class="block rounded-lg py-1.5 pl-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900">4. Common workflows</a>
+          <a href="#integrations" class="block rounded-lg py-1.5 pl-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900">5. Integrations</a>
+          <a href="#settings-security" class="block rounded-lg py-1.5 pl-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900">6. Settings &amp; security</a>
+          <a href="#languages" class="block rounded-lg py-1.5 pl-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900">Languages</a>
+          <a href="#support" class="block rounded-lg py-1.5 pl-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900">7. FAQ &amp; support</a>
+        </nav>
+      </aside>
+
+      <div class="min-w-0 flex-1">
+    <!-- Hero -->
+    <section class="mb-14 rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-brand-50/50 p-8 shadow-sm sm:p-10 lg:p-12" id="top">
+      <h1 class="mb-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+        AI Hospital Management SaaS
+        <span class="mt-2 block text-lg font-semibold leading-snug text-brand-700 sm:text-xl">Multi Hospital, Prescription &amp; Treatment Generator</span>
+      </h1>
+      <p class="mb-4 text-sm font-medium uppercase tracking-wide text-slate-500">User documentation</p>
+      <p class="max-w-3xl text-lg leading-relaxed text-slate-600">
+        This guide describes <strong>AI Hospital Management SaaS</strong> from a user and hospital-administrator point of view: what the product does, how teams work together, and what you will see on screen. It covers multi-hospital operation, prescriptions, and AI-assisted treatment planning where your organization has turned those features on. The system is <strong>modular</strong>—your hospital chooses which areas to use— and what appears in your menu depends on your <strong>job role</strong> and the <strong>features enabled</strong> for your site.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#installation" class="inline-flex items-center rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:bg-brand-700">Installation</a>
+        <a href="#demo-links" class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50">Live demo</a>
+        <a href="#overview" class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50">Overview</a>
+      </div>
+    </section>
+
+    <!-- Installation -->
+    <section data-section id="installation" class="mb-14 scroll-mt-24">
+      <h2 class="mb-4 border-b border-slate-200 pb-2 text-2xl font-bold text-slate-900">Installation</h2>
+      <p class="mb-6 text-slate-600">
+        For <strong>IT staff</strong> installing from your <strong>CodeCanyon</strong> download. Use a host with <strong>PHP</strong> and <strong>MySQL</strong> (or MariaDB). Everyday use of the product is covered in <a href="#overview" class="font-medium text-brand-600 underline hover:text-brand-800">Overview</a> and the sections below.
+      </p>
+      <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <ol class="list-decimal space-y-4 pl-5 text-slate-700">
+          <li>
+            <strong>Upload</strong> the product files to your website <strong>root</strong> (document root), keeping the folder structure as provided.
+          </li>
+          <li>
+            <strong>Create a database</strong> in your hosting control panel (or MySQL) and a user with permission to use it.
+          </li>
+          <li>
+            <strong>Import the SQL file</strong> from the package you downloaded from CodeCanyon. Open the <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm text-slate-900">main_files/db</code> folder and import the supplied <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm text-slate-900">.sql</code> file into that database (phpMyAdmin, command line, or your host’s import tool).
+          </li>
+          <li>
+            <strong>Enter your database connection details</strong> in
+            <code class="rounded bg-slate-100 px-1.5 py-0.5 text-sm text-slate-900">application/config/database.php</code>
+            (hostname, database name, username, password).
+          </li>
+        </ol>
+        <p class="mt-6 border-t border-slate-100 pt-4 text-slate-600">
+          <strong>That’s it.</strong> Open your site URL in a browser; sign in and finish hospital settings (email, SMS, payments, Zoom, and so on) from the admin area when you are ready.
+        </p>
+      </div>
+    </section>
+
+    <!-- Live demo -->
+    <section data-section id="demo-links" class="mb-14 scroll-mt-24 rounded-xl border border-brand-200/80 bg-white/80 p-6 shadow-sm backdrop-blur sm:p-8">
+      <h2 class="mb-6 border-b border-brand-200/80 pb-2 text-2xl font-bold text-slate-900">Live demo</h2>
+      <div class="grid gap-8 sm:grid-cols-2">
+        <div>
+          <p class="mb-4 text-sm font-semibold uppercase tracking-wide text-brand-700">URLs</p>
+          <ul class="space-y-3 text-sm">
+            <li>
+              <span class="block font-medium text-slate-900">Backend (staff login)</span>
+              <a href="https://democa.store/demo/multi-hms/auth/login" class="mt-1 inline-flex break-all text-brand-600 underline decoration-brand-300 underline-offset-2 hover:text-brand-800" target="_blank" rel="noopener noreferrer">https://democa.store/demo/multi-hms/auth/login</a>
+            </li>
+            <li>
+              <span class="block font-medium text-slate-900">Frontend (public site)</span>
+              <a href="https://democa.store/demo/multi-hms" class="mt-1 inline-flex break-all text-brand-600 underline decoration-brand-300 underline-offset-2 hover:text-brand-800" target="_blank" rel="noopener noreferrer">https://democa.store/demo/multi-hms</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <p class="mb-4 text-sm font-semibold uppercase tracking-wide text-brand-700">Documentation</p>
+          <p class="mb-2 text-sm text-slate-600">Extended help center documentation (online).</p>
+          <a href="http://support.democa.store/help-centerdemo/multi-hms/documentation.html" class="inline-flex break-all text-sm font-medium text-brand-600 underline decoration-brand-300 underline-offset-2 hover:text-brand-800" target="_blank" rel="noopener noreferrer">http://support.democa.store/help-centerdemo/multi-hms/documentation.html</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Demo credentials -->
+    <section data-section id="demo-credentials" class="mb-14 scroll-mt-24">
+      <h2 class="mb-4 border-b border-slate-200 pb-2 text-2xl font-bold text-slate-900">Demo credentials</h2>
+      <p class="mb-4 text-slate-600">Use these accounts on the <strong>backend</strong> login page to explore each role. Password is the same for all demo users below.</p>
+      <p class="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+        <strong>Demo only.</strong> These credentials are public; do not use them for real patient data or production systems.
+      </p>
+      <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-sm">
+        <table class="min-w-full divide-y divide-slate-200 text-left text-sm">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="whitespace-nowrap px-4 py-3 font-semibold text-slate-900">Role</th>
+              <th class="whitespace-nowrap px-4 py-3 font-semibold text-slate-900">Email (identity)</th>
+              <th class="whitespace-nowrap px-4 py-3 font-semibold text-slate-900">Password</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700">
+            <tr><td class="px-4 py-2.5 font-medium text-slate-900">SuperAdmin</td><td class="px-4 py-2.5 font-mono text-xs sm:text-sm">superadmin@hms.com</td><td class="px-4 py-2.5 font-mono">12345</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-slate-900">Admin</td><td class="px-4 py-2.5 font-mono text-xs sm:text-sm">admin@hms.com</td><td class="px-4 py-2.5 font-mono">12345</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-slate-900">Doctor</td><td class="px-4 py-2.5 font-mono text-xs sm:text-sm">doctor@hms.com</td><td class="px-4 py-2.5 font-mono">12345</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-slate-900">Patient</td><td class="px-4 py-2.5 font-mono text-xs sm:text-sm">patient@hms.com</td><td class="px-4 py-2.5 font-mono">12345</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-slate-900">Pharmacist</td><td class="px-4 py-2.5 font-mono text-xs sm:text-sm">pharmacist@hms.com</td><td class="px-4 py-2.5 font-mono">12345</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-slate-900">Nurse</td><td class="px-4 py-2.5 font-mono text-xs sm:text-sm">nurse@hms.com</td><td class="px-4 py-2.5 font-mono">12345</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-slate-900">Accountant</td><td class="px-4 py-2.5 font-mono text-xs sm:text-sm">accountant@hms.com</td><td class="px-4 py-2.5 font-mono">12345</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-slate-900">Laboratorist</td><td class="px-4 py-2.5 font-mono text-xs sm:text-sm">laboratorist@hms.com</td><td class="px-4 py-2.5 font-mono">12345</td></tr>
+            <tr><td class="px-4 py-2.5 font-medium text-slate-900">Receptionist</td><td class="px-4 py-2.5 font-mono text-xs sm:text-sm">receptionist@hms.com</td><td class="px-4 py-2.5 font-mono">12345</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+      <div class="space-y-16">
+        <!-- 1 Overview -->
+        <section data-section id="overview" class="scroll-mt-24">
+          <h2 class="mb-4 border-b border-slate-200 pb-2 text-2xl font-bold text-slate-900">1. Overview</h2>
+          <div class="prose prose-slate max-w-none space-y-4 text-slate-600">
+            <p>
+              <strong>AI Hospital Management SaaS</strong> brings together clinical, operational, and financial work in one place for hospitals and clinics. In <strong>multi-hospital</strong> setups, each hospital keeps its own data, while a <strong>SuperAdmin</strong>-style role can oversee the whole platform when your organization uses that level of access.
+            </p>
+            <p>In practice you can manage:</p>
+            <ul class="list-disc space-y-2 pl-5">
+              <li><strong>Clinical care:</strong> patients, appointments, prescriptions, lab and radiology, emergency, dental, diagnosis, symptoms, treatments, and medical advice.</li>
+              <li><strong>Hospital operations:</strong> beds, ambulance, staff attendance and leave, payroll, notices, file storage, and operational reports.</li>
+              <li><strong>Finance and pharmacy:</strong> payments, expenses, pharmacy sales, and commission-style reports for doctors.</li>
+              <li><strong>Communication:</strong> SMS and email, <strong>Zoom</strong> video visits for telemedicine, and a patient-facing area so patients can see their own information.</li>
+              <li><strong>Optional AI tools:</strong> patient overview summaries, help with medical images, and AI-assisted treatment planning—only where your hospital enables them.</li>
+            </ul>
+            <p>
+              Visitors usually start on your hospital’s <strong>public website</strong> (online booking, information, and similar). <strong>Staff</strong> open the <strong>staff login</strong> page, sign in with the email (or username) and password your administrator provides, and arrive at the <strong>dashboard</strong>—your home screen with shortcuts to the areas your role allows. Open features from the <strong>side menu</strong>; use <strong>Remember me</strong> only on private or trusted devices.
+            </p>
+            <p class="text-sm text-slate-500">
+              Dates and times in reports follow the <strong>timezone</strong> your hospital sets for the system.
+            </p>
+          </div>
+        </section> 
+
+        <!-- 2 Roles -->
+        <section data-section id="roles" class="scroll-mt-24">
+          <h2 class="mb-4 border-b border-slate-200 pb-2 text-2xl font-bold text-slate-900">2. User roles</h2>
+          <p class="mb-6 text-slate-600">
+            Every user has a <strong>role</strong> that matches their job. Menus and actions only show what that role is allowed to do. The table below describes typical roles; your hospital may name or combine them slightly differently.
+          </p>
+          <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+            <table class="min-w-full divide-y divide-slate-200 text-left text-sm">
+              <thead class="bg-slate-50">
+                <tr>
+                  <th class="whitespace-nowrap px-4 py-3 font-semibold text-slate-900">Role</th>
+                  <th class="px-4 py-3 font-semibold text-slate-900">Typical responsibilities</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-600">
+                <tr><td class="whitespace-nowrap px-4 py-3 font-medium text-slate-800">SuperAdmin</td><td class="px-4 py-3">Oversees the whole platform across hospitals—highest level of control when your organization uses this tier.</td></tr>
+                <tr><td class="whitespace-nowrap px-4 py-3 font-medium text-slate-800">Admin</td><td class="px-4 py-3">Hospital configuration, departments, doctors, users, modules, finance oversight, reports.</td></tr>
+                <tr><td class="whitespace-nowrap px-4 py-3 font-medium text-slate-800">Doctor</td><td class="px-4 py-3">Patients, appointments, prescriptions, clinical notes, schedule, emergency, dental, AI tools (if enabled).</td></tr>
+                <tr><td class="whitespace-nowrap px-4 py-3 font-medium text-slate-800">Nurse</td><td class="px-4 py-3">Patient care workflows, bed allotment, appointments, emergency, operational tasks as permitted.</td></tr>
+                <tr><td class="whitespace-nowrap px-4 py-3 font-medium text-slate-800">Receptionist</td><td class="px-4 py-3">Front desk: patients, appointments, payments collection views, operational dashboards.</td></tr>
+                <tr><td class="whitespace-nowrap px-4 py-3 font-medium text-slate-800">Accountant</td><td class="px-4 py-3">Payments, expenses, financial dashboards, commissions, user activity reports.</td></tr>
+                <tr><td class="whitespace-nowrap px-4 py-3 font-medium text-slate-800">Pharmacist</td><td class="px-4 py-3">Medicine inventory, pharmacy sales, dispensing-related finance views.</td></tr>
+                <tr><td class="whitespace-nowrap px-4 py-3 font-medium text-slate-800">Laboratorist</td><td class="px-4 py-3">Lab orders, sample status, report preparation and delivery.</td></tr>
+                <tr><td class="whitespace-nowrap px-4 py-3 font-medium text-slate-800">Patient</td><td class="px-4 py-3">Portal: own cases, prescriptions, documents, payments, appointments, lab (where exposed).</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-4 text-sm text-slate-500">
+            If a menu item is missing, your account may lack the role, or the <strong>module</strong> may be disabled for your hospital. Contact your administrator.
+          </p>
+        </section>
+
+        <!-- 3 Modules -->
+        <section data-section id="modules" class="scroll-mt-24">
+          <h2 class="mb-4 border-b border-slate-200 pb-2 text-2xl font-bold text-slate-900">3. Modules &amp; features</h2>
+          <p class="mb-4 text-slate-600">
+            The product offers <strong>many functional areas</strong> (60+). Below, each group explains <strong>what it is for</strong>, <strong>who usually uses it</strong>, and <strong>how to work through it in practice</strong> using the left sidebar menu. Labels may differ slightly if your hospital uses another language (see <a href="#languages" class="font-medium text-brand-600 underline hover:text-brand-800">Languages</a>).
+          </p>
+          <p class="mb-8 rounded-lg border border-brand-100 bg-brand-50/60 px-4 py-3 text-sm text-slate-700">
+            <strong>General tips:</strong> Open any module from the <strong>sidebar</strong>. Use search boxes and filters on list screens to find records. Always <strong>save</strong> or <strong>submit</strong> forms before leaving a page. If you cannot see a menu item, your role may not include it or the feature may be turned off—ask an administrator.
+          </p>
+
+          <div class="space-y-8">
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 flex flex-wrap items-center gap-2 text-lg font-semibold text-slate-900">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-100 text-brand-700">A</span>
+                Dashboard &amp; home
+              </h3>
+              <p class="text-sm text-slate-500">After login, everyone lands here first.</p>
+              <div class="mt-4 space-y-3 text-slate-600">
+                <p><strong>How to use it:</strong> Review the cards and numbers for quick status (appointments, admissions, revenue, etc.—depending on your role). Click shortcuts to jump straight to common tasks.</p>
+                <p><strong>Optional dashboards:</strong> If your hospital enables extra views (executive, clinical, financial, operational), open them from the menu when they appear—they summarize KPIs for managers and leads.</p>
+              </div>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 flex flex-wrap items-center gap-2 text-lg font-semibold text-slate-900">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700">B</span>
+                Departments &amp; doctors
+              </h3>
+              <p class="text-sm text-slate-500">Usually administrators and front-office leads.</p>
+              <div class="mt-4 space-y-4 text-slate-600">
+                <div>
+                  <p class="font-semibold text-slate-800">Departments</p>
+                  <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm">
+                    <li>Open <strong>Departments</strong> in the sidebar.</li>
+                    <li>Add or edit a department name and details so clinical units are organized (e.g. Cardiology, Pediatrics).</li>
+                    <li>Save. Doctors and appointments can then be linked to the right department.</li>
+                  </ol>
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800">Doctors</p>
+                  <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm">
+                    <li>Go to <strong>Doctors</strong> → <strong>List of doctors</strong> to browse; use <strong>Add new</strong> to register a doctor profile.</li>
+                    <li>Fill contact info, department, and visit settings as your hospital requires.</li>
+                    <li>Use <strong>Treatment history</strong> or related links to review past activity for a doctor when permitted.</li>
+                  </ol>
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800">Doctor visit &amp; schedule</p>
+                  <p class="mt-2 text-sm">Under <strong>Doctor visit</strong>, record or review consultation charges. Under <strong>Schedule</strong>, set working hours, slot templates, and <strong>holidays</strong> so appointment booking only offers valid times.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 flex flex-wrap items-center gap-2 text-lg font-semibold text-slate-900">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-100 text-rose-700">C</span>
+                Patient management
+              </h3>
+              <p class="text-sm text-slate-500">Reception, nurses, doctors, and admins; patients use a limited portal.</p>
+              <div class="mt-4 space-y-4 text-slate-600">
+                <div>
+                  <p class="font-semibold text-slate-800">Register or find a patient</p>
+                  <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm">
+                    <li>Open <strong>Patient</strong> → <strong>Patient list</strong> and use search (name, ID, phone) or <strong>Add new</strong>.</li>
+                    <li>Enter demographics, ID numbers, and contact details carefully—these follow the patient everywhere in the system.</li>
+                    <li>Save, then open the patient profile for further actions.</li>
+                  </ol>
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800">Cases &amp; clinical data</p>
+                  <p class="mt-2 text-sm">Use <strong>Cases</strong> to open or create an episode of care. For each case, add <strong>Symptoms</strong>, <strong>Diagnosis</strong>, <strong>Treatment</strong>, and <strong>Advice</strong> from the corresponding menu items—clinical staff typically complete these during or after the visit.</p>
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800">Documents</p>
+                  <p class="mt-2 text-sm">Open <strong>Documents</strong>, choose the patient, upload files (reports, scans, consent forms), and label them so others can find them later.</p>
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800">Patient portal</p>
+                  <p class="mt-2 text-sm">Patients sign in with their own account and see <strong>My cases</strong>, <strong>My prescriptions</strong>, <strong>Documents</strong>, <strong>Payments</strong>, and <strong>Appointments</strong>—only what your hospital exposes.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 flex flex-wrap items-center gap-2 text-lg font-semibold text-slate-900">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-800">D</span>
+                Appointments &amp; meetings
+              </h3>
+              <p class="text-sm text-slate-500">Reception, doctors, nurses; patients book or view their own visits.</p>
+              <div class="mt-4 space-y-4 text-slate-600">
+                <div>
+                  <p class="font-semibold text-slate-800">Book and manage appointments</p>
+                  <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm">
+                    <li>Open <strong>Appointment</strong> → <strong>Add appointment</strong> (or similar).</li>
+                    <li>Pick patient, doctor, date, and time slot that respects the doctor’s schedule.</li>
+                    <li>Confirm and save. Use <strong>Today’s</strong>, <strong>Upcoming</strong>, or <strong>Calendar</strong> to monitor the diary.</li>
+                  </ol>
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800">Requests</p>
+                  <p class="mt-2 text-sm">If <strong>Appointment request</strong> is used, staff review inbound requests and approve or reschedule them into a real slot.</p>
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800">Video visits (Zoom)</p>
+                  <p class="mt-2 text-sm">From <strong>Meetings</strong> (or telemedicine), create or join a session. After your admin connects Zoom, join links or buttons appear for scheduled visits—use them at the appointment time.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 flex flex-wrap items-center gap-2 text-lg font-semibold text-slate-900">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-violet-100 text-violet-800">E</span>
+                Prescriptions &amp; pharmacy
+              </h3>
+              <p class="text-sm text-slate-500">Doctors prescribe; pharmacists dispense and bill.</p>
+              <div class="mt-4 space-y-4 text-slate-600">
+                <div>
+                  <p class="font-semibold text-slate-800">Prescriptions</p>
+                  <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm">
+                    <li>From the patient or visit screen, open <strong>Prescription</strong> → <strong>Add</strong> (wording may vary).</li>
+                    <li>Add medicines, dose, duration, and instructions; link to the correct patient and visit.</li>
+                    <li>Save and print or send to pharmacy per your workflow.</li>
+                  </ol>
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800">Medicine master &amp; pharmacy sales</p>
+                  <p class="mt-2 text-sm">Administrators maintain the <strong>Medicine</strong> catalog (names, forms, stock flags). Pharmacists use <strong>Pharmacy</strong> screens to record dispensing, take payment, and sometimes inventory—follow the same patient/invoice flow your hospital trains you on.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 flex flex-wrap items-center gap-2 text-lg font-semibold text-slate-900">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-100 text-cyan-800">F</span>
+                Laboratory &amp; radiology
+              </h3>
+              <p class="text-sm text-slate-500">Laboratorists and clinical staff; patients may see results in the portal.</p>
+              <div class="mt-4 space-y-4 text-slate-600">
+                <div>
+                  <p class="font-semibold text-slate-800">Laboratory</p>
+                  <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm">
+                    <li>Orders usually arrive from the doctor or patient case—open <strong>Lab</strong> and find pending tests.</li>
+                    <li>Update <strong>sample collection</strong> / <strong>status</strong> as the sample moves through your process.</li>
+                    <li>Enter results in the correct template; use <strong>Report delivery</strong> when you hand results to the patient or ward.</li>
+                  </ol>
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800">Radiology</p>
+                  <p class="mt-2 text-sm">Open the radiology area to see imaging requests, upload or attach reports, and mark studies complete. Worklists are often sorted by urgency or modality.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 flex flex-wrap items-center gap-2 text-lg font-semibold text-slate-900">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-teal-100 text-teal-800">G</span>
+                Dental module
+              </h3>
+              <p class="text-sm text-slate-500">Dentists and dental nurses.</p>
+              <div class="mt-4 space-y-4 text-slate-600">
+                <ol class="list-decimal space-y-2 pl-5 text-sm">
+                  <li>Open <strong>Dental</strong> → <strong>New examination</strong> (or start from the patient).</li>
+                  <li>Record chief complaint, history, findings, diagnosis, and proposed <strong>treatment plan</strong>.</li>
+                  <li>Use the <strong>odontogram</strong> to chart teeth and procedures; attach <strong>X-rays</strong> or photos in the gallery.</li>
+                  <li>Review <strong>Dental dashboard</strong> and <strong>Reports</strong> for statistics and follow-up lists.</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 flex flex-wrap items-center gap-2 text-lg font-semibold text-slate-900">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-800">H</span>
+                Emergency, beds, ambulance
+              </h3>
+              <p class="text-sm text-slate-500">ER staff, ward nurses, admissions.</p>
+              <div class="mt-4 space-y-4 text-slate-600">
+                <div>
+                  <p class="font-semibold text-slate-800">Emergency</p>
+                  <p class="mt-2 text-sm">Use <strong>Emergency</strong> → <strong>Add new</strong> to register walk-ins quickly; capture triage notes, vitals, and disposition (admit, discharge, transfer).</p>
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800">Beds</p>
+                  <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm">
+                    <li>Maintain <strong>bed categories</strong> and <strong>bed list</strong> under Bed management.</li>
+                    <li>For admissions, open <strong>Bed allotment</strong>, select patient, ward, and bed; confirm dates.</li>
+                    <li>On discharge, release the bed so it becomes available again.</li>
+                  </ol>
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800">Ambulance</p>
+                  <p class="mt-2 text-sm">Take bookings from <strong>Ambulance</strong> → <strong>New booking</strong>, set pickup and destination, assign vehicle if applicable, and record payments and rates from the same module’s reports.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 flex flex-wrap items-center gap-2 text-lg font-semibold text-slate-900">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-indigo-800">I</span>
+                Finance
+              </h3>
+              <p class="text-sm text-slate-500">Accountants, reception (payments), admins.</p>
+              <div class="mt-4 space-y-4 text-slate-600">
+                <div>
+                  <p class="font-semibold text-slate-800">Payments &amp; invoices</p>
+                  <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm">
+                    <li>Open <strong>Financial activities</strong> → <strong>New invoice</strong> or <strong>Payment</strong> (labels may vary).</li>
+                    <li>Select the patient, line items, and payment method; save as draft or finalize.</li>
+                    <li>Use <strong>Due collection</strong> to chase outstanding balances.</li>
+                  </ol>
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800">Expenses &amp; reports</p>
+                  <p class="mt-2 text-sm">Record hospital expenses under <strong>Expense</strong> with the right category. Run <strong>financial reports</strong>, <strong>commission</strong>, and <strong>activity</strong> reports for audits and management review.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 flex flex-wrap items-center gap-2 text-lg font-semibold text-slate-900">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-200 text-slate-800">J</span>
+                HR: payroll &amp; attendance
+              </h3>
+              <p class="text-sm text-slate-500">HR and line managers; staff may submit their own attendance/leave where allowed.</p>
+              <div class="mt-4 space-y-3 text-slate-600">
+                <p class="text-sm"><strong>Attendance:</strong> Open <strong>Attendance</strong>, choose date and employee, mark present/absence/late according to your policy, and save.</p>
+                <p class="text-sm"><strong>Leave:</strong> Staff request leave; approvers open <strong>Leave</strong> to approve or reject and to see balances.</p>
+                <p class="text-sm"><strong>Payroll:</strong> From <strong>Payroll</strong>, run salary periods, review amounts, and export or pay according to your process.</p>
+              </div>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 flex flex-wrap items-center gap-2 text-lg font-semibold text-slate-900">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-fuchsia-100 text-fuchsia-800">K</span>
+                AI &amp; advanced
+              </h3>
+              <p class="text-sm text-slate-500">Typically doctors and admins where enabled.</p>
+              <div class="mt-4 space-y-3 text-slate-600">
+                <p class="text-sm"><strong>AI patient overview:</strong> Open a patient, launch overview to see a summarized view of history and risk flags—always verify against source records.</p>
+                <p class="text-sm"><strong>AI image analysis:</strong> Upload or select an image, run analysis, and read suggestions alongside clinical judgment.</p>
+                <p class="text-sm"><strong>AI treatment plan:</strong> Provide context (diagnosis, goals), generate a draft plan, then edit and approve before sharing with the patient.</p>
+              </div>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 flex flex-wrap items-center gap-2 text-lg font-semibold text-slate-900">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-sky-100 text-sky-800">L</span>
+                Reports, notices, files, misc.
+              </h3>
+              <p class="text-sm text-slate-500">Varies by module.</p>
+              <div class="mt-4 space-y-3 text-slate-600">
+                <p class="text-sm"><strong>Reports:</strong> Choose report type (birth, operation, expiry, etc.), set date range and filters, then export or print. Patients use <strong>My reports</strong> for their own documents.</p>
+                <p class="text-sm"><strong>Notices &amp; FAQ:</strong> Read announcements on the notice board; use FAQ for common questions.</p>
+                <p class="text-sm"><strong>Files &amp; import:</strong> Central file area for non-patient-specific documents; <strong>Import</strong> is for bulk data loads—usually restricted to admins.</p>
+                <p class="text-sm"><strong>Blood bank / inventory:</strong> Register donors and units, issue blood with cross-match rules; manage stock counts in <strong>Inventory</strong> when your hospital uses these modules.</p>
+              </div>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 flex flex-wrap items-center gap-2 text-lg font-semibold text-slate-900">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-lime-100 text-lime-800">M</span>
+                Mobile apps (sold separately)
+              </h3>
+              <p class="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5 text-sm text-amber-950">
+                <strong>Not included in this package.</strong> The standard download is the web system only. Mobile apps are optional add-ons.
+              </p>
+              <p class="mt-4 text-slate-600">
+                There are <strong>two</strong> mobile applications: one for <strong>doctors</strong> and one for <strong>patients</strong>. They connect to the same hospital data as the website when your project includes them. Clients who want these apps need to <strong>purchase them separately</strong> from the main product.
+              </p>
+              <p class="mt-3 text-sm font-medium text-slate-800">To buy or ask about the doctor and patient apps:</p>
+              <p class="mt-2 text-slate-600">
+                WhatsApp:
+                <a href="https://wa.me/8801777024443" class="font-semibold text-brand-600 underline hover:text-brand-800" target="_blank" rel="noopener noreferrer">+880 1777 024443</a>
+              </p>
+              <div class="mt-4 border-t border-slate-100 pt-4 text-slate-600">
+                <p class="text-sm font-semibold text-slate-800">If your hospital already has the apps</p>
+                <ol class="mt-2 list-decimal space-y-2 pl-5 text-sm">
+                  <li>Install from the store link your vendor sends you.</li>
+                  <li>Sign in with the account your administrator provides.</li>
+                  <li>Use the app navigation for appointments, messages, prescriptions, lab, profile, and notifications—according to your role.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5 Workflows -->
+        <section data-section id="workflows" class="scroll-mt-24">
+          <h2 class="mb-4 border-b border-slate-200 pb-2 text-2xl font-bold text-slate-900">4. Common workflows</h2>
+          <div class="space-y-6">
+            <div class="rounded-xl border border-l-4 border-l-brand-500 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 font-semibold text-slate-900">New outpatient visit</h3>
+              <ol class="list-decimal space-y-2 pl-5 text-slate-600">
+                <li>Register or find the patient under Patient management.</li>
+                <li>Create an appointment or open an existing case.</li>
+                <li>Record symptoms, diagnosis, treatment, and advice as required.</li>
+                <li>Add a prescription; send the patient to pharmacy or lab as needed.</li>
+                <li>Record payment or invoice in Finance when your process requires it.</li>
+              </ol>
+            </div>
+            <div class="rounded-xl border border-l-4 border-l-emerald-500 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 font-semibold text-slate-900">Lab order to result</h3>
+              <ol class="list-decimal space-y-2 pl-5 text-slate-600">
+                <li>Ensure the clinical order is created from the patient/case workflow.</li>
+                <li>Laboratory staff update <strong>test status</strong> and enter results.</li>
+                <li>Use <strong>report delivery</strong> when your lab tracks dispatch to patients.</li>
+                <li>Patients may view results under their portal if enabled.</li>
+              </ol>
+            </div>
+            <div class="rounded-xl border border-l-4 border-l-amber-500 bg-white p-6 shadow-sm">
+              <h3 class="mb-2 font-semibold text-slate-900">Inpatient bed</h3>
+              <ol class="list-decimal space-y-2 pl-5 text-slate-600">
+                <li>Confirm bed availability under Bed management.</li>
+                <li>Create a <strong>bed allotment</strong> / admission for the patient.</li>
+                <li>Track clinical care and charges; discharge and release the bed when done.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6 Integrations -->
+        <section data-section id="integrations" class="scroll-mt-24">
+          <h2 class="mb-4 border-b border-slate-200 pb-2 text-2xl font-bold text-slate-900">5. Integrations</h2>
+          <p class="mb-6 text-slate-600">Your hospital can connect the system to services you already use. An administrator enters the connection details in <strong>Settings</strong> (payment providers, SMS, email, Zoom, and similar)—there is no need for staff to “integrate” anything in day-to-day clinical work.</p>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+              <h3 class="font-semibold text-slate-900">Online payments</h3>
+              <p class="mt-1 text-sm text-slate-600">Collect card or wallet payments through providers such as Stripe, PayPal, Paystack, or PayU, plus other options your vendor supports.</p>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+              <h3 class="font-semibold text-slate-900">SMS</h3>
+              <p class="mt-1 text-sm text-slate-600">Send reminders and notifications by text using your chosen SMS provider and message templates.</p>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+              <h3 class="font-semibold text-slate-900">Email</h3>
+              <p class="mt-1 text-sm text-slate-600">Send system and manual emails through your hospital mail settings (for example SMTP).</p>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+              <h3 class="font-semibold text-slate-900">Video visits (Zoom)</h3>
+              <p class="mt-1 text-sm text-slate-600">Run <strong>Zoom</strong> meetings for telemedicine. An administrator links your Zoom account in the Zoom-related settings so doctors can start or schedule visits from the system.</p>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:col-span-2">
+              <h3 class="font-semibold text-slate-900">Printable documents</h3>
+              <p class="mt-1 text-sm text-slate-600">Generate PDFs and printable letters and reports (discharge summaries, invoices, lab outputs, and similar) straight from the screens where you work.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7 Settings -->
+        <section data-section id="settings-security" class="scroll-mt-24">
+          <h2 class="mb-4 border-b border-slate-200 pb-2 text-2xl font-bold text-slate-900">6. Settings &amp; security</h2>
+          <div class="space-y-6 text-slate-600">
+            <div>
+              <h3 class="mb-2 text-lg font-semibold text-slate-900">Hospital settings</h3>
+              <p>Administrators configure your hospital’s identity and behaviour from the <strong>Settings</strong> (and related) areas: name and branding, which features are active, email and SMS, payments, Zoom, and other options. Everyday staff usually do not change these—only designated admins.</p>
+            </div>
+
+            <div id="languages" class="scroll-mt-28 rounded-xl border border-brand-200/80 bg-brand-50/40 p-6">
+              <h3 class="mb-3 text-lg font-semibold text-slate-900">Languages</h3>
+              <p class="mb-3">The system is <strong>multilingual</strong>. You are not limited to a fixed list: your organization can <strong>add and maintain any language</strong> you need by creating or editing language entries and translations in the language / settings area (exact menu names depend on your version).</p>
+              <p class="mb-3"><strong>Default languages</strong> included with the product:</p>
+              <ul class="mb-3 list-disc space-y-1 pl-5">
+                <li>Arabic</li>
+                <li>English</li>
+                <li>Spanish</li>
+                <li>French</li>
+                <li>Portuguese</li>
+                <li>Italian</li>
+                <li>Turkish</li>
+              </ul>
+              <p>Your hospital chooses which language is <strong>default</strong> for new sessions and whether users can <strong>switch language</strong> from the interface (for example from the header or profile menu, where your build exposes it).</p>
+            </div>
+
+            <div>
+              <h3 class="mb-2 text-lg font-semibold text-slate-900">Security in daily use</h3>
+              <p class="mb-2">Good habits keep patient data safe:</p>
+              <ul class="list-disc space-y-1 pl-5">
+                <li>Use <strong>strong passwords</strong> and never share accounts.</li>
+                <li><strong>Sign out</strong> when you leave a shared computer.</li>
+                <li>Always use your hospital’s <strong>official web address</strong> with HTTPS (the padlock in the browser).</li>
+                <li>Administrators should remove access for staff who leave and review sensitive reports only with proper authority.</li>
+              </ul>
+              <p class="mt-3">Behind the scenes the product follows common web security practices; your IT team or vendor handles server-level protection.</p>
+            </div>
+
+            <div>
+              <h3 class="mb-2 text-lg font-semibold text-slate-900">Activity and audit</h3>
+              <p>Depending on configuration, the system can record sign-ins, important user actions, and finance-related activity so managers and auditors can review who did what, when—useful for accountability and compliance.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8 FAQ -->
+        <section data-section id="support" class="scroll-mt-24">
+          <h2 class="mb-4 border-b border-slate-200 pb-2 text-2xl font-bold text-slate-900">7. FAQ &amp; support</h2>
+          <dl class="space-y-4">
+            <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <dt class="font-semibold text-slate-900">I cannot see a menu item that my colleague has.</dt>
+              <dd class="mt-2 text-slate-600">Your role or module permissions differ. Ask an administrator to confirm your group and enabled modules.</dd>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <dt class="font-semibold text-slate-900">Login fails though my password is correct.</dt>
+              <dd class="mt-2 text-slate-600">Check caps lock and that you are using the email or username your admin set. Ask your administrator to confirm the account is active and not locked.</dd>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <dt class="font-semibold text-slate-900">Who backs up our data?</dt>
+              <dd class="mt-2 text-slate-600">Backups are part of your hosting arrangement. Your IT team or software provider should run regular backups and test recovery—ask them for your hospital’s policy.</dd>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <dt class="font-semibold text-slate-900">Are doctor and patient mobile apps included?</dt>
+              <dd class="mt-2 text-slate-600">No—they are <strong>not</strong> part of the default web package. There is a separate <strong>doctor app</strong> and <strong>patient app</strong>; purchase them as add-ons. For pricing and licensing, contact us on WhatsApp <a href="https://wa.me/8801777024443" class="font-medium text-brand-600 underline hover:text-brand-800" target="_blank" rel="noopener noreferrer">+880 1777 024443</a>. For other integrations, your vendor supplies technical details.</dd>
+            </div>
+          </dl>
+          <p class="mt-8 text-center text-sm text-slate-500">
+            This guide describes <strong>AI Hospital Management SaaS – Multi Hospital, Prescription &amp; Treatment Generator</strong> for everyday users and hospital administrators. For licensing, customization, training, or technical support, contact your software provider.
+          </p>
+        </section>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="border-t border-slate-200 bg-white py-8 text-center text-sm text-slate-500">
+    <p class="font-medium text-slate-700">AI Hospital Management SaaS – Multi Hospital, Prescription &amp; Treatment Generator</p>
+    <p class="mt-1">User documentation</p>
+    <p class="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-slate-600">
+      <span class="font-medium text-slate-700">Live demo:</span>
+      <a href="https://democa.store/demo/multi-hms/auth/login" class="text-brand-600 underline hover:text-brand-800" target="_blank" rel="noopener noreferrer">Backend</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://democa.store/demo/multi-hms" class="text-brand-600 underline hover:text-brand-800" target="_blank" rel="noopener noreferrer">Frontend</a>
+      <span class="mx-2 hidden sm:inline" aria-hidden="true">|</span>
+      <span class="font-medium text-slate-700">Help center:</span>
+      <a href="http://support.democa.store/help-centerdemo/multi-hms/documentation.html" class="text-brand-600 underline hover:text-brand-800" target="_blank" rel="noopener noreferrer">Documentation</a>
+    </p>
+    <p class="mt-4 max-w-2xl mx-auto text-slate-500">Web application included in the package. Doctor and patient mobile apps are optional and sold separately—WhatsApp <a href="https://wa.me/8801777024443" class="text-brand-600 underline hover:text-brand-800" target="_blank" rel="noopener noreferrer">+880 1777 024443</a>.</p>
+  </footer>
+</body>
+</html>

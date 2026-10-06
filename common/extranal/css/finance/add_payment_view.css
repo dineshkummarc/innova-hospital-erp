@@ -1,0 +1,117 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 10, 2021, 5:07:45 PM
+    Author     : sahas
+*/
+.payment {
+  padding-bottom: 0px;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.pad_bot {
+  padding-bottom: 5px;
+}
+
+form {
+  background: transparent;
+  padding: 0px 0px;
+  box-shadow: 0px 0px 100px #f1f2f7;
+}
+
+
+
+
+.modal-body form {
+  background: #fff;
+  padding: 21px;
+}
+
+.remove {
+  width: 20%;
+  float: right;
+  margin-top: 14px;
+  font-size: 14px;
+  padding: 0px;
+  text-align: center;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.remove1 {
+  width: 80%;
+  float: left;
+  border-bottom: 1px solid #f1f1f1;
+  padding: 16px 0px;
+  font-size: 16px;
+
+}
+
+form input {
+  border: none;
+  background: #f1f2f7 !important;
+  padding: 10px !important;
+}
+
+.pos_box_title {
+  border: none;
+}
+
+.payment_label {
+  text-align: left;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.ms-selectable {
+  width: 100% !important;
+}
+
+.ms-selection {
+  width: 100% !important;
+  display: none;
+}
+
+.ms-container .ms-selectable li.ms-elem-selectable,
+.ms-container .ms-selection li.ms-elem-selection {
+  font-size: 16px !important;
+  padding: 16px 10px;
+}
+
+
+
+
+.ms-container {
+  width: 100% !important;
+}
+
+.remove_attr {
+  margin-right: 5px;
+  margin-left: 7px;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+  padding-left: 0px !important;
+}
+
+.ms-container .ms-optgroup-label {
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  text-transform: uppercase;
+  color: #1e40af !important;
+  background-color: #f8fafc;
+  padding: 8px 12px !important;
+  letter-spacing: 0.5px;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  cursor: default;
+}

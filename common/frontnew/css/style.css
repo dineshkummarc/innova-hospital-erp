@@ -1,0 +1,320 @@
+.appointment-form {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    padding: 48px;
+    border-radius: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .form-row {
+    margin-bottom: 32px;
+    gap: 24px;
+  }
+
+  .form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .form-input::placeholder {
+    color: white !important;
+  }
+
+  .form-textarea {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 32px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    min-height: 120px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .form-submit {
+    display: inline-flex;
+    align-items: center;
+    padding: 18px 36px;
+    background: white;
+    color: #0047AB;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .submit-icon {
+    margin-left: 12px;
+    font-size: 1.2rem;
+  }
+
+  .form-select option {
+    color: white;
+    background: rgba(0, 71, 171, 1);
+  }
+
+
+  .form-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .form-textarea {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .form-input {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .form-input::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+
+
+  .nav-css{
+    background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); box-shadow: 0 4px 24px rgba(26, 54, 93, 0.06);
+  }
+
+  .container-css{
+    max-width: 1280px;
+  }
+
+  .scroll-css{
+    cursor: pointer;
+  }
+
+  .home-css{
+    color: #1a365d; transition: color 0.2s; cursor: pointer;
+  }
+ 
+  .appointment-css{
+    border-radius: 12px; background: #0047AB; border: none; transition: transform 0.2s; cursor: pointer;
+  }
+  .login-css{
+    border-radius: 12px; border-color: #0047AB; color: #0047AB; transition: transform 0.2s;
+  }
+  .round-pill-css{
+    background: rgba(0, 71, 171, 0.1); color: #0047AB; font-weight: 600; font-size: 0.9rem;
+  }
+  .color-text-css{
+    color: #1a365d; line-height: 1.2;
+  }
+  .text-1-css{
+    color: #475569; font-size: 1.1rem;
+  }
+  #scrollToAppointment1{
+    border-radius: 12px; background: #0047AB; border: none; transition: transform 0.2s;
+  }
+  #scrollToService1{
+    border-radius: 12px; border-color: #0047AB; color: #0047AB; transition: transform 0.2s;
+  }
+
+  .translate-css{
+    width: 140%; height: 140%; background: radial-gradient(circle, rgba(0,71,171,0.08) 0%, rgba(255,255,255,0) 70%); z-index: 0;
+  }
+  .img-fluid-css{
+    z-index: 1; margin-bottom: -7rem;
+  }
+  .key-section-css{
+    background: #f8faf0;
+  }
+  .key-container-css{
+    max-width: 1280px; padding: 150px 0;
+  }
+  .key-pill-css{
+    background: rgba(0,71,171,0.1); color: #0047AB; font-weight: 600; font-size: 0.9rem;
+  }
+  .key-display-css{
+    color: #1a365d;
+  }
+  .key-doctor-css{
+    border-radius: 16px; transition: transform 0.2s;
+  }
+  .key-doctor-content{
+    width: 80px; height: 80px; background: rgba(0,71,171,0.1);
+  }
+  .featured-section-css{
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%); padding: 150px 0;
+  }
+  .featured-container-css{
+    max-width: 1280px; margin: 0 auto; padding: 0 24px;
+  }
+  .featured-pill-css{
+    background: rgba(0,71,171,0.1); color: #0047AB; font-weight: 600; font-size: 0.9rem;
+  }
+  .featured-grid-css{
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; position: relative;
+  }
+  .featured-card-css{
+    background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.05); transition: transform 0.3s ease;
+  }
+  .featured-image-css{
+    height: 320px; object-fit: cover;
+  }
+  .featured-name-css{
+    font-size: 1.25rem; font-weight: 700; color: #1a365d; margin-bottom: 8px;
+  }
+
+  .appointment-section-css{
+    background: linear-gradient(165deg, #0047AB 0%, #003580 100%); padding: 160px 0; position: relative; overflow: hidden;
+  }
+  .appointment-container-css{
+    max-width: 1080px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 2;
+  }
+  .appointment-pill-css{
+    background: rgba(255,255,255,0.15); color: white; font-weight: 700; font-size: 0.875rem; letter-spacing: 0.5px; backdrop-filter: blur(10px);
+  }
+  .appointment-text-css{
+    color: #90cdf4; text-decoration: underline; text-decoration-thickness: 4px; text-decoration-color: rgba(144,205,244,0.3); text-underline-offset: 4px;
+  }
+  .appointment-description-css{
+    color: rgba(255,255,255,0.8); max-width: 540px; margin-left: auto; margin-right: auto; font-size: 1.1rem; line-height: 1.6;
+  }
+  .form-icon-css{
+    right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: white;
+  }
+  .textarea-css{
+    color: white; &::placeholder { color: white; }; ::placeholder { color: white; }
+  }
+  .csss{
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('frontnew/images/pattern.svg') repeat; opacity: 0.05;
+  }
+  .service-section-css{
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  }
+  .service-pill-css{
+    background: rgba(0, 71, 171, 0.1); color: #0047AB; font-weight: 600; font-size: 0.9rem;
+  }
+  .service-round-css{
+    background: #ffffff; box-shadow: 0 4px 24px rgba(26, 54, 93, 0.06); transition: transform 0.2s;
+  }
+  .service-image-css{
+    width: 64px; height: 64px;
+  }
+  .number-section-css{
+    background: linear-gradient(135deg, #0047AB 0%, #004299 100%);
+  }
+  .number-round-css{
+    background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+  }
+  .testimonial-section-css{
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  }
+  .testimonial-pill-css{
+    background: rgba(0, 71, 171, 0.1); color: #0047AB; font-weight: 600; font-size: 0.9rem;
+  }
+  .review-round-css{
+    background: #ffffff; box-shadow: 0 4px 24px rgba(26, 54, 93, 0.06);
+  }
+  .review-icon-css{
+    position: absolute; top: -20px; left: -10px; opacity: 0.1; width: 40px;
+  }
+  .review-quote-css{
+    color: #475569; font-size: 1.1rem; line-height: 1.8;
+  }
+  .carousel-css{
+    width: 48px; height: 48px; background: #ffffff; border-radius: 50%; box-shadow: 0 4px 12px rgba(26, 54, 93, 0.1); top: 50%; transform: translateY(-50%); left: 20px; opacity: 1;
+  }
+  .carousel-icon-css{
+    filter: invert(1) brightness(0.5) sepia(1) saturate(10000%) hue-rotate(180deg);
+  }
+  .active-css{
+    width: 12px; height: 12px; border-radius: 50%; background-color: #0047AB;
+  }
+  .about-css{
+    color: rgba(255, 255, 255, 0.8); transition: color 0.2s;
+  }
+  .s-icon-css{
+    width: 40px; height: 40px;
+  }
+  .footer-css{
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .footer-des-css{
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .arrow-css{
+    position: fixed; bottom: 20px; right: 20px; display: none; width: 40px; height: 40px; z-index: 99;
+  }
+
+
+
+  .key-user-css{
+    color: #0047AB;
+  }
+  .key-h3-css{
+    color: #1a365d;
+  }
+  .key-hospital-css{
+    color: #0047AB;
+  }
+  .div-block-css{
+    padding: 24px;
+  }
+  .feature-description-css{
+    color: #475569; margin: 0;
+  }
+  .schedule-text-css{
+    color: white; letter-spacing: -1px;
+  }
+  .display-none-css{
+    display: none;
+  }
+  .service-container-css{
+    max-width: 1280px; padding: 150px 0;
+  }
+  .first-text-css{
+    color: black;
+  }
+  .service-image2-css{
+    width: 100%; height: auto;
+  }
+  .service-description-css{
+    color: #475569; font-size: 0.95rem;
+  }
+  .number-color-css{
+    color: #ffffff;
+  }
+  .number-text-css{
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .review-image-css{
+    width: 180px; height: 180px; object-fit: cover;
+  }
+  .review-description-css{
+    color: #64748b;
+  }
+  .carousel-indicators-css{
+    bottom: -50px;
+  }
+  .footer-logo-css{
+    max-width: 200px; margin-left: -18px;
+  }
+  .footer-t-css{
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .social-css{
+    width: 20px; filter: brightness(0) invert(1);
+  }
+  .footer-c-css{
+    background: #1a365d !important;
+  }

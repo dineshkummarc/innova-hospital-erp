@@ -1,0 +1,569 @@
+/* Global Modal Styles - Standardized Design */
+/* Based on the beautiful timezone modal design */
+
+/* ===========================================
+   MODAL BASE STYLES
+   =========================================== */
+
+.modal-enhanced .modal-content {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-enhanced .modal-header {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  border: none;
+  padding: 20px 25px;
+}
+
+.modal-enhanced .modal-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  text-align: left !important;
+  float: left !important;
+  width: auto !important;
+}
+
+.modal-enhanced .modal-title i {
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+
+.modal-enhanced .close:hover {
+  opacity: 1;
+}
+
+.modal-enhanced .modal-body {
+  padding: 25px;
+}
+
+.modal-enhanced .modal-footer {
+  background: #f8fafc;
+  border: none;
+  padding: 20px 25px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ===========================================
+   FORM ELEMENTS
+   =========================================== */
+
+.modal-enhanced .form-group {
+  margin-bottom: 20px;
+}
+
+.modal-enhanced .form-group label {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.modal-enhanced .form-group label i {
+  margin-right: 8px;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.modal-enhanced .form-control {
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px 15px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.modal-enhanced .form-control:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+.modal-enhanced .form-control.is-invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.modal-enhanced .form-control.is-valid {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* ===========================================
+   SEARCH CONTAINER
+   =========================================== */
+
+.modal-enhanced .search-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.modal-enhanced .search-input {
+  width: 100%;
+  padding: 12px 45px 12px 15px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.modal-enhanced .search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+.modal-enhanced .search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  font-size: 1.1rem;
+}
+
+/* ===========================================
+   SELECT ELEMENTS
+   =========================================== */
+
+.modal-enhanced .select-enhanced {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 1rem;
+  background: white;
+  transition: all 0.3s ease;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.modal-enhanced .select-enhanced:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+.modal-enhanced .select2-container .select2-selection--single {
+  height: 46px !important;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 10px !important;
+  padding: 8px 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+.modal-enhanced .select2-container--default .select2-selection--single:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+.modal-enhanced .select2-container .select2-selection--multiple {
+  min-height: 46px !important;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 10px !important;
+  padding: 4px 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+/* ===========================================
+   BUTTONS
+   =========================================== */
+
+.modal-enhanced .btn-enhanced {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 100px;
+}
+
+.modal-enhanced .btn-enhanced i {
+  font-size: 0.9rem;
+}
+
+.modal-enhanced .btn-primary-enhanced {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+}
+
+.modal-enhanced .btn-primary-enhanced:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  color: white;
+}
+
+.modal-enhanced .btn-secondary-enhanced {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+}
+
+.modal-enhanced .btn-secondary-enhanced:hover {
+  background: #e2e8f0;
+  color: #475569;
+  transform: translateY(-1px);
+}
+
+.modal-enhanced .btn-success-enhanced {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.modal-enhanced .btn-success-enhanced:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+  color: white;
+}
+
+.modal-enhanced .btn-danger-enhanced {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+}
+
+.modal-enhanced .btn-danger-enhanced:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+  color: white;
+}
+
+/* ===========================================
+   PREVIEW SECTIONS
+   =========================================== */
+
+.modal-enhanced .preview-section {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border: 1px solid #bae6fd;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.modal-enhanced .preview-title {
+  font-weight: 600;
+  color: #0369a1;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.modal-enhanced .preview-title i {
+  margin-right: 6px;
+}
+
+.modal-enhanced .preview-content {
+  font-size: 1.1rem;
+  color: #0c4a6e;
+  font-weight: 500;
+  font-family: 'Courier New', monospace;
+}
+
+.modal-enhanced .preview-subtitle {
+  font-size: 0.85rem;
+  color: #0369a1;
+  margin-top: 5px;
+}
+
+/* ===========================================
+   NOTIFICATIONS
+   =========================================== */
+
+.modal-enhanced .notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 300px;
+  animation: notificationSlideIn 0.3s ease-out;
+}
+
+@keyframes notificationSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.modal-enhanced .notification .alert {
+  border: none;
+  border-radius: 10px;
+  padding: 15px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-enhanced .notification .alert i {
+  margin-right: 8px;
+}
+
+/* ===========================================
+   LOADING STATES
+   =========================================== */
+
+.modal-enhanced .loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.modal-enhanced .btn-enhanced:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ===========================================
+   RESPONSIVE DESIGN
+   =========================================== */
+
+@media (max-width: 768px) {
+  .modal-enhanced .modal-dialog {
+    margin: 10px;
+  }
+  
+  .modal-enhanced .modal-header {
+    padding: 15px 20px;
+  }
+  
+  .modal-enhanced .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-enhanced .modal-footer {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .modal-enhanced .btn-enhanced {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .modal-enhanced .modal-dialog {
+    margin: 5px;
+  }
+  
+  .modal-enhanced .modal-header {
+    padding: 12px 15px;
+  }
+  
+  .modal-enhanced .modal-body {
+    padding: 15px;
+  }
+  
+  .modal-enhanced .modal-footer {
+    padding: 12px 15px;
+  }
+}
+
+/* ===========================================
+   DARK MODE SUPPORT
+   =========================================== */
+
+@media (prefers-color-scheme: dark) {
+  /* Keep modal body white like timezone modal */
+  .modal-enhanced .modal-body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  
+  /* Keep form labels readable */
+  .modal-enhanced .form-group label {
+    color: #374151 !important;
+  }
+  
+  /* Keep form controls white */
+  .modal-enhanced .form-control {
+    background: #ffffff !important;
+    border-color: #e5e7eb !important;
+    color: #000000 !important;
+  }
+  
+  .modal-enhanced .form-control:focus {
+    background: #ffffff !important;
+    border-color: #3b82f6 !important;
+  }
+  
+  /* Keep modal footer light */
+  .modal-enhanced .modal-footer {
+    background: #f8fafc !important;
+  }
+  
+  /* Keep preview sections light */
+  .modal-enhanced .preview-section {
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe) !important;
+    border-color: #bae6fd !important;
+  }
+  
+  .modal-enhanced .preview-title {
+    color: #0369a1 !important;
+  }
+  
+  .modal-enhanced .preview-content {
+    color: #0c4a6e !important;
+  }
+  
+  .modal-enhanced .preview-subtitle {
+    color: #0369a1 !important;
+  }
+  
+  /* Keep the beautiful gradient header in dark mode */
+  .modal-enhanced .modal-header {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+    color: white !important;
+  }
+}
+
+/* ===========================================
+   UTILITY CLASSES
+   =========================================== */
+
+.modal-enhanced .text-center {
+  text-align: center;
+}
+
+.modal-enhanced .text-left {
+  text-align: left;
+}
+
+.modal-enhanced .text-right {
+  text-align: right;
+}
+
+.modal-enhanced .mb-0 {
+  margin-bottom: 0;
+}
+
+.modal-enhanced .mb-1 {
+  margin-bottom: 0.25rem;
+}
+
+.modal-enhanced .mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.modal-enhanced .mb-3 {
+  margin-bottom: 1rem;
+}
+
+.modal-enhanced .mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.modal-enhanced .mb-5 {
+  margin-bottom: 3rem;
+}
+
+.modal-enhanced .mt-0 {
+  margin-top: 0;
+}
+
+.modal-enhanced .mt-1 {
+  margin-top: 0.25rem;
+}
+
+.modal-enhanced .mt-2 {
+  margin-top: 0.5rem;
+}
+
+.modal-enhanced .mt-3 {
+  margin-top: 1rem;
+}
+
+.modal-enhanced .mt-4 {
+  margin-top: 1.5rem;
+}
+
+.modal-enhanced .mt-5 {
+  margin-top: 3rem;
+}
+
+/* ===========================================
+   LEGACY SUPPORT
+   =========================================== */
+
+/* Apply enhanced styles to existing modals */
+.modal .modal-content {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.modal .modal-header {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  border: none;
+  padding: 20px 25px;
+}
+
+.modal .modal-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0;
+  text-align: left !important;
+}
+
+.modal .close {
+  color: white;
+  opacity: 0.8;
+  font-size: 1.5rem;
+}
+
+.modal .close:hover {
+  opacity: 1;
+}
+
+.modal .modal-body {
+  padding: 25px;
+}
+
+.modal .modal-footer {
+  background: #f8fafc;
+  border: none;
+  padding: 20px 25px;
+}

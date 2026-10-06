@@ -1,0 +1,457 @@
+/**
+ * Dashboard Module Styles
+ * Hospital Management System - Dashboard Module
+ */
+
+/* Dashboard Container */
+.dashboard-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Metric Cards */
+.metric-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+    position: relative;
+    overflow: hidden;
+}
+
+.metric-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+}
+
+.metric-value {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.metric-label {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.metric-change {
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.metric-change i {
+    font-size: 0.8rem;
+}
+
+.positive { color: #27ae60; }
+.negative { color: #e74c3c; }
+.warning { color: #f39c12; }
+.info { color: #3498db; }
+
+/* Chart Containers */
+.chart-container {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 24px;
+    border: 1px solid #e9ecef;
+}
+
+.chart-container h4 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chart-container h4 i {
+    color: #3498db;
+    font-size: 1.2rem;
+}
+
+/* Dashboard Headers */
+.dashboard-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+.dashboard-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.dashboard-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Buttons */
+.refresh-btn {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.refresh-btn:hover {
+    background: linear-gradient(135deg, #2980b9, #1f618d);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+/* Status Indicators */
+.status-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: pulse 2s infinite;
+}
+
+.status-good { background-color: #27ae60; }
+.status-warning { background-color: #f39c12; }
+.status-danger { background-color: #e74c3c; }
+.status-info { background-color: #3498db; }
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* List Items */
+.appointment-item,
+.staff-item,
+.inventory-item,
+.alert-item,
+.activity-item,
+.queue-item,
+.payment-status,
+.bed-status,
+.lab-result,
+.emergency-case {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    margin: 8px 0;
+    border-radius: 8px;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.appointment-item:hover,
+.staff-item:hover,
+.inventory-item:hover,
+.alert-item:hover,
+.activity-item:hover,
+.queue-item:hover,
+.payment-status:hover,
+.bed-status:hover,
+.lab-result:hover,
+.emergency-case:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Status-specific styles */
+.appointment-pending,
+.payment-pending,
+.queue-waiting {
+    background: #fff3cd;
+    border-left-color: #f39c12;
+}
+
+.appointment-completed,
+.payment-paid,
+.staff-present {
+    background: #d4edda;
+    border-left-color: #27ae60;
+}
+
+.appointment-cancelled,
+.payment-overdue,
+.staff-absent {
+    background: #f8d7da;
+    border-left-color: #e74c3c;
+}
+
+.inventory-low {
+    background: #fff3cd;
+    border-left-color: #f39c12;
+}
+
+.inventory-critical {
+    background: #f8d7da;
+    border-left-color: #e74c3c;
+}
+
+.alert-warning {
+    background: #fff3cd;
+    border-left-color: #f39c12;
+}
+
+.alert-danger {
+    background: #f8d7da;
+    border-left-color: #e74c3c;
+}
+
+.alert-info {
+    background: #d1ecf1;
+    border-left-color: #17a2b8;
+}
+
+.bed-occupied {
+    background: #ffebee;
+    border-left-color: #e74c3c;
+}
+
+.bed-available {
+    background: #e8f5e8;
+    border-left-color: #27ae60;
+}
+
+.lab-pending {
+    background: #fff3cd;
+    border-left-color: #f39c12;
+}
+
+.lab-completed {
+    background: #d4edda;
+    border-left-color: #27ae60;
+}
+
+.emergency-critical {
+    background: #f8d7da;
+    border-left-color: #e74c3c;
+}
+
+.emergency-high {
+    background: #fff3cd;
+    border-left-color: #f39c12;
+}
+
+/* Profit margin specific styles */
+.profit-margin {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.profit-positive { color: #27ae60; }
+.profit-negative { color: #e74c3c; }
+
+/* Alerts */
+.alert {
+    padding: 16px;
+    margin: 12px 0;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+}
+
+.alert-warning {
+    background: #fff3cd;
+    color: #856404;
+    border-left: 4px solid #f39c12;
+}
+
+.alert-danger {
+    background: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid #e74c3c;
+}
+
+.alert-info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border-left: 4px solid #17a2b8;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    border-left: 4px solid #27ae60;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 15px;
+    }
+    
+    .metric-card {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .metric-value {
+        font-size: 2.2rem;
+    }
+    
+    .dashboard-header {
+        padding: 30px 20px;
+    }
+    
+    .dashboard-header h1 {
+        font-size: 2rem;
+    }
+    
+    .chart-container {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .metric-value {
+        font-size: 1.8rem;
+    }
+    
+    .metric-label {
+        font-size: 0.8rem;
+    }
+    
+    .dashboard-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .refresh-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Chart Responsiveness */
+canvas {
+    max-width: 100%;
+    height: auto !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Print Styles */
+@media print {
+    .dashboard-container {
+        background: white;
+        padding: 0;
+    }
+    
+    .metric-card,
+    .chart-container {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        break-inside: avoid;
+    }
+    
+    .refresh-btn {
+        display: none;
+    }
+}

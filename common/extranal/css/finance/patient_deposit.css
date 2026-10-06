@@ -1,0 +1,103 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 11, 2021, 4:22:16 PM
+    Author     : sahas
+*/
+.img_url {
+    height: 20px;
+    width: 20px;
+    background-size: contain;
+    max-height: 20px;
+    border-radius: 100px;
+}
+
+.option_th {
+    width: 33%;
+}
+
+
+
+.invoicebutton {
+    color: #fff;
+    width: 25%;
+}
+
+.due_div {
+    border: 2px solid red;
+    color: red;
+}
+
+.pay_class {
+    background: #39B27C;
+}
+
+.pay_class1 {
+    opacity: 1;
+    display: block;
+}
+
+#pay_class2 {
+    float: right;
+    font-size: 18px;
+}
+
+#invoice {
+    font-size: 10px;
+}
+
+.information {
+    float: left;
+}
+
+@media print {
+    .modal-content {
+        width: 100%;
+        /* Adjusts the modal content to fit the full page width */
+        max-width: none;
+        /* Removes any maximum width restrictions */
+        margin: 0;
+        /* Optional: Removes margin to ensure it uses the full width */
+        page-break-inside: avoid;
+        /* Avoids breaking the content across pages */
+    }
+
+    .modal {
+        overflow: hidden;
+        position: absolute;
+        /* Ensures the modal is positioned relative to the page */
+        top: 0;
+        left: 0;
+    }
+
+    .content-wrapper {
+        display: none;
+    }
+
+    body,
+    html {
+        overflow: visible;
+        /* Ensures the whole modal content is printable */
+    }
+
+    /* Additional adjustments to ensure all modal content is visible and printable */
+    body * {
+        visibility: hidden;
+        /* Hides all content except the modal */
+    }
+
+    .modal,
+    .modal * {
+        visibility: visible;
+        /* Ensures the modal and its contents are visible */
+    }
+
+    .modal {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}

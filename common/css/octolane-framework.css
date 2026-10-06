@@ -1,0 +1,776 @@
+/* Octolane-Inspired Global CSS Framework */
+/* Based on https://www.octolane.com/ design principles */
+
+/* ===== CSS CUSTOM PROPERTIES ===== */
+:root {
+    /* Primary Colors - Octolane Blue Palette */
+    --octo-primary: #2563eb;
+    --octo-primary-light: #3b82f6;
+    --octo-primary-dark: #1d4ed8;
+    --octo-primary-50: #eff6ff;
+    --octo-primary-100: #dbeafe;
+    --octo-primary-500: #3b82f6;
+    --octo-primary-600: #2563eb;
+    --octo-primary-700: #1d4ed8;
+    --octo-primary-900: #1e3a8a;
+
+    /* Neutral Colors */
+    --octo-gray-50: #f8fafc;
+    --octo-gray-100: #f1f5f9;
+    --octo-gray-200: #e2e8f0;
+    --octo-gray-300: #cbd5e1;
+    --octo-gray-400: #94a3b8;
+    --octo-gray-500: #64748b;
+    --octo-gray-600: #475569;
+    --octo-gray-700: #334155;
+    --octo-gray-800: #1e293b;
+    --octo-gray-900: #0f172a;
+
+    /* Semantic Colors */
+    --octo-success: #10b981;
+    --octo-success-light: #34d399;
+    --octo-warning: #f59e0b;
+    --octo-warning-light: #fbbf24;
+    --octo-danger: #ef4444;
+    --octo-danger-light: #f87171;
+    --octo-info: #06b6d4;
+    --octo-info-light: #22d3ee;
+
+    /* Typography */
+    --octo-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --octo-font-size-xs: 0.75rem;
+    --octo-font-size-sm: 0.875rem;
+    --octo-font-size-base: 1rem;
+    --octo-font-size-lg: 1.125rem;
+    --octo-font-size-xl: 1.25rem;
+    --octo-font-size-2xl: 1.5rem;
+    --octo-font-size-3xl: 1.875rem;
+    --octo-font-size-4xl: 2.25rem;
+
+    /* Spacing */
+    --octo-space-1: 0.25rem;
+    --octo-space-2: 0.5rem;
+    --octo-space-3: 0.75rem;
+    --octo-space-4: 1rem;
+    --octo-space-5: 1.25rem;
+    --octo-space-6: 1.5rem;
+    --octo-space-8: 2rem;
+    --octo-space-10: 2.5rem;
+    --octo-space-12: 3rem;
+    --octo-space-16: 4rem;
+
+    /* Border Radius */
+    --octo-radius-sm: 0.375rem;
+    --octo-radius-md: 0.5rem;
+    --octo-radius-lg: 0.75rem;
+    --octo-radius-xl: 1rem;
+    --octo-radius-2xl: 1.5rem;
+
+    /* Shadows */
+    --octo-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --octo-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --octo-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --octo-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    /* Transitions */
+    --octo-transition-fast: 0.15s ease;
+    --octo-transition-normal: 0.2s ease;
+    --octo-transition-slow: 0.3s ease;
+}
+
+/* ===== GLOBAL RESET & BASE STYLES ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--octo-font-family);
+    font-size: var(--octo-font-size-base);
+    line-height: 1.6;
+    color: var(--octo-gray-800);
+    background-color: var(--octo-gray-50);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== TYPOGRAPHY ===== */
+.octo-text-xs { font-size: var(--octo-font-size-xs); }
+.octo-text-sm { font-size: var(--octo-font-size-sm); }
+.octo-text-base { font-size: var(--octo-font-size-base); }
+.octo-text-lg { font-size: var(--octo-font-size-lg); }
+.octo-text-xl { font-size: var(--octo-font-size-xl); }
+.octo-text-2xl { font-size: var(--octo-font-size-2xl); }
+.octo-text-3xl { font-size: var(--octo-font-size-3xl); }
+.octo-text-4xl { font-size: var(--octo-font-size-4xl); }
+
+.octo-font-light { font-weight: 300; }
+.octo-font-normal { font-weight: 400; }
+.octo-font-medium { font-weight: 500; }
+.octo-font-semibold { font-weight: 600; }
+.octo-font-bold { font-weight: 700; }
+
+.octo-text-primary { color: var(--octo-primary); }
+.octo-text-secondary { color: var(--octo-gray-600); }
+.octo-text-muted { color: var(--octo-gray-500); }
+.octo-text-success { color: var(--octo-success); }
+.octo-text-warning { color: var(--octo-warning); }
+.octo-text-danger { color: var(--octo-danger); }
+
+/* ===== LAYOUT COMPONENTS ===== */
+.octo-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--octo-space-4);
+}
+
+.octo-section {
+    padding: var(--octo-space-8) 0;
+}
+
+.octo-grid {
+    display: grid;
+    gap: var(--octo-space-6);
+}
+
+.octo-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.octo-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.octo-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 768px) {
+    .octo-grid-2,
+    .octo-grid-3,
+    .octo-grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== CARDS ===== */
+.octo-card {
+    background: white;
+    border-radius: var(--octo-radius-lg);
+    box-shadow: var(--octo-shadow-sm);
+    border: 1px solid var(--octo-gray-200);
+    overflow: hidden;
+    transition: all var(--octo-transition-normal);
+}
+
+.octo-card:hover {
+    box-shadow: var(--octo-shadow-md);
+    transform: translateY(-1px);
+}
+
+.octo-card-header {
+    padding: var(--octo-space-6);
+    border-bottom: 1px solid var(--octo-gray-200);
+    background: var(--octo-gray-50);
+}
+
+.octo-card-body {
+    padding: var(--octo-space-6);
+}
+
+.octo-card-footer {
+    padding: var(--octo-space-6);
+    border-top: 1px solid var(--octo-gray-200);
+    background: var(--octo-gray-50);
+}
+
+/* ===== BUTTONS ===== */
+.octo-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--octo-space-2);
+    padding: var(--octo-space-3) var(--octo-space-6);
+    border: 1px solid transparent;
+    border-radius: var(--octo-radius-md);
+    font-size: var(--octo-font-size-sm);
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--octo-transition-fast);
+    white-space: nowrap;
+}
+
+.octo-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.octo-btn-primary {
+    background: var(--octo-primary);
+    color: white;
+    border-color: var(--octo-primary);
+}
+
+.octo-btn-primary:hover {
+    background: var(--octo-primary-dark);
+    border-color: var(--octo-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--octo-shadow-md);
+}
+
+.octo-btn-secondary {
+    background: white;
+    color: var(--octo-gray-700);
+    border-color: var(--octo-gray-300);
+}
+
+.octo-btn-secondary:hover {
+    background: var(--octo-gray-50);
+    border-color: var(--octo-gray-400);
+    transform: translateY(-1px);
+    box-shadow: var(--octo-shadow-sm);
+}
+
+.octo-btn-success {
+    background: var(--octo-success);
+    color: white;
+    border-color: var(--octo-success);
+}
+
+.octo-btn-success:hover {
+    background: #059669;
+    border-color: #059669;
+    transform: translateY(-1px);
+    box-shadow: var(--octo-shadow-md);
+}
+
+.octo-btn-warning {
+    background: var(--octo-warning);
+    color: white;
+    border-color: var(--octo-warning);
+}
+
+.octo-btn-warning:hover {
+    background: #d97706;
+    border-color: #d97706;
+    transform: translateY(-1px);
+    box-shadow: var(--octo-shadow-md);
+}
+
+.octo-btn-danger {
+    background: var(--octo-danger);
+    color: white;
+    border-color: var(--octo-danger);
+}
+
+.octo-btn-danger:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+    transform: translateY(-1px);
+    box-shadow: var(--octo-shadow-md);
+}
+
+.octo-btn-sm {
+    padding: var(--octo-space-2) var(--octo-space-4);
+    font-size: var(--octo-font-size-xs);
+}
+
+.octo-btn-lg {
+    padding: var(--octo-space-4) var(--octo-space-8);
+    font-size: var(--octo-font-size-lg);
+}
+
+/* ===== FORMS ===== */
+.octo-form-group {
+    margin-bottom: var(--octo-space-6);
+}
+
+.octo-label {
+    display: block;
+    font-size: var(--octo-font-size-sm);
+    font-weight: 500;
+    color: var(--octo-gray-700);
+    margin-bottom: var(--octo-space-2);
+}
+
+.octo-input {
+    width: 100%;
+    padding: var(--octo-space-3) var(--octo-space-4);
+    border: 1px solid var(--octo-gray-300);
+    border-radius: var(--octo-radius-md);
+    font-size: var(--octo-font-size-sm);
+    transition: all var(--octo-transition-fast);
+    background: white;
+}
+
+.octo-input:focus {
+    outline: none;
+    border-color: var(--octo-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.octo-input::placeholder {
+    color: var(--octo-gray-400);
+}
+
+.octo-select {
+    width: 100%;
+    padding: var(--octo-space-3) var(--octo-space-4);
+    border: 1px solid var(--octo-gray-300);
+    border-radius: var(--octo-radius-md);
+    font-size: var(--octo-font-size-sm);
+    background: white;
+    cursor: pointer;
+    transition: all var(--octo-transition-fast);
+}
+
+.octo-select:focus {
+    outline: none;
+    border-color: var(--octo-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.octo-textarea {
+    width: 100%;
+    padding: var(--octo-space-3) var(--octo-space-4);
+    border: 1px solid var(--octo-gray-300);
+    border-radius: var(--octo-radius-md);
+    font-size: var(--octo-font-size-sm);
+    resize: vertical;
+    min-height: 100px;
+    transition: all var(--octo-transition-fast);
+}
+
+.octo-textarea:focus {
+    outline: none;
+    border-color: var(--octo-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* ===== TABLES ===== */
+.octo-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: var(--octo-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--octo-shadow-sm);
+}
+
+.octo-table thead {
+    background: var(--octo-gray-50);
+}
+
+.octo-table thead th {
+    padding: var(--octo-space-4);
+    text-align: left;
+    font-size: var(--octo-font-size-xs);
+    font-weight: 600;
+    color: var(--octo-gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--octo-gray-200);
+}
+
+.octo-table tbody tr {
+    border-bottom: 1px solid var(--octo-gray-200);
+    transition: background-color var(--octo-transition-fast);
+}
+
+.octo-table tbody tr:hover {
+    background: var(--octo-gray-50);
+}
+
+.octo-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.octo-table tbody td {
+    padding: var(--octo-space-4);
+    font-size: var(--octo-font-size-sm);
+    color: var(--octo-gray-700);
+}
+
+/* ===== NAVIGATION ===== */
+.octo-navbar {
+    background: white;
+    border-bottom: 1px solid var(--octo-gray-200);
+    padding: var(--octo-space-4) 0;
+    box-shadow: var(--octo-shadow-sm);
+}
+
+.octo-navbar-brand {
+    font-size: var(--octo-font-size-xl);
+    font-weight: 700;
+    color: var(--octo-primary);
+    text-decoration: none;
+}
+
+.octo-navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--octo-space-6);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.octo-nav-link {
+    color: var(--octo-gray-600);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--octo-transition-fast);
+}
+
+.octo-nav-link:hover {
+    color: var(--octo-primary);
+}
+
+.octo-nav-link.active {
+    color: var(--octo-primary);
+}
+
+/* ===== SIDEBAR ===== */
+.octo-sidebar {
+    background: white;
+    border-right: 1px solid var(--octo-gray-200);
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: var(--octo-shadow-sm);
+}
+
+.octo-sidebar-header {
+    padding: var(--octo-space-6);
+    border-bottom: 1px solid var(--octo-gray-200);
+}
+
+.octo-sidebar-nav {
+    padding: var(--octo-space-4);
+}
+
+.octo-sidebar-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.octo-sidebar-nav li {
+    margin-bottom: var(--octo-space-1);
+}
+
+.octo-sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: var(--octo-space-3);
+    padding: var(--octo-space-3) var(--octo-space-4);
+    color: var(--octo-gray-600);
+    text-decoration: none;
+    border-radius: var(--octo-radius-md);
+    transition: all var(--octo-transition-fast);
+    font-weight: 500;
+}
+
+.octo-sidebar-nav a:hover {
+    background: var(--octo-primary-50);
+    color: var(--octo-primary);
+}
+
+.octo-sidebar-nav a.active {
+    background: var(--octo-primary);
+    color: white;
+}
+
+/* ===== BADGES ===== */
+.octo-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--octo-space-1) var(--octo-space-2);
+    font-size: var(--octo-font-size-xs);
+    font-weight: 500;
+    border-radius: var(--octo-radius-sm);
+}
+
+.octo-badge-primary {
+    background: var(--octo-primary-100);
+    color: var(--octo-primary-700);
+}
+
+.octo-badge-success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.octo-badge-warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.octo-badge-danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* ===== ALERTS ===== */
+.octo-alert {
+    padding: var(--octo-space-4);
+    border-radius: var(--octo-radius-md);
+    border: 1px solid;
+    margin-bottom: var(--octo-space-4);
+}
+
+.octo-alert-success {
+    background: #d1fae5;
+    border-color: var(--octo-success);
+    color: #065f46;
+}
+
+.octo-alert-warning {
+    background: #fef3c7;
+    border-color: var(--octo-warning);
+    color: #92400e;
+}
+
+.octo-alert-danger {
+    background: #fee2e2;
+    border-color: var(--octo-danger);
+    color: #991b1b;
+}
+
+.octo-alert-info {
+    background: #dbeafe;
+    border-color: var(--octo-info);
+    color: #1e40af;
+}
+
+/* ===== MODALS ===== */
+.octo-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.octo-modal-content {
+    background: white;
+    border-radius: var(--octo-radius-lg);
+    box-shadow: var(--octo-shadow-xl);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.octo-modal-header {
+    padding: var(--octo-space-6);
+    border-bottom: 1px solid var(--octo-gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.octo-modal-body {
+    padding: var(--octo-space-6);
+}
+
+.octo-modal-footer {
+    padding: var(--octo-space-6);
+    border-top: 1px solid var(--octo-gray-200);
+    display: flex;
+    gap: var(--octo-space-3);
+    justify-content: flex-end;
+}
+
+/* ===== UTILITIES ===== */
+.octo-text-center { text-align: center; }
+.octo-text-left { text-align: left; }
+.octo-text-right { text-align: right; }
+
+.octo-flex { display: flex; }
+.octo-flex-col { flex-direction: column; }
+.octo-items-center { align-items: center; }
+.octo-justify-center { justify-content: center; }
+.octo-justify-between { justify-content: space-between; }
+.octo-gap-2 { gap: var(--octo-space-2); }
+.octo-gap-4 { gap: var(--octo-space-4); }
+.octo-gap-6 { gap: var(--octo-space-6); }
+
+.octo-mb-2 { margin-bottom: var(--octo-space-2); }
+.octo-mb-4 { margin-bottom: var(--octo-space-4); }
+.octo-mb-6 { margin-bottom: var(--octo-space-6); }
+.octo-mb-8 { margin-bottom: var(--octo-space-8); }
+
+.octo-mt-2 { margin-top: var(--octo-space-2); }
+.octo-mt-4 { margin-top: var(--octo-space-4); }
+.octo-mt-6 { margin-top: var(--octo-space-6); }
+.octo-mt-8 { margin-top: var(--octo-space-8); }
+
+.octo-p-2 { padding: var(--octo-space-2); }
+.octo-p-4 { padding: var(--octo-space-4); }
+.octo-p-6 { padding: var(--octo-space-6); }
+.octo-p-8 { padding: var(--octo-space-8); }
+
+.octo-rounded { border-radius: var(--octo-radius-md); }
+.octo-rounded-lg { border-radius: var(--octo-radius-lg); }
+.octo-rounded-xl { border-radius: var(--octo-radius-xl); }
+
+.octo-shadow { box-shadow: var(--octo-shadow-sm); }
+.octo-shadow-md { box-shadow: var(--octo-shadow-md); }
+.octo-shadow-lg { box-shadow: var(--octo-shadow-lg); }
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .octo-container {
+        padding: 0 var(--octo-space-4);
+    }
+    
+    .octo-grid-2,
+    .octo-grid-3,
+    .octo-grid-4 {
+        grid-template-columns: 1fr;
+    }
+    
+    .octo-navbar-nav {
+        flex-direction: column;
+        gap: var(--octo-space-2);
+    }
+    
+    .octo-modal-content {
+        width: 95%;
+        margin: var(--octo-space-4);
+    }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --octo-gray-50: #0f172a;
+        --octo-gray-100: #1e293b;
+        --octo-gray-200: #334155;
+        --octo-gray-300: #475569;
+        --octo-gray-400: #64748b;
+        --octo-gray-500: #94a3b8;
+        --octo-gray-600: #cbd5e1;
+        --octo-gray-700: #e2e8f0;
+        --octo-gray-800: #f1f5f9;
+        --octo-gray-900: #f8fafc;
+    }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes octo-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes octo-slide-in {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.octo-animate-fade-in {
+    animation: octo-fade-in 0.3s ease-out;
+}
+
+.octo-animate-slide-in {
+    animation: octo-slide-in 0.3s ease-out;
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+    .octo-card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+    
+    .octo-btn {
+        display: none;
+    }
+    
+    .octo-sidebar {
+        display: none;
+    }
+    
+    .octo-navbar {
+        display: none;
+    }
+}
+
+/* ===== ACCESSIBILITY ===== */
+.octo-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.octo-focus-visible:focus {
+    outline: 2px solid var(--octo-primary);
+    outline-offset: 2px;
+}
+
+/* ===== COMPONENT OVERRIDES ===== */
+/* Override existing Bootstrap/AdminLTE styles */
+.card {
+    border: 1px solid var(--octo-gray-200);
+    border-radius: var(--octo-radius-lg);
+    box-shadow: var(--octo-shadow-sm);
+}
+
+.btn {
+    border-radius: var(--octo-radius-md);
+    font-weight: 500;
+    transition: all var(--octo-transition-fast);
+}
+
+.btn-primary {
+    background: var(--octo-primary);
+    border-color: var(--octo-primary);
+}
+
+.btn-primary:hover {
+    background: var(--octo-primary-dark);
+    border-color: var(--octo-primary-dark);
+    transform: translateY(-1px);
+}
+
+.table {
+    border-radius: var(--octo-radius-lg);
+    overflow: hidden;
+}
+
+.table thead th {
+    background: var(--octo-gray-50);
+    color: var(--octo-gray-600);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+.navbar {
+    background: white;
+    border-bottom: 1px solid var(--octo-gray-200);
+    box-shadow: var(--octo-shadow-sm);
+}
+
+.sidebar {
+    background: white;
+    border-right: 1px solid var(--octo-gray-200);
+}
+
+.content-wrapper {
+    background: var(--octo-gray-50);
+}
