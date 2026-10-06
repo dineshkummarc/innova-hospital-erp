@@ -75,10 +75,8 @@ if ($language == 'english') {
 <!-- <script type="text/javascript" src="common/assets/ckeditor/build/ckeditor.js"></script> -->
 <script type="text/javascript" src="common/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
 <script type="text/javascript" src="common/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
-<script src="common/js/advanced-form-components.js"></script>
 <script src="common/js/jquery.cookie.js"></script>
 <!--common script for all pages-->
-<script src="common/js/common-scripts.js"></script>
 <script class="include" type="text/javascript" src="common/js/jquery.dcjqaccordion.2.7.js"></script>
 <!--script for this page only-->
 <script src="common/js/editable-table.js"></script>
@@ -97,6 +95,9 @@ if ($language == 'english') {
 <script src="common/assets/bootstrap-datepicker/locales/bootstrap-datepicker.<?php echo $langdate; ?>.min.js"></script>
 
 <script src="common/assets/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.<?php echo $langdate; ?>.min.js"></script>
+
+<script src="common/js/advanced-form-components.js"></script>
+<script src="common/js/common-scripts.js"></script>
 
 
 
