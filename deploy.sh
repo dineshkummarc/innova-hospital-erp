@@ -211,6 +211,11 @@ else
     rm -f /tmp/db_test.txt
 fi
 
+# Clean demo data if script exists
+if [ -f "$APP_DIR/clean_demo_data.php" ]; then
+    php "$APP_DIR/clean_demo_data.php" 2>/dev/null || true
+fi
+
 # ------------------------------------------------------------------------------
 # 3. Create Required Directories
 # ------------------------------------------------------------------------------
