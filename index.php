@@ -56,7 +56,29 @@ ini_set("date.timezone", "Asia/Dhaka");
  *
  * NOTE: If you change these, also change the error_reporting() code below 
  */
-define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+if (file_exists(__DIR__ . '/.env')) {
+	$env_lines = @file(__DIR__ . '/.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	if ($env_lines) {
+		foreach ($env_lines as $env_line) {
+			$env_line = trim($env_line);
+			if (empty($env_line) || strpos($env_line, '#') === 0) continue;
+			if (strpos($env_line, '=') !== false) {
+				list($k, $v) = explode('=', $env_line, 2);
+				$k = trim($k);
+				$v = trim($v, " \t\n\r\0\x0B\"'");
+				if (!isset($_SERVER[$k])) {
+					$_SERVER[$k] = $v;
+				}
+				if (!isset($_ENV[$k])) {
+					$_ENV[$k] = $v;
+				}
+				putenv("$k=$v");
+			}
+		}
+	}
+}
+
+define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : (getenv('CI_ENV') ?: 'development'));
 
 /*
  *--------------------------------------------------------------- 
