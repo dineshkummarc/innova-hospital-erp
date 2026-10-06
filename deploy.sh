@@ -339,6 +339,46 @@ else
 fi
 
 # ------------------------------------------------------------------------------
+# 8. Configure aaPanel Nginx URL Rewrite (CodeIgniter routing)
+# ------------------------------------------------------------------------------
+echo ""
+echo -e "${CYAN}${BOLD}[8/8] Configuring Nginx URL Rewrite (CodeIgniter routing)...${NC}"
+
+DOMAIN_NAME="lifecare.innovacomputersbd.com"
+REWRITE_DIR="/www/server/panel/vhost/rewrite"
+REWRITE_FILE="$REWRITE_DIR/$DOMAIN_NAME.conf"
+
+if [ -d "$REWRITE_DIR" ]; then
+    cat << 'EOF' > "$REWRITE_FILE"
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+
+# Block direct access to sensitive files
+location ~ /\.(env|git|htaccess) {
+    deny all;
+    return 404;
+}
+
+location ~ \.(sql|sh)$ {
+    deny all;
+    return 404;
+}
+EOF
+    echo -e "${GREEN}[✔] aaPanel URL Rewrite written to $REWRITE_FILE.${NC}"
+fi
+
+# Reload Nginx if installed
+if command -v nginx >/dev/null 2>&1; then
+    if nginx -t >/dev/null 2>&1; then
+        nginx -s reload 2>/dev/null || systemctl reload nginx 2>/dev/null || /etc/init.d/nginx reload 2>/dev/null || true
+        echo -e "${GREEN}[✔] Nginx reloaded successfully.${NC}"
+    else
+        echo -e "${YELLOW}[!] Warning: Nginx test reported an error. Please verify via aaPanel.${NC}"
+    fi
+fi
+
+# ------------------------------------------------------------------------------
 # Deployment Summary
 # ------------------------------------------------------------------------------
 echo ""
