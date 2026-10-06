@@ -220,13 +220,20 @@ fi
 
 if [ -n "$WEB_USER" ] && [ "$(id -u)" -eq 0 ]; then
     echo -e "  Detected web user: ${BOLD}$WEB_USER:$WEB_GROUP${NC}"
-    chown -R "$WEB_USER:$WEB_GROUP" "$APP_DIR"
+    # Temporarily remove immutable attribute on aaPanel's .user.ini if present
+    if [ -f "$APP_DIR/.user.ini" ]; then
+        chattr -i "$APP_DIR/.user.ini" 2>/dev/null || true
+    fi
+    chown -R "$WEB_USER:$WEB_GROUP" "$APP_DIR" 2>/dev/null || true
+    if [ -f "$APP_DIR/.user.ini" ]; then
+        chattr +i "$APP_DIR/.user.ini" 2>/dev/null || true
+    fi
     echo -e "${GREEN}[✔] Ownership set to $WEB_USER:$WEB_GROUP.${NC}"
 fi
 
 # Directory and file permissions
 find "$APP_DIR" -type d -exec chmod 755 {} + 2>/dev/null || true
-find "$APP_DIR" -type f -exec chmod 644 {} + 2>/dev/null || true
+find "$APP_DIR" -type f ! -name ".user.ini" -exec chmod 644 {} + 2>/dev/null || true
 
 # Executable permissions for scripts
 chmod +x "$APP_DIR/deploy.sh" 2>/dev/null || true
