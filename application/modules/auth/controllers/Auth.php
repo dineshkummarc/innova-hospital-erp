@@ -48,63 +48,20 @@ class Auth extends MX_Controller {
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if ($this->form_validation->run() == true) {
-            // Hybrid / Smart Captcha Verification
+            // Verify Math Security Captcha
+            $user_math_answer = $this->input->post('captcha_answer');
+            $session_math_answer = $this->session->userdata('login_math_captcha_answer');
+
             $captcha_verified = false;
-            $this->load->model('settings/settings_model');
-            $recaptchaSettings = $this->settings_model->getGoogleReCaptchaSettings();
-            $recaptcha_secret = (!empty($recaptchaSettings) && !empty($recaptchaSettings->secret_key)) ? $recaptchaSettings->secret_key : '';
-
-            $g_response = $this->input->post('g-recaptcha-response');
-            if (empty($g_response)) {
-                $g_response = $this->input->post('recaptcha_response');
-            }
-
-            if (!empty($g_response) && strlen(trim($g_response)) > 20) {
-                // User successfully passed the Google reCAPTCHA checkbox in browser
-                $captcha_verified = true;
-
-                // Also attempt background verification with Google if secret exists
-                if (!empty($recaptcha_secret)) {
-                    $verify_response = '';
-                    if (function_exists('curl_init')) {
-                        $ch = curl_init('https://www.google.com/recaptcha/api/siteverify');
-                        curl_setopt($ch, CURLOPT_POST, true);
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-                            'secret' => $recaptcha_secret,
-                            'response' => $g_response,
-                            'remoteip' => $this->input->ip_address()
-                        ]));
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                        if (defined('CURL_IPRESOLVE_V4')) {
-                            curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
-                        }
-                        $verify_response = curl_exec($ch);
-                        curl_close($ch);
-                    }
-                    if (empty($verify_response)) {
-                        $verify_url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $recaptcha_secret . '&response=' . urlencode($g_response);
-                        $verify_response = @file_get_contents($verify_url);
-                    }
-                }
-            }
-
-            // Verify Math Captcha if Google reCAPTCHA was not verified
-            if (!$captcha_verified) {
-                $user_math_answer = $this->input->post('captcha_answer');
-                $session_math_answer = $this->session->userdata('login_math_captcha_answer');
-
-                if ($user_math_answer !== null && $session_math_answer !== null && trim($user_math_answer) !== '') {
-                    if ((int)trim($user_math_answer) === (int)$session_math_answer) {
-                        $captcha_verified = true;
-                        $this->session->unset_userdata('login_math_captcha_answer');
-                    }
+            if ($user_math_answer !== null && $session_math_answer !== null && trim($user_math_answer) !== '') {
+                if ((int)trim($user_math_answer) === (int)$session_math_answer) {
+                    $captcha_verified = true;
+                    $this->session->unset_userdata('login_math_captcha_answer');
                 }
             }
 
             if (!$captcha_verified) {
-                $this->session->set_flashdata('message', 'Captcha verification failed! Please complete the captcha.');
+                $this->session->set_flashdata('message', 'Captcha answer is incorrect! Please try again.');
                 redirect('auth/login', 'refresh');
                 return;
             }

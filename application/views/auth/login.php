@@ -396,9 +396,6 @@
             $math_captcha_question = "$num1 + $num2 = ?";
             $this->session->set_userdata('login_math_captcha_answer', $num1 + $num2);
         }
-        $recaptcha_setting = isset($googleReCaptchaSettings) ? $googleReCaptchaSettings : $this->settings_model->getGoogleReCaptchaSettings();
-        $googleReCaptchaSiteKey = (!empty($recaptcha_setting) && !empty($recaptcha_setting->site_key)) ? $recaptcha_setting->site_key : '';
-        $is_localhost = in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', '::1']) || strpos($_SERVER['HTTP_HOST'], 'localhost:') === 0;
         ?>
 
         <form id="loginForm" method="post" action="<?php echo site_url('auth/login'); ?>">
@@ -418,19 +415,9 @@
               </div>
             </div>
           </div>
-          <!-- Captcha Container -->
+          <!-- Math Security Captcha -->
           <div class="form-group mb-4">
-            <?php if (!empty($googleReCaptchaSiteKey) && !$is_localhost) { ?>
-                <!-- Google reCAPTCHA v2 Checkbox -->
-                <div id="googleCaptchaBox">
-                    <div class="d-flex justify-content-center">
-                        <div class="g-recaptcha" data-sitekey="<?php echo $googleReCaptchaSiteKey; ?>"></div>
-                    </div>
-                </div>
-            <?php } ?>
-
-            <!-- Interactive Math Security Captcha -->
-            <div id="mathCaptchaBox" <?php if (!empty($googleReCaptchaSiteKey) && !$is_localhost) echo 'style="display:none;"'; ?>>
+            <div id="mathCaptchaBox">
                 <div class="d-flex align-items-center justify-content-between p-2" style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 12px;">
                     <div class="d-flex align-items-center" style="gap: 8px;">
                         <span class="badge text-white py-2 px-3" style="font-size: 0.95rem; font-weight: 700; border-radius: 8px; background: var(--gradient-primary); letter-spacing: 0.5px;">
@@ -442,20 +429,10 @@
                         </button>
                     </div>
                     <div style="width: 110px;">
-                        <input type="number" name="captcha_answer" placeholder="<?php echo lang('answer') ? lang('answer') : 'Answer'; ?>*" <?php if (empty($googleReCaptchaSiteKey) || $is_localhost) echo 'required'; ?> class="form-control text-center font-weight-bold loginCaptchaAnswer" style="padding: 6px 10px; font-size: 1rem; border-radius: 8px; border: 2px solid #ced4da; height: 38px;">
+                        <input type="number" name="captcha_answer" placeholder="<?php echo lang('answer') ? lang('answer') : 'Answer'; ?>*" required class="form-control text-center font-weight-bold loginCaptchaAnswer" style="padding: 6px 10px; font-size: 1rem; border-radius: 8px; border: 2px solid #ced4da; height: 38px;">
                     </div>
                 </div>
             </div>
-
-            <?php if (!empty($googleReCaptchaSiteKey) && !$is_localhost) { ?>
-                <div class="text-center mt-2">
-                    <small>
-                        <a href="javascript:void(0)" id="toggleCaptchaMode" class="text-muted" style="text-decoration: underline; font-size: 0.8rem;">
-                            <i class="fas fa-calculator mr-1"></i> Use Math Captcha instead
-                        </a>
-                    </small>
-                </div>
-            <?php } ?>
           </div>
           <div class="row">
             <div class="col-12">
@@ -514,10 +491,6 @@
   <script src="adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="adminlte/dist/js/adminlte.min.js"></script>
-  <?php if (!empty($googleReCaptchaSiteKey) && !$is_localhost) { ?>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <?php } ?>
-
   <script>
     $(document).ready(function() {
       // Refresh login math captcha
@@ -543,37 +516,14 @@
         });
       });
 
-      // Toggle Captcha Mode
-      $('#toggleCaptchaMode').on('click', function() {
-        if ($('#googleCaptchaBox').is(':visible')) {
-          $('#googleCaptchaBox').hide();
-          $('#mathCaptchaBox').slideDown(200);
-          $('.loginCaptchaAnswer').attr('required', true).focus();
-          $(this).html('<i class="fas fa-shield-alt mr-1"></i> Use Google reCAPTCHA instead');
-        } else {
-          $('#mathCaptchaBox').hide();
-          $('#googleCaptchaBox').slideDown(200);
-          $('.loginCaptchaAnswer').removeAttr('required');
-          $(this).html('<i class="fas fa-calculator mr-1"></i> Use Math Captcha instead');
-        }
-      });
-
       // Client-side verification
       $('#loginForm').on('submit', function(e) {
-        if ($('#mathCaptchaBox').is(':visible')) {
-          var captchaInput = $(this).find('input[name="captcha_answer"]');
-          if (!captchaInput.val() || captchaInput.val().trim() === '') {
-            e.preventDefault();
-            alert('Please enter the security captcha answer.');
-            captchaInput.focus();
-            return false;
-          }
-        } else if (typeof grecaptcha !== 'undefined' && $('#googleCaptchaBox').is(':visible')) {
-          if (grecaptcha.getResponse().length === 0) {
-            e.preventDefault();
-            alert('Please check the "I\'m not a robot" captcha box before signing in.');
-            return false;
-          }
+        var captchaInput = $(this).find('input[name="captcha_answer"]');
+        if (!captchaInput.val() || captchaInput.val().trim() === '') {
+          e.preventDefault();
+          alert('Please enter the security captcha answer.');
+          captchaInput.focus();
+          return false;
         }
       });
     });
