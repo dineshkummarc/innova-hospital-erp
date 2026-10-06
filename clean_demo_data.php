@@ -213,10 +213,102 @@ if (!empty($ionUserIds)) {
     }
 }
 
+// -------------------------------------------------------------
+// D. REMOVE ALL REFERRERS & REFERRAL RECORDS
+// -------------------------------------------------------------
+$referrerIds = [];
+$resRef = $mysqli->query("SELECT id FROM referrer WHERE hospital_id = '$hospitalId'");
+if ($resRef) {
+    while ($row = $resRef->fetch_assoc()) {
+        $referrerIds[] = $row['id'];
+    }
+}
+$referrerCount = count($referrerIds);
+
+$refTables = [
+    'referral_audit_log',
+    'referral_commission_ledger',
+    'referral_wallet_transactions',
+    'referral_withdrawals',
+    'referral_wallet',
+    'referrer'
+];
+
+foreach ($refTables as $tbl) {
+    try {
+        $tCheck = $mysqli->query("SHOW TABLES LIKE '$tbl'");
+        if ($tCheck && $tCheck->num_rows > 0) {
+            $cols = [];
+            $res = $mysqli->query("SHOW COLUMNS FROM `$tbl`");
+            if ($res) {
+                while ($row = $res->fetch_assoc()) {
+                    $cols[] = $row['Field'];
+                }
+            }
+
+            $clauses = [];
+            if (in_array('hospital_id', $cols)) {
+                $clauses[] = "`hospital_id` = '$hospitalId'";
+            }
+            if (!empty($referrerIds) && in_array('referrer_id', $cols)) {
+                $escapedRefIds = array_map(function($id) use ($mysqli) {
+                    return $mysqli->real_escape_string($id);
+                }, $referrerIds);
+                $refList = implode("','", $escapedRefIds);
+                $clauses[] = "`referrer_id` IN ('$refList')";
+            }
+            if (!empty($clauses)) {
+                $mysqli->query("DELETE FROM `$tbl` WHERE " . implode(' OR ', $clauses));
+            }
+        }
+    } catch (Throwable $e) {}
+}
+
+// Reset any referrer references in payment records
+try {
+    $mysqli->query("UPDATE payment SET referrer = NULL, referrer_name = NULL WHERE hospital_id = '$hospitalId'");
+} catch (Throwable $e) {}
+
+echo "✔ Removed $referrerCount referrers and associated wallet/commission records.\n";
+
 $mysqli->query("SET FOREIGN_KEY_CHECKS = 1;");
+
+// -------------------------------------------------------------
+// E. FIX CACHE & SESSIONS PERMISSIONS & CLEAR STALE SESSIONS
+// -------------------------------------------------------------
+$sessDir = __DIR__ . '/application/cache/sessions';
+if (!is_dir($sessDir)) {
+    @mkdir($sessDir, 0777, true);
+}
+@chmod($sessDir, 0777);
+$files = glob($sessDir . '/*');
+if ($files) {
+    foreach ($files as $f) {
+        if (basename($f) !== '.gitkeep') {
+            @unlink($f);
+        }
+    }
+}
+@chmod(__DIR__ . '/application/cache', 0777);
+
+// Attempt to chown to web server user if running as root
+if (function_exists('posix_getuid') && posix_getuid() === 0) {
+    foreach (['www', 'www-data', 'nginx', 'apache'] as $u) {
+        $uInfo = @posix_getpwnam($u);
+        if ($uInfo) {
+            @chown(__DIR__ . '/application/cache', $uInfo['uid']);
+            @chgrp(__DIR__ . '/application/cache', $uInfo['gid']);
+            @chown($sessDir, $uInfo['uid']);
+            @chgrp($sessDir, $uInfo['gid']);
+            break;
+        }
+    }
+}
+echo "✔ Fixed sessions directory permissions and cleared old session files.\n";
 
 echo "\n=====================================================\n";
 echo "🎉 DEMO DATA CLEANUP COMPLETED SUCCESSFULLY!\n";
-echo "   Invoices Cleaned: $invoiceCount\n";
-echo "   Patients Cleaned: $patientCount\n";
+echo "   Invoices Cleaned:  $invoiceCount\n";
+echo "   Patients Cleaned:  $patientCount\n";
+echo "   Referrers Cleaned: $referrerCount\n";
 echo "=====================================================\n";

@@ -171,18 +171,28 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 		{
 			$this->_file_new = ! file_exists($this->_file_path.$session_id);
 
-			if (($this->_file_handle = fopen($this->_file_path.$session_id, 'c+b')) === FALSE)
+			if (($this->_file_handle = @fopen($this->_file_path.$session_id, 'c+b')) === FALSE)
 			{
-				log_message('error', "Session: Unable to open file '".$this->_file_path.$session_id."'.");
-				return $this->_failure;
+				if (file_exists($this->_file_path.$session_id))
+				{
+					@unlink($this->_file_path.$session_id);
+					$this->_file_handle = @fopen($this->_file_path.$session_id, 'c+b');
+				}
+				if ($this->_file_handle === FALSE)
+				{
+					log_message('error', "Session: Unable to open file '".$this->_file_path.$session_id."'.");
+					$this->_fingerprint = md5('');
+					return '';
+				}
 			}
 
-			if (flock($this->_file_handle, LOCK_EX) === FALSE)
+			if (@flock($this->_file_handle, LOCK_EX) === FALSE)
 			{
 				log_message('error', "Session: Unable to obtain lock for file '".$this->_file_path.$session_id."'.");
-				fclose($this->_file_handle);
+				@fclose($this->_file_handle);
 				$this->_file_handle = NULL;
-				return $this->_failure;
+				$this->_fingerprint = md5('');
+				return '';
 			}
 
 			// Needed by write() to detect session_regenerate_id() calls
@@ -190,7 +200,7 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 
 			if ($this->_file_new)
 			{
-				chmod($this->_file_path.$session_id, 0600);
+				@chmod($this->_file_path.$session_id, 0666);
 				$this->_fingerprint = md5('');
 				return '';
 			}
@@ -199,7 +209,8 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 		// See https://github.com/bcit-ci/CodeIgniter/issues/4039
 		elseif ($this->_file_handle === FALSE)
 		{
-			return $this->_failure;
+			$this->_fingerprint = md5('');
+			return '';
 		}
 		else
 		{
