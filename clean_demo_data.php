@@ -49,6 +49,65 @@ echo "Database: $dbName ($dbHost:$dbPort)\n\n";
 // Target hospital ID for the demo hospital (Lifecare Diagnostic, ID 98)
 $hospitalId = '98';
 
+// Helper function to safely delete from any table dynamically inspecting columns
+function safeCleanTable($mysqli, $table, $hospitalId, $patientIds = [], $paymentIds = []) {
+    try {
+        $tCheck = $mysqli->query("SHOW TABLES LIKE '$table'");
+        if (!$tCheck || $tCheck->num_rows === 0) {
+            return;
+        }
+
+        $cols = [];
+        $res = $mysqli->query("SHOW COLUMNS FROM `$table`");
+        if ($res) {
+            while ($row = $res->fetch_assoc()) {
+                $cols[] = $row['Field'];
+            }
+        }
+
+        $clauses = [];
+
+        // Condition on hospital_id
+        if (in_array('hospital_id', $cols)) {
+            $clauses[] = "`hospital_id` = '$hospitalId'";
+        }
+
+        // Condition on patient / patient_id
+        if (!empty($patientIds)) {
+            $escapedPatIds = array_map(function($id) use ($mysqli) {
+                return $mysqli->real_escape_string($id);
+            }, $patientIds);
+            $patList = implode("','", $escapedPatIds);
+
+            if (in_array('patient_id', $cols)) {
+                $clauses[] = "`patient_id` IN ('$patList')";
+            }
+            if (in_array('patient', $cols)) {
+                $clauses[] = "`patient` IN ('$patList')";
+            }
+        }
+
+        // Condition on payment_id
+        if (!empty($paymentIds)) {
+            $escapedPayIds = array_map(function($id) use ($mysqli) {
+                return $mysqli->real_escape_string($id);
+            }, $paymentIds);
+            $payList = implode("','", $escapedPayIds);
+
+            if (in_array('payment_id', $cols)) {
+                $clauses[] = "`payment_id` IN ('$payList')";
+            }
+        }
+
+        if (!empty($clauses)) {
+            $where = implode(' OR ', $clauses);
+            $mysqli->query("DELETE FROM `$table` WHERE $where");
+        }
+    } catch (Throwable $e) {
+        // Silently skip any specific table errors
+    }
+}
+
 // 1. Fetch patient IDs
 $patientIds = [];
 $ionUserIds = [];
@@ -82,55 +141,82 @@ $mysqli->query("SET FOREIGN_KEY_CHECKS = 0;");
 // -------------------------------------------------------------
 // A. REMOVE INVOICES & FINANCIAL RECORDS
 // -------------------------------------------------------------
-if (!empty($paymentIds)) {
-    $payIdList = implode("','", $paymentIds);
-    $mysqli->query("DELETE FROM payment_items WHERE payment_id IN ('$payIdList')");
-    $mysqli->query("DELETE FROM patient_deposit WHERE payment_id IN ('$payIdList') OR hospital_id = '$hospitalId'");
-} else {
-    $mysqli->query("DELETE FROM patient_deposit WHERE hospital_id = '$hospitalId'");
-}
+$financialTables = [
+    'payment_items',
+    'patient_deposit',
+    'payment',
+    'draft_payment',
+    'ot_payment',
+    'pharmacy_payment'
+];
 
-$delInvoices = $mysqli->query("DELETE FROM payment WHERE hospital_id = '$hospitalId'");
-$delDraft = $mysqli->query("DELETE FROM draft_payment WHERE hospital_id = '$hospitalId'");
-echo "✔ Removed $invoiceCount invoices from `payment` and related tables.\n";
+foreach ($financialTables as $tbl) {
+    safeCleanTable($mysqli, $tbl, $hospitalId, $patientIds, $paymentIds);
+}
+echo "✔ Removed demo invoices from `payment` and related tables.\n";
 
 // -------------------------------------------------------------
 // B. REMOVE PATIENTS & ALL RELATED MEDICAL/BED/LAB RECORDS
 // -------------------------------------------------------------
-if (!empty($patientIds)) {
-    $patIdList = implode("','", $patientIds);
-    $mysqli->query("DELETE FROM medical_history WHERE hospital_id = '$hospitalId' OR patient_id IN ('$patIdList')");
-    $mysqli->query("DELETE FROM patient_material WHERE hospital_id = '$hospitalId' OR patient_id IN ('$patIdList')");
-    $mysqli->query("DELETE FROM vital_signs WHERE patient_id IN ('$patIdList')");
-    $mysqli->query("DELETE FROM prescription WHERE hospital_id = '$hospitalId' OR patient IN ('$patIdList')");
-    $mysqli->query("DELETE FROM appointment WHERE hospital_id = '$hospitalId' OR patient IN ('$patIdList')");
-    $mysqli->query("DELETE FROM alloted_bed WHERE hospital_id = '$hospitalId' OR patient IN ('$patIdList')");
-    $mysqli->query("DELETE FROM bed_diagnostic WHERE hospital_id = '$hospitalId' OR patient_id IN ('$patIdList')");
-    $mysqli->query("DELETE FROM bed_medicine WHERE hospital_id = '$hospitalId' OR patient_id IN ('$patIdList')");
-    $mysqli->query("DELETE FROM bed_service WHERE hospital_id = '$hospitalId' OR patient_id IN ('$patIdList')");
-    $mysqli->query("DELETE FROM lab WHERE hospital_id = '$hospitalId' OR patient IN ('$patIdList')");
-    $mysqli->query("DELETE FROM diagnostic_report WHERE hospital_id = '$hospitalId' OR patient IN ('$patIdList')");
-    $mysqli->query("DELETE FROM treatment_plans WHERE patient_id IN ('$patIdList')");
-    $mysqli->query("DELETE FROM ai_patient_overviews WHERE patient_id IN ('$patIdList')");
+$medicalTables = [
+    'medical_history',
+    'patient_material',
+    'vital_signs',
+    'prescription',
+    'appointment',
+    'alloted_bed',
+    'bed_diagnostic',
+    'bed_medicine',
+    'bed_service',
+    'lab',
+    'diagnostic_report',
+    'treatment_plans',
+    'ai_patient_overviews',
+    'ai_image_analyses',
+    'ambulance_bookings',
+    'dental_examinations',
+    'folder',
+    'meeting',
+    'odontogram',
+    'radiology_orders',
+    'referral_commission_ledger',
+    'report'
+];
+
+foreach ($medicalTables as $tbl) {
+    safeCleanTable($mysqli, $tbl, $hospitalId, $patientIds, $paymentIds);
 }
 
-$delPatients = $mysqli->query("DELETE FROM patient WHERE hospital_id = '$hospitalId'");
-echo "✔ Removed $patientCount patients from `patient` and related medical tables.\n";
+// Now delete patients from patient table
+try {
+    $mysqli->query("DELETE FROM patient WHERE hospital_id = '$hospitalId'");
+} catch (Throwable $e) {}
+
+echo "✔ Removed demo patients from `patient` and related medical tables.\n";
 
 // -------------------------------------------------------------
 // C. REMOVE PATIENT USER LOGINS (if any)
 // -------------------------------------------------------------
 if (!empty($ionUserIds)) {
-    $userList = implode(",", $ionUserIds);
-    $mysqli->query("DELETE FROM users_groups WHERE user_id IN ($userList)");
-    $mysqli->query("DELETE FROM users WHERE id IN ($userList)");
-    echo "✔ Cleaned up associated patient user accounts in `users`.\n";
+    // Safety check: Never delete superadmin or hospital admin users (IDs 1, 614, 992)
+    $safeIonIds = array_filter($ionUserIds, function($uid) {
+        return !in_array((int)$uid, [1, 614, 992]);
+    });
+
+    if (!empty($safeIonIds)) {
+        $userList = implode(",", array_map('intval', $safeIonIds));
+        try {
+            $mysqli->query("DELETE FROM users_groups WHERE user_id IN ($userList)");
+            $mysqli->query("DELETE FROM users WHERE id IN ($userList)");
+            echo "✔ Cleaned up associated patient user accounts in `users`.\n";
+        } catch (Throwable $e) {}
+    }
 }
 
 $mysqli->query("SET FOREIGN_KEY_CHECKS = 1;");
 
 echo "\n=====================================================\n";
 echo "🎉 DEMO DATA CLEANUP COMPLETED SUCCESSFULLY!\n";
-echo "   Invoices Removed: $invoiceCount\n";
-echo "   Patients Removed: $patientCount\n";
+echo "   Invoices Cleaned: $invoiceCount\n";
+echo "   Patients Cleaned: $patientCount\n";
 echo "=====================================================\n";

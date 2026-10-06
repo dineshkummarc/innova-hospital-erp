@@ -1,1 +1,2 @@
 *.sh text eol=lf
+clean_demo_data.php text eol=lf
