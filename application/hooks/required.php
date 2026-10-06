@@ -297,7 +297,11 @@ function required()
         if ($RTR->class != "cronjobs" && $RTR->class != "payu" && $RTR->class != "status" &&  $RTR->class != "" && $RTR->class != "" && $RTR->class != "auth") {
             if ($CI->ion_auth->in_group(array('superadmin'))) {
                 $current_user_id = $CI->ion_auth->user()->row()->id;
-                $super_modules = $CI->db->get_where('superadmin', array('ion_user_id' => $current_user_id))->row()->module;
+                $super_row = $CI->db->get_where('superadmin', array('ion_user_id' => $current_user_id))->row();
+                if (empty($super_row)) {
+                    $super_row = $CI->db->get('superadmin')->row();
+                }
+                $super_modules = !empty($super_row->module) ? $super_row->module : 'home,hospital,package,request,superadmin,email,pgateway,slide,service,systems';
                 $CI->super_modules = explode(',', $super_modules);
             }
         }

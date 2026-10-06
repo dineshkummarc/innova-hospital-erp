@@ -388,7 +388,12 @@ $config['encryption_key'] = '';
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = sys_get_temp_dir();
+$session_save_dir = APPPATH . 'cache/sessions';
+if (!is_dir($session_save_dir)) {
+    @mkdir($session_save_dir, 0777, true);
+}
+@chmod($session_save_dir, 0777);
+$config['sess_save_path'] = (is_dir($session_save_dir) && is_writable($session_save_dir)) ? $session_save_dir : (is_dir(APPPATH . 'cache') && is_writable(APPPATH . 'cache') ? APPPATH . 'cache' : sys_get_temp_dir());
 $config['sess_match_ip'] = false;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = false;

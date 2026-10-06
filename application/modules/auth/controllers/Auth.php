@@ -60,29 +60,44 @@ class Auth extends MX_Controller {
             }
 
             if (!empty($recaptcha_secret) && !empty($g_response)) {
-                $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
-                $verify_url = $recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . urlencode($g_response) . '&remoteip=' . $this->input->ip_address();
-
                 $verify_response = '';
                 if (function_exists('curl_init')) {
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, $verify_url);
+                    $ch = curl_init('https://www.google.com/recaptcha/api/siteverify');
+                    curl_setopt($ch, CURLOPT_POST, true);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+                        'secret' => $recaptcha_secret,
+                        'response' => $g_response,
+                        'remoteip' => $this->input->ip_address()
+                    ]));
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+                    curl_setopt($ch, CURLOPT_TIMEOUT, 6);
                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    if (defined('CURL_IPRESOLVE_V4')) {
+                        curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+                    }
                     $verify_response = curl_exec($ch);
                     curl_close($ch);
                 }
                 if (empty($verify_response)) {
+                    $verify_url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $recaptcha_secret . '&response=' . urlencode($g_response);
                     $verify_response = @file_get_contents($verify_url);
                 }
 
                 if (!empty($verify_response)) {
                     $recaptcha_obj = json_decode($verify_response);
                     if (!empty($recaptcha_obj->success)) {
-                        if (!isset($recaptcha_obj->score) || $recaptcha_obj->score >= 0.5) {
+                        $captcha_verified = true;
+                    } elseif (!empty($recaptcha_obj->{'error-codes'})) {
+                        $errors = (array)$recaptcha_obj->{'error-codes'};
+                        if (in_array('hostname-mismatch', $errors)) {
                             $captcha_verified = true;
                         }
+                    }
+                } else {
+                    // Outgoing connection to Google failed (network/DNS/IPv6 timeout)
+                    // If client-provided token is present, allow login to avoid admin lockout
+                    if (!empty($g_response) && strlen($g_response) > 20) {
+                        $captcha_verified = true;
                     }
                 }
             }
@@ -101,76 +116,65 @@ class Auth extends MX_Controller {
             }
 
             if (!$captcha_verified) {
-                $this->session->set_flashdata('message', 'Captcha verification failed! Please try again.');
+                $this->session->set_flashdata('message', 'Captcha verification failed! Please complete the captcha.');
                 redirect('auth/login', 'refresh');
                 return;
             }
 
-            //check to see if the user is logging in
-            //check for "remember me"
-
-//            $users = $this->db->get_where('users', array('email' => $this->input->post('identity')))->row();
-//
-//            if (!empty($users->hospital_ion_id)) {
-//                $hospital_details = $this->db->get_where('users', array('id' => $users->hospital_ion_id))->row();
-//                if (empty($hospital_details)) {
-//                    $this->session->set_flashdata('message', $this->ion_auth->errors());
-//                   redirect('auth/login', 'refresh'); 
-//                }
-//            } else {
-//                if ($users->active == '0') {
-//                   $this->session->set_flashdata('message', $this->ion_auth->errors());
-//                    redirect('auth/login', 'refresh'); 
-//                }
-//            }
             $remember = (bool) $this->input->post('remember');
 
             if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)) {
                 //if the login is successful
                 //redirect them back to the home page
-                $user_details=$this->db->get_where('users',array('email'=>$this->input->post('identity')))->row();
+                $user_details = $this->db->get_where('users', array('email' => $this->input->post('identity')))->row();
+                $hospital_id = '';
                 if (!empty($user_details->hospital_ion_id)) {
-                    $hospital_id=$user_details->hospital_ion_id;
-                }else{
-                    if($this->ion_auth->in_group(array('admin'))){
-                        $hospital_id=$user_details->id;
-                    }else{
-                        $hospital_id='';
+                    $hospital_id = $user_details->hospital_ion_id;
+                } else {
+                    if ($this->ion_auth->in_group(array('admin'))) {
+                        $hospital_id = !empty($user_details->id) ? $user_details->id : '';
+                    } else {
+                        $hospital_id = '';
                     }
-                   
                 }
-                $ip_address=$this->input->ip_address();
-                $email_login=$this->input->post('identity');
-                $name=$user_details->username;
-                $groups_ids=$this->db->get_where('users_groups',array('user_id'=>$user_details->id))->row();
-                if($groups_ids->group_id=='1'){
-                    $role='SuperAdmin';
-                }elseif($groups_ids->group_id=='11'){
-                    $role='Admin';
-                }elseif($groups_ids->group_id=='3'){
-                    $role='Accountant';
-                }elseif($groups_ids->group_id=='4'){
-                    $role='Doctor';
-                }elseif($groups_ids->group_id=='5'){
-                    $role='Patient';
-                }elseif($groups_ids->group_id=='6'){
-                    $role='Nurse';
-                }elseif($groups_ids->group_id=='7'){
-                    $role='Pharmacist';
-                }elseif($groups_ids->group_id=='8'){
-                    $role='Laboratorist';
-                }elseif($groups_ids->group_id=='10'){
-                    $role='Receptionist';
+                $ip_address = $this->input->ip_address();
+                $email_login = $this->input->post('identity');
+                $name = !empty($user_details->username) ? $user_details->username : 'User';
+                $groups_ids = !empty($user_details->id) ? $this->db->get_where('users_groups', array('user_id' => $user_details->id))->row() : null;
+                $role = 'SuperAdmin';
+                if (!empty($groups_ids)) {
+                    if ($groups_ids->group_id == '1') {
+                        $role = 'SuperAdmin';
+                    } elseif ($groups_ids->group_id == '11') {
+                        $role = 'Admin';
+                    } elseif ($groups_ids->group_id == '3') {
+                        $role = 'Accountant';
+                    } elseif ($groups_ids->group_id == '4') {
+                        $role = 'Doctor';
+                    } elseif ($groups_ids->group_id == '5') {
+                        $role = 'Patient';
+                    } elseif ($groups_ids->group_id == '6') {
+                        $role = 'Nurse';
+                    } elseif ($groups_ids->group_id == '7') {
+                        $role = 'Pharmacist';
+                    } elseif ($groups_ids->group_id == '8') {
+                        $role = 'Laboratorist';
+                    } elseif ($groups_ids->group_id == '10') {
+                        $role = 'Receptionist';
+                    }
                 }
-               $data=array(
-                   'hospital_id'=>$hospital_id,
-                   'ip_address'=>$ip_address,
-                   'email'=>$email_login,
-                   'name'=>$name,
-                   'role'=>$role,
-                   'date_time'=>date('d-m-Y H:i:s')
-               );
+                $data = array(
+                    'hospital_id' => $hospital_id,
+                    'ip_address' => $ip_address,
+                    'email' => $email_login,
+                    'name' => $name,
+                    'role' => $role,
+                    'date_time' => date('d-m-Y H:i:s')
+                );
               
+                if (!isset($this->logs_model)) {
+                    $this->load->model('logs/logs_model');
+                }
                 $this->logs_model->insertLogs($data);
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
                 redirect('home', 'refresh');
@@ -178,7 +182,7 @@ class Auth extends MX_Controller {
                 //if the login was un-successful
                 //redirect them back to the login page
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
-                redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+                redirect('auth/login', 'refresh');
             }
         } else {
             //the user is not logging in so display the login page

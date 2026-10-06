@@ -135,13 +135,29 @@ if command -v mysql >/dev/null 2>&1; then
         # Ensure paymentGateway view exists for Linux MySQL case-sensitivity compatibility
         mysql $MYSQL_AUTH -D "$DB_NAME" -e "CREATE OR REPLACE VIEW \`paymentGateway\` AS SELECT * FROM \`paymentgateway\`;" 2>/dev/null || true
 
-        # Ensure Innova SaaS branding is applied in database
+        # Ensure Innova SaaS branding and Super Admin logins are applied in database
         mysql $MYSQL_AUTH -D "$DB_NAME" -e "
             UPDATE website_settings SET title = 'Innova SaaS', email = 'innovacomputersbd@gmail.com', contact_us_email = 'innovacomputersbd@gmail.com', phone = '01817682323', emergency = '01817682323', support = '01817682323', address = 'Masterpara, Subarnachar, Noakhali' WHERE id = 1;
             UPDATE settings SET system_vendor = 'Innova SaaS', title = 'Innova Hospital ERP', email = 'innovacomputersbd@gmail.com', phone = '01817682323', address = 'Masterpara, Subarnachar, Noakhali' WHERE hospital_id = 'superadmin' OR id = 11;
             UPDATE email_settings SET admin_email = 'innovacomputersbd@gmail.com' WHERE hospital_id = 'superadmin' OR id = 34;
+
+            -- Innova Super Admin User (innovacomputersbd@gmail.com / 12345)
+            UPDATE users SET email = 'innovacomputersbd@gmail.com', username = 'Innova Super Admin', password = '\$2y\$08\$7.GvR4bJco0I41DMIlz7W.ZITEKIegyT5u8dq8O49ivRMqR4pllUa', active = 1 WHERE id = 1;
+            INSERT IGNORE INTO users_groups (id, user_id, group_id) VALUES (1, 1, 1);
+            UPDATE superadmin SET email = 'innovacomputersbd@gmail.com', name = 'Innova Super Admin', phone = '01817682323', address = 'Masterpara, Subarnachar, Noakhali' WHERE ion_user_id = '1' OR id = 12;
+
+            -- Super Admin fallback (superadmin@hms.com / 12345)
+            INSERT INTO users (id, ip_address, username, password, email, created_on, active, first_name, last_name)
+            VALUES (614, '127.0.0.1', 'Super Admin', '\$2y\$08\$7.GvR4bJco0I41DMIlz7W.ZITEKIegyT5u8dq8O49ivRMqR4pllUa', 'superadmin@hms.com', 1511432365, 1, 'Super', 'Admin')
+            ON DUPLICATE KEY UPDATE email = 'superadmin@hms.com', password = '\$2y\$08\$7.GvR4bJco0I41DMIlz7W.ZITEKIegyT5u8dq8O49ivRMqR4pllUa', active = 1;
+            INSERT IGNORE INTO users_groups (id, user_id, group_id) VALUES (614, 614, 1);
+            INSERT IGNORE INTO superadmin (id, name, email, phone, address, img_url, ion_user_id, module)
+            VALUES (614, 'Super Admin', 'superadmin@hms.com', '01817682323', 'Masterpara, Subarnachar, Noakhali', 'uploads/userIcon5.png', '614', 'home,hospital,package,request,superadmin,email,pgateway,slide,service,systems');
+
+            -- Hospital Admin (admin@hms.com / 12345)
+            UPDATE users SET password = '\$2y\$08\$s6rD5svVL5NRympXc.90l.oD4plJMIQHcpHnudtyi16Igh/KoLRI2', active = 1 WHERE email = 'admin@hms.com';
         " 2>/dev/null || true
-        echo -e "${GREEN}[✔] Innova SaaS branding applied to database.${NC}"
+        echo -e "${GREEN}[✔] Innova SaaS branding and Super Admin logins applied to database.${NC}"
     else
         echo -e "${RED}[!] Could not connect to MySQL with the credentials in .env.${NC}"
         echo -e "${YELLOW}Please verify DB_USER and DB_PASS in $ENV_FILE or ensure MySQL is running.${NC}"
@@ -180,8 +196,15 @@ else
             \$conn->query(\"UPDATE website_settings SET title = 'Innova SaaS', email = 'innovacomputersbd@gmail.com', contact_us_email = 'innovacomputersbd@gmail.com', phone = '01817682323', emergency = '01817682323', support = '01817682323', address = 'Masterpara, Subarnachar, Noakhali' WHERE id = 1;\");
             \$conn->query(\"UPDATE settings SET system_vendor = 'Innova SaaS', title = 'Innova Hospital ERP', email = 'innovacomputersbd@gmail.com', phone = '01817682323', address = 'Masterpara, Subarnachar, Noakhali' WHERE hospital_id = 'superadmin' OR id = 11;\");
             \$conn->query(\"UPDATE email_settings SET admin_email = 'innovacomputersbd@gmail.com' WHERE hospital_id = 'superadmin' OR id = 34;\");
+            \$conn->query(\"UPDATE users SET email = 'innovacomputersbd@gmail.com', username = 'Innova Super Admin', password = '\$2y\$08\$7.GvR4bJco0I41DMIlz7W.ZITEKIegyT5u8dq8O49ivRMqR4pllUa', active = 1 WHERE id = 1;\");
+            \$conn->query(\"INSERT IGNORE INTO users_groups (id, user_id, group_id) VALUES (1, 1, 1);\");
+            \$conn->query(\"UPDATE superadmin SET email = 'innovacomputersbd@gmail.com', name = 'Innova Super Admin', phone = '01817682323', address = 'Masterpara, Subarnachar, Noakhali' WHERE ion_user_id = '1' OR id = 12;\");
+            \$conn->query(\"INSERT INTO users (id, ip_address, username, password, email, created_on, active, first_name, last_name) VALUES (614, '127.0.0.1', 'Super Admin', '\$2y\$08\$7.GvR4bJco0I41DMIlz7W.ZITEKIegyT5u8dq8O49ivRMqR4pllUa', 'superadmin@hms.com', 1511432365, 1, 'Super', 'Admin') ON DUPLICATE KEY UPDATE email = 'superadmin@hms.com', password = '\$2y\$08\$7.GvR4bJco0I41DMIlz7W.ZITEKIegyT5u8dq8O49ivRMqR4pllUa', active = 1;\");
+            \$conn->query(\"INSERT IGNORE INTO users_groups (id, user_id, group_id) VALUES (614, 614, 1);\");
+            \$conn->query(\"INSERT IGNORE INTO superadmin (id, name, email, phone, address, img_url, ion_user_id, module) VALUES (614, 'Super Admin', 'superadmin@hms.com', '01817682323', 'Masterpara, Subarnachar, Noakhali', 'uploads/userIcon5.png', '614', 'home,hospital,package,request,superadmin,email,pgateway,slide,service,systems');\");
+            \$conn->query(\"UPDATE users SET password = '\$2y\$08\$s6rD5svVL5NRympXc.90l.oD4plJMIQHcpHnudtyi16Igh/KoLRI2', active = 1 WHERE email = 'admin@hms.com';\");
         " 2>/dev/null || true
-        echo -e "${GREEN}[✔] Innova SaaS branding applied to database.${NC}"
+        echo -e "${GREEN}[✔] Innova SaaS branding and Super Admin logins applied to database.${NC}"
     else
         echo -e "${YELLOW}[!] Notice: Could not auto-verify MySQL. Please ensure DB credentials are set in .env.${NC}"
     fi
@@ -202,6 +225,7 @@ REQUIRED_DIRS=(
     "invoicefile"
     "files"
     "application/cache"
+    "application/cache/sessions"
     "application/logs"
 )
 
@@ -392,5 +416,13 @@ echo -e "   ${YELLOW}location / {"
 echo -e "       try_files \$uri \$uri/ /index.php?\$query_string;"
 echo -e "   }${NC}"
 echo ""
-echo -e "2. Your website is ready at: ${BOLD}http://lifecare.innovacomputersbd.com${NC} (or https if SSL is active)"
+echo -e "2. Your website is ready at: ${BOLD}https://lifecare.innovacomputersbd.com${NC}"
+echo ""
+echo -e "${GREEN}${BOLD}ADMIN LOGIN CREDENTIALS:${NC}"
+echo -e "  • Super Admin Email:    ${BOLD}innovacomputersbd@gmail.com${NC} (or ${BOLD}superadmin@hms.com${NC})"
+echo -e "  • Super Admin Password: ${BOLD}12345${NC}"
+echo -e "  • Hospital Admin Email: ${BOLD}admin@hms.com${NC}"
+echo -e "  • Hospital Password:    ${BOLD}12345${NC}"
+echo ""
+echo -e "  • Login URL:            ${BOLD}https://lifecare.innovacomputersbd.com/auth/login${NC}"
 echo ""

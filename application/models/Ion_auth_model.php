@@ -905,6 +905,10 @@ class Ion_auth_model extends CI_Model {
             return FALSE;
         }
         $users = $this->db->get_where('users', array('email' => $identity))->row();
+        if (empty($users)) {
+            $this->set_error('login_unsuccessful');
+            return FALSE;
+        }
       
         if (!empty($users->hospital_ion_id)) {
             $hospital_details = $this->db->get_where('users', array('id' => $users->hospital_ion_id))->row();
