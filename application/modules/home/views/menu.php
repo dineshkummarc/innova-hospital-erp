@@ -1504,20 +1504,6 @@ if ($this->ion_auth->in_group(array('Receptionist'))) {
                     </ul>
                 </li>
             <?php } ?>
-            <li class="nav-item">
-                <a class="nav-link text-white" target="_blank" href="http://support.codearistos.net/help-center/articles/10/11/27/introduction">
-                    <i class="text-secondary nav-icon fas fa-question-circle"></i>
-                    <p><?php echo lang('help_center'); ?></p>
-                </a>
-            </li>
-
-
-            <li class="nav-item">
-                <a class="nav-link text-white" href="mailto:rizvi.mahmud.plabon@gmail.com">
-                    <i class="text-secondary nav-icon fas fa-envelope"></i>
-                    <p><?php echo lang('contact_us'); ?></p>
-                </a>
-            </li>
         </ul>
     </li>
 
@@ -1950,23 +1936,3 @@ if ($this->ion_auth->in_group(array('Receptionist'))) {
         <p> <?php echo lang('log_out'); ?> </p>
     </a>
 </li>
-
-
-
-
-<?php if ($this->ion_auth->in_group(array('superadmin'))) { ?>
-    <li class="nav-item">
-        <a class="nav-link text-white" target="_blank" href="http://support.codearistos.net/help-center/articles/10/11/27/introduction">
-            <i class="text-secondary nav-icon fas fa-question-circle"></i>
-            <p><?php echo lang('help_center'); ?></p>
-        </a>
-    </li>
-
-
-    <li class="nav-item">
-        <a class="nav-link text-white" href="mailto:rizvi.mahmud.plabon@gmail.com">
-            <i class="text-secondary nav-icon fas fa-envelope"></i>
-            <p><?php echo lang('contact_us'); ?></p>
-        </a>
-    </li>
-<?php } ?>

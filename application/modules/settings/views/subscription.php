@@ -25,7 +25,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"><?php echo lang('my_current_plan'); ?>(<?php echo $package->name; ?>)</h3>
+                            <h3 class="card-title"><?php echo lang('my_current_plan'); ?>(<?php echo !empty($package->name) ? $package->name : (!empty($hospital_payments->package_details) ? ucfirst($hospital_payments->package_details) : 'Trial'); ?>)</h3>
                             <div class="float-right package_div"><a href="settings/packages" class="btn btn-success">Change Plan</a></div>
                         </div>
                         <div class="row">
@@ -40,7 +40,7 @@
                                                     <?php echo lang('yearly_price'); ?>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <?php echo $settings->currency; ?><?php echo $package->yearly_price; ?>
+                                                    <?php echo !empty($settings->currency) ? $settings->currency : '$'; ?><?php echo !empty($package->yearly_price) ? $package->yearly_price : '0'; ?>
                                                 </div>
                                             </div>
                                             <div class="row f-15 m-b-10">
@@ -48,7 +48,7 @@
                                                     <?php echo lang('monthly_price'); ?>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <?php echo $settings->currency; ?><?php echo $package->monthly_price; ?>
+                                                    <?php echo !empty($settings->currency) ? $settings->currency : '$'; ?><?php echo !empty($package->monthly_price) ? $package->monthly_price : '0'; ?>
                                                 </div>
                                             </div>
                                             <div class="row f-15 m-b-10">
@@ -56,7 +56,7 @@
                                                     <?php echo lang('patient'); ?> <?php echo lang('limit'); ?>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <?php echo $subscription->p_limit; ?>
+                                                    <?php echo !empty($subscription->p_limit) ? $subscription->p_limit : '0'; ?>
                                                 </div>
                                             </div>
                                             <div class="row f-15 m-b-10">
@@ -64,7 +64,7 @@
                                                     <?php echo lang('doctor'); ?> <?php echo lang('limit'); ?>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <?php echo $subscription->d_limit; ?>
+                                                    <?php echo !empty($subscription->d_limit) ? $subscription->d_limit : '0'; ?>
                                                 </div>
                                             </div>
                                             <div class="row f-15 m-b-10">
@@ -73,7 +73,7 @@
                                                 </div>
                                                 <div class="col-sm-3">
                                                     <?php
-                                                    if ($hospital_payments->package_duration == 'yearly') {
+                                                    if (!empty($hospital_payments->package_duration) && $hospital_payments->package_duration == 'yearly') {
                                                         echo lang('yearly');
                                                     } else {
                                                         echo lang('monthly');
@@ -82,8 +82,10 @@
                                                 </div>
                                             </div>
                                             <?php
-                                            $diff_date = $hospital_payments->next_due_date_stamp - $hospital_payments->add_date_stamp;
-                                            $remain_day = $diff_date / (24 * 3600);
+                                            $next_due_stamp = !empty($hospital_payments->next_due_date_stamp) ? $hospital_payments->next_due_date_stamp : 0;
+                                            $add_date_stamp = !empty($hospital_payments->add_date_stamp) ? $hospital_payments->add_date_stamp : 0;
+                                            $diff_date = $next_due_stamp - $add_date_stamp;
+                                            $remain_day = $diff_date > 0 ? ($diff_date / (24 * 3600)) : 0;
                                             if ($remain_day == '15') {
                                             ?>
                                                 <div class="row f-15 m-b-10">
@@ -100,14 +102,14 @@
                                                     <?php echo lang('next_due_date'); ?>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <?php echo $hospital_payments->next_due_date; ?>
+                                                    <?php echo !empty($hospital_payments->next_due_date) ? $hospital_payments->next_due_date : ''; ?>
                                                 </div>
                                             </div>
                                             <div class="row f-15 m-b-10">
                                                 <div class="col-sm-9">
                                                 </div>
                                                 <div class="col-sm-3 selectPackage_div">
-                                                    <button type="button" data-payment-id="<?php echo $hospital_payments->id; ?>" data-is-free="0" class="btn btn-success selectPackage" title="add deposit">
+                                                    <button type="button" data-payment-id="<?php echo !empty($hospital_payments->id) ? $hospital_payments->id : ''; ?>" data-is-free="0" class="btn btn-success selectPackage" title="add deposit">
                                                         <i class="icon-anchor"></i><span class="d-none d-sm-inline"><?php echo lang('renew'); ?></span>
                                                     </button>
                                                 </div>
@@ -141,8 +143,16 @@
                                             <td><?php echo $i + 1; ?></td>
 
                                             <td><?php
-                                                $package_details = $this->db->get_where('package', array('id' => $deposit->package_id))->row();
-                                                echo $package_details->name;
+                                                $package_details = !empty($deposit->package_id) ? $this->db->get_where('package', array('id' => $deposit->package_id))->row() : null;
+                                                if (!empty($package_details->name)) {
+                                                    echo $package_details->name;
+                                                } elseif (!empty($deposit->package_name)) {
+                                                    echo $deposit->package_name;
+                                                } elseif (!empty($deposit->package_id)) {
+                                                    echo $deposit->package_id;
+                                                } else {
+                                                    echo lang('trial') ? lang('trial') : 'Trial';
+                                                }
                                                 ?></td>
                                             <td><?php echo $deposit->deposited_amount; ?></td>
                                             <td><?php echo $deposit->add_date; ?></td>
@@ -247,12 +257,12 @@
                     }
                     ?>
                     <div id="token"></div>
-                    <input type="hidden" name="hospital_id" id="hospital_id" value='<?php echo $hospital->id; ?>'>
+                    <input type="hidden" name="hospital_id" id="hospital_id" value='<?php echo !empty($hospital->id) ? $hospital->id : ''; ?>'>
                     <input type="hidden" name="id" id="package_id" value=''>
                     <input type="hidden" name="renew" value='renew'>
                     <div class="col-md-12 panel">
                         <button type="submit" value="submit" class="btn btn-info btn-group pull-center pull submit_button bg-blue" id="submit-btn" <?php
-                                                                                                                                                    if ($settings1->payment_gateway == 'Stripe') {
+                                                                                                                                                    if (!empty($settings1->payment_gateway) && $settings1->payment_gateway == 'Stripe') {
                                                                                                                                                     ?>onClick="stripePay(event);" <?php }
                                                                                                                                                                                     ?>> <?php echo lang('submit'); ?></button>
                     </div>
@@ -269,6 +279,6 @@
     var language = "<?php echo $this->language; ?>";
 </script>
 <script type="text/javascript">
-    var gateway = "<?php echo $gateway->publish; ?>";
+    var gateway = "<?php echo !empty($gateway->publish) ? $gateway->publish : ''; ?>";
 </script>
 <script src="common/extranal/js/settings/subscription.js"></script>

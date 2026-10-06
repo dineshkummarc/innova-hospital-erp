@@ -141,7 +141,15 @@ class Settings_model extends CI_model
     function getGoogleReCaptchaSettings()
     {
         $query = $this->db->get('google_captcha');
-        return $query->row();
+        $row = $query ? $query->row() : null;
+        if (!empty($row) && !empty($row->site_key)) {
+            return $row;
+        }
+        return (object)[
+            'id' => 1,
+            'site_key' => '6LdWmOEtAAAAAOr0-9VcyljiEHYn4SurE1jrlk3u',
+            'secret_key' => '6LdWmOEtAAAAAPs9rIdEEJ19GIM6qZy6nbl0IJ8z'
+        ];
     }
 
     function addGoogleReCaptcha($data)

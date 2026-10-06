@@ -61,12 +61,19 @@ class Settings extends MX_Controller
         $data['subscription'] = $this->settings_model->getSubscription();
         $user = $this->ion_auth->get_user_id();
         $ion_user_id = $this->db->get_where('users', array('id' => $user))->row();
-        $data['hospital'] = $this->db->get_where('hospital', array('ion_user_id' => $ion_user_id->id))->row();
-        $data['package'] = $this->package_model->getPackageById($data['subscription']->package);
-        $data['hospital_payments'] = $this->settings_model->getHospitalPaymentsById($data['subscription']->id);
+        $data['hospital'] = !empty($ion_user_id) ? $this->db->get_where('hospital', array('ion_user_id' => $ion_user_id->id))->row() : null;
+        $package_id = !empty($data['subscription']->package) ? $data['subscription']->package : null;
+        $data['package'] = !empty($package_id) ? $this->package_model->getPackageById($package_id) : null;
+        $subscription_id = !empty($data['subscription']->id) ? $data['subscription']->id : null;
+        $data['hospital_payments'] = !empty($subscription_id) ? $this->settings_model->getHospitalPaymentsById($subscription_id) : null;
         $data['settings1'] = $this->db->get_where('settings', array('hospital_id' => 'superadmin'))->row();
-        $data['deposits'] = $this->db->get_where('hospital_deposit', array('hospital_user_id' => $data['hospital_payments']->hospital_user_id))->result();
-        $data['gateway'] = $this->db->get_where('paymentGateway', array('name' => $data['settings1']->payment_gateway, 'hospital_id' => 'superadmin'))->row();
+        
+        $hospital_user_id = !empty($data['hospital_payments']->hospital_user_id) ? $data['hospital_payments']->hospital_user_id : (!empty($data['hospital']->id) ? $data['hospital']->id : null);
+        $data['deposits'] = !empty($hospital_user_id) ? $this->db->get_where('hospital_deposit', array('hospital_user_id' => $hospital_user_id))->result() : array();
+        
+        $gateway_name = !empty($data['settings1']->payment_gateway) ? $data['settings1']->payment_gateway : '';
+        $data['gateway'] = !empty($gateway_name) ? $this->db->get_where('paymentGateway', array('name' => $gateway_name, 'hospital_id' => 'superadmin'))->row() : null;
+        
         $this->load->view('home/dashboard', $data);
         $this->load->view('subscription', $data);
         $this->load->view('home/footer');

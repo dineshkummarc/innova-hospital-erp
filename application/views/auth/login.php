@@ -316,56 +316,6 @@
         margin-bottom: 2rem;
       }
     }
-
-    .demo-section {
-      margin-top: 1.5rem;
-      background: white;
-      border-radius: 20px;
-      padding: 1.5rem;
-      box-shadow: var(--card-shadow);
-    }
-
-    .demo-title {
-      font-size: 1rem;
-      color: var(--secondary-color);
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid #e9ecef;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .demo-buttons {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 0.75rem;
-    }
-
-    .demo-btn {
-      padding: 8px 16px;
-      font-size: 0.9rem;
-      border: 1px solid #e9ecef;
-      border-radius: 8px;
-      background: var(--gradient-secondary);
-      color: var(--secondary-color);
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .demo-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      color: var(--primary-color);
-      border-color: var(--primary-color);
-    }
-
-    .demo-btn i {
-      font-size: 1rem;
-      opacity: 0.8;
-    }
   </style>
 </head>
 
@@ -415,53 +365,7 @@
     </div>
   </div>
 
-<!-- For demo -->
-  <!-- <div class="main-container">
-    <div class="mobile-apps-container">
-      <div class="mobile-apps-section">
-        <h3 class="section-title">
-          <i class="fas fa-mobile-alt mr-2"></i>Download Mobile Apps (Android)
-        </h3>
-        <div class="row">
-          <div class="col-12">
-            <div class="app-card">
-              <div class="app-icon-wrapper">
-                <i class="fas fa-user-md app-icon"></i>
-              </div>
-              <div class="app-content">
-                <h4 class="app-title">Doctor App</h4>
-                <a href="https://codearistos.net/demo/doctor-release.apk" 
-                   class="btn app-download-btn" 
-                   target="_blank">
-                  <i class="fab fa-android"></i> Download
-                </a>
-                <div class="mt-2 text-muted" style="font-size: 0.85rem;">
-                  <div><i class="fas fa-envelope mr-1"></i> Email: doctor@hms.com</div>
-                  <div><i class="fas fa-key mr-1"></i> Password: 12345</div>
-                </div>
-              </div>
-            </div>
-            <div class="app-card">
-              <div class="app-icon-wrapper">
-                <i class="fas fa-user app-icon"></i>
-              </div>
-              <div class="app-content">
-                <h4 class="app-title">Patient App</h4>
-                <a href="https://codearistos.net/demo/patient-release.apk" 
-                   class="btn app-download-btn" 
-                   target="_blank">
-                  <i class="fab fa-android"></i> Download
-                </a>
-                <div class="mt-2 text-muted" style="font-size: 0.85rem;">
-                  <div><i class="fas fa-envelope mr-1"></i> Email: patient@hms.com</div>
-                  <div><i class="fas fa-key mr-1"></i> Password: 12345</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="main-container centered-layout">
     <div class="login-container">
       <div class="login-logo">
         <img src="https://cdn-icons-png.flaticon.com/512/2037/2037187.png" alt="Logo">
@@ -494,6 +398,7 @@
         }
         $recaptcha_setting = isset($googleReCaptchaSettings) ? $googleReCaptchaSettings : $this->settings_model->getGoogleReCaptchaSettings();
         $googleReCaptchaSiteKey = (!empty($recaptcha_setting) && !empty($recaptcha_setting->site_key)) ? $recaptcha_setting->site_key : '';
+        $is_localhost = in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', '::1']) || strpos($_SERVER['HTTP_HOST'], 'localhost:') === 0;
         ?>
 
         <form method="post" action="auth/login">
@@ -515,144 +420,7 @@
           </div>
           <!-- Captcha Container -->
           <div class="form-group mb-4">
-            <?php if (!empty($googleReCaptchaSiteKey)) { ?>
-                <!-- Google reCAPTCHA v2 Checkbox -->
-                <div class="d-flex justify-content-center">
-                    <div class="g-recaptcha" data-sitekey="<?php echo $googleReCaptchaSiteKey; ?>"></div>
-                </div>
-            <?php } else { ?>
-                <!-- Interactive Math Security Captcha -->
-                <div class="d-flex align-items-center justify-content-between p-2" style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 12px;">
-                    <div class="d-flex align-items-center" style="gap: 8px;">
-                        <span class="badge text-white py-2 px-3" style="font-size: 0.95rem; font-weight: 700; border-radius: 8px; background: var(--gradient-primary); letter-spacing: 0.5px;">
-                            <i class="fas fa-shield-alt mr-1"></i>
-                            <span class="loginMathQuestion"><?php echo $math_captcha_question; ?></span>
-                        </span>
-                        <button type="button" class="btn btn-sm btn-light border-0 text-muted refreshLoginCaptchaBtn" style="border-radius: 50%; width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="Change Captcha">
-                            <i class="fas fa-sync-alt refreshLoginIcon"></i>
-                        </button>
-                    </div>
-                    <div style="width: 110px;">
-                        <input type="number" name="captcha_answer" placeholder="<?php echo lang('answer') ? lang('answer') : 'Answer'; ?>*" required class="form-control text-center font-weight-bold loginCaptchaAnswer" style="padding: 6px 10px; font-size: 1rem; border-radius: 8px; border: 2px solid #ced4da; height: 38px;">
-                    </div>
-                </div>
-            <?php } ?>
-          </div>
-          <div class="row">
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block">
-                  <i class="fas fa-sign-in-alt mr-2"></i>
-                  <?php echo lang('sign_in') ?>
-                </button>
-              </div>
-            </div>
-          </form>
-
-          <div class="divider">
-            <span>or</span>
-          </div>
-
-          <p class="mt-3 mb-0 text-center">
-            <a href="#" class="forgot-password" data-toggle="modal" data-target="#myModal">
-              <i class="fas fa-key mr-2"></i>
-              <?php echo lang('forgot_your_password') ?>?
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="demo-section">
-      <h3 class="demo-title">
-        <i class="fas fa-users-cog"></i>
-        Demo Credentials
-      </h3>
-      <div class="demo-buttons">
-        <button type="button" class="demo-btn" onclick="fillCredentials('superadmin@hms.com', '12345')">
-          <i class="fas fa-user-shield"></i>
-          Super Admin
-        </button>
-        <button type="button" class="demo-btn" onclick="fillCredentials('admin@hms.com', '12345')">
-          <i class="fas fa-user-cog"></i>
-          Admin
-        </button>
-        <button type="button" class="demo-btn" onclick="fillCredentials('patient@hms.com', '12345')">
-          <i class="fas fa-user"></i>
-          Patient
-        </button>
-        <button type="button" class="demo-btn" onclick="fillCredentials('doctor@hms.com', '12345')">
-          <i class="fas fa-user-md"></i>
-          Doctor
-        </button>
-        <button type="button" class="demo-btn" onclick="fillCredentials('pharmacist@hms.com', '12345')">
-          <i class="fas fa-prescription-bottle-alt"></i>
-          Pharmacist
-        </button>
-        <button type="button" class="demo-btn" onclick="fillCredentials('nurse@hms.com', '12345')">
-          <i class="fas fa-user-nurse"></i>
-          Nurse
-        </button>
-        <button type="button" class="demo-btn" onclick="fillCredentials('laboratorist@hms.com', '12345')">
-          <i class="fas fa-flask"></i>
-          Laboratorist
-        </button>
-        <button type="button" class="demo-btn" onclick="fillCredentials('receptionist@hms.com', '12345')">
-          <i class="fas fa-user-tie"></i>
-          Receptionist
-        </button>
-        <button type="button" class="demo-btn" onclick="fillCredentials('accountant@hms.com', '12345')">
-          <i class="fas fa-calculator"></i>
-          Accountant
-        </button>
-      </div>
-    </div>
-  </div> -->
-  <!-- End For demo -->
-
-<!-- For production -->
-  <div class="main-container centered-layout">
-    <div class="login-container">
-      <div class="login-logo">
-        <img src="https://cdn-icons-png.flaticon.com/512/2037/2037187.png" alt="Logo">
-        <a href="#"><b><?php echo $this->db->get('settings')->row()->title; ?></b></a>
-      </div>
-
-      <div class="card">
-        <div class="card-body login-card-body">
-          <p class="login-box-msg">
-            <i class="fas fa-sign-in-alt mr-2"></i>
-            <?php echo lang('Sign in to start your session') ?>
-          </p>
-
-          <?php if (!empty($message)) { ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <i class="fas fa-exclamation-circle mr-2"></i>
-              <?php echo $message; ?>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-        <?php } ?>
-
-        <form method="post" action="auth/login">
-            <div class="input-group">
-              <input type="email" name="identity" class="form-control" placeholder="<?php echo lang('email') ?>" required>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                  <i class="fas fa-envelope"></i>
-              </div>
-            </div>
-          </div>
-          <div class="input-group">
-              <input type="password" name="password" class="form-control" placeholder="<?php echo lang('password') ?>" required>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                  <i class="fas fa-lock"></i>
-              </div>
-            </div>
-          </div>
-          <!-- Captcha Container -->
-          <div class="form-group mb-4">
-            <?php if (!empty($googleReCaptchaSiteKey)) { ?>
+            <?php if (!empty($googleReCaptchaSiteKey) && !$is_localhost) { ?>
                 <!-- Google reCAPTCHA v2 Checkbox -->
                 <div class="d-flex justify-content-center">
                     <div class="g-recaptcha" data-sitekey="<?php echo $googleReCaptchaSiteKey; ?>"></div>
@@ -732,41 +500,7 @@
   <script src="adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="adminlte/dist/js/adminlte.min.js"></script>
-  <script>
-    function fillCredentials(email, password) {
-      document.querySelector('input[name="identity"]').value = email;
-      document.querySelector('input[name="password"]').value = password;
-      
-      // Add animation to show the form has been filled
-      const form = document.querySelector('form');
-      form.style.transition = 'all 0.3s ease';
-      form.style.transform = 'scale(1.02)';
-      setTimeout(() => {
-        form.style.transform = 'scale(1)';
-      }, 200);
-    }
-
-    function toggleSections(showSections = true) {
-      const mainContainer = document.querySelector('.main-container');
-      const mobileAppsContainer = document.querySelector('.mobile-apps-container');
-      const demoSection = document.querySelector('.demo-section');
-
-      if (showSections) {
-        mainContainer.classList.remove('centered-layout');
-        mobileAppsContainer.style.display = '';
-        demoSection.style.display = '';
-      } else {
-        mainContainer.classList.add('centered-layout');
-        mobileAppsContainer.style.display = 'none';
-        demoSection.style.display = 'none';
-      }
-    }
-
-    // You can call toggleSections(false) to hide sections and center the login
-    // toggleSections(true) to show them again
-  </script>
-  
-  <?php if (!empty($googleReCaptchaSiteKey)) { ?>
+  <?php if (!empty($googleReCaptchaSiteKey) && !$is_localhost) { ?>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <?php } ?>
 
