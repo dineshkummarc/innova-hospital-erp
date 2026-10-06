@@ -281,7 +281,7 @@ class Site_model extends CI_model
     {
         $this->db->where('hospital_id', $this->session->userdata('site_id'));
         $this->db->where('name', $name);
-        $query = $this->db->get('paymentGateway');
+        $query = $this->db->get('paymentgateway');
         return $query->row();
     } 
 }

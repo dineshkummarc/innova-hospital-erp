@@ -14,7 +14,7 @@ class Paypal extends MX_Controller {
         $this->load->model('pgateway/pgateway_model');
     }
    public function paymentPaypalFromFrontend($data,$from){
-        $paypal = $this->db->get_where('paymentGateway',array('hospital_id'=>'superadmin','name'=>'PayPal'))->row();
+        $paypal = $this->db->get_where('paymentgateway',array('hospital_id'=>'superadmin','name'=>'PayPal'))->row();
         $gateway = Omnipay::create('PayPal_Pro');
         $gateway->setUsername($paypal->APIUsername);
         $gateway->setPassword($paypal->APIPassword);

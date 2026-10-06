@@ -1737,7 +1737,7 @@ class Api extends MX_Controller
                     $this->paystack->paystack_standard($amount_in_kobo, $ref, $patient, $payment_id, $user, '2');
                 } elseif ($gateway == 'Stripe') {
 
-                    $stripe = $this->db->get_where('paymentGateway', array('name =' => 'Stripe'))->row();
+                    $stripe = $this->db->get_where('paymentgateway', array('name =' => 'Stripe'))->row();
 
                     $card_number = $this->input->post('card_number');
                     $expire_date = $this->input->post('expire_date');
@@ -2410,7 +2410,7 @@ class Api extends MX_Controller
     {
         $this->db->where('hospital_id', $this->hospitalID);
         $this->db->where('name', 'Paypal');
-        $paypal = $this->db->get('paymentGateway')->row();
+        $paypal = $this->db->get('paymentgateway')->row();
         $gateway = Omnipay::create('PayPal_Pro');
         $gateway->setUsername($paypal->APIUsername);
         $gateway->setPassword($paypal->APIPassword);

@@ -212,7 +212,7 @@ class Status extends MX_Controller
         $email = $this->input->post('email');
         $address = $this->input->post('address1');
         $phone = $this->input->post('phone');
-        $payumoney = $this->db->get_where('paymentGateway', array('hospital_id' => 'superadmin', 'name' => 'Pay U Money'))->row();
+        $payumoney = $this->db->get_where('paymentgateway', array('hospital_id' => 'superadmin', 'name' => 'Pay U Money'))->row();
         // $payumoney = $this->pgateway_model->getPaymentGatewaySettingsByName('Pay U Money');
 
         $salt = $payumoney->salt; //  Your salt

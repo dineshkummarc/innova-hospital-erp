@@ -2868,7 +2868,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                         </div>
 
                         <div class="col-md-12">
-                            <?php $twocheckout = $this->db->get_where('paymentGateway', array('name =' => '2Checkout'))->row(); ?>
+                            <?php $twocheckout = $this->db->get_where('paymentgateway', array('name =' => '2Checkout'))->row(); ?>
                             <div class="form-group cashsubmit payment">
                                 <button type="submit" name="submit2" id="submit1"
                                     class="btn btn-primary btn-block"><?php echo lang('submit'); ?></button>
@@ -3121,7 +3121,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                         </div>
 
                         <div class="col-md-12">
-                            <?php $twocheckout = $this->db->get_where('paymentGateway', array('name =' => '2Checkout'))->row(); ?>
+                            <?php $twocheckout = $this->db->get_where('paymentgateway', array('name =' => '2Checkout'))->row(); ?>
                             <div class="form-group cashsubmit1 payment">
                                 <button type="submit" name="submit2" id="submit1"
                                     class="btn btn-primary btn-lg btn-block"><?php echo lang('submit'); ?></button>

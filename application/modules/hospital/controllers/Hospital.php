@@ -27,7 +27,7 @@ class Hospital extends MX_Controller
         $data['hospitals'] = $this->hospital_model->getHospital();
         $data['packages'] = $this->package_model->getPackage();
         $data['settings1'] = $this->db->get_where('settings', array('hospital_id' => 'superadmin'))->row();
-        $data['gateway'] = $this->db->get_where('paymentGateway', array('name' => $data['settings1']->payment_gateway, 'hospital_id' => 'superadmin'))->row();
+        $data['gateway'] = $this->db->get_where('paymentgateway', array('name' => $data['settings1']->payment_gateway, 'hospital_id' => 'superadmin'))->row();
         $this->load->view('home/dashboard');
         $this->load->view('hospital', $data);
         $this->load->view('home/footer');
@@ -47,7 +47,7 @@ class Hospital extends MX_Controller
 
         $data['packages'] = $this->package_model->getPackage();
         $data['settings'] = $this->settings_model->getSettings();
-        $data['gateway'] = $this->db->get_where('paymentGateway', array('name' => $data['settings']->payment_gateway, 'hospital_id' => 'superadmin'))->row();
+        $data['gateway'] = $this->db->get_where('paymentgateway', array('name' => $data['settings']->payment_gateway, 'hospital_id' => 'superadmin'))->row();
         $this->load->view('home/dashboard');
         $this->load->view('add_new', $data);
         $this->load->view('home/footer');
@@ -198,7 +198,7 @@ class Hospital extends MX_Controller
 
                             $token = $this->input->post('token');
 
-                            $stripe = $this->db->get_where('paymentGateway', array('hospital_id' => 'superadmin', 'name' => 'Stripe'))->row();
+                            $stripe = $this->db->get_where('paymentgateway', array('hospital_id' => 'superadmin', 'name' => 'Stripe'))->row();
 
                             \Stripe\Stripe::setApiKey($stripe->secret);
                             $charge = \Stripe\Charge::create(array(
@@ -215,7 +215,7 @@ class Hospital extends MX_Controller
                                 redirect('hospital');
                             }
                         } elseif ($gateway == 'Paystack') {
-                            $paystack = $this->db->get_where('paymentGateway', array('hospital_id' => 'superadmin', 'name' => 'Paystack'))->row();
+                            $paystack = $this->db->get_where('paymentgateway', array('hospital_id' => 'superadmin', 'name' => 'Paystack'))->row();
 
                             $ref = date('Y') . '-' . rand() . date('d') . '-' . date('m');
                             $amount_in_kobo = $price;
@@ -800,7 +800,7 @@ For Any Support Please Contact Us At: {phone}';
         $data['hospitals'] = $this->hospital_model->getHospital();
         $data['packages'] = $this->package_model->getPackage();
         $data['settings1'] = $this->db->get_where('settings', array('hospital_id' => 'superadmin'))->row();
-        $data['gateway'] = $this->db->get_where('paymentGateway', array('name' => $data['settings1']->payment_gateway, 'hospital_id' => 'superadmin'))->row();
+        $data['gateway'] = $this->db->get_where('paymentgateway', array('name' => $data['settings1']->payment_gateway, 'hospital_id' => 'superadmin'))->row();
         $this->load->view('home/dashboard');
         $this->load->view('expired_hospital', $data);
         $this->load->view('home/footer');

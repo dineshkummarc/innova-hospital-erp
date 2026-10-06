@@ -42,7 +42,7 @@ class Frontend extends MX_Controller
         $data['faqs'] = $this->faq_model->getFaq();
         $data['featureds'] = $this->featured_model->getFeatured();
         $data['settings1'] = $this->db->get_where('settings', array('hospital_id' => 'superadmin'))->row();
-        $data['gateway'] = $this->db->get_where('paymentGateway', array('name' => $data['settings1']->payment_gateway, 'hospital_id' => 'superadmin'))->row();
+        $data['gateway'] = $this->db->get_where('paymentgateway', array('name' => $data['settings1']->payment_gateway, 'hospital_id' => 'superadmin'))->row();
         
         // Hybrid / Smart Captcha generation
         $num1 = rand(1, 15);
@@ -81,7 +81,7 @@ class Frontend extends MX_Controller
         $data['services'] = $this->service_model->getService();
         $data['featureds'] = $this->featured_model->getFeatured();
         $data['settings1'] = $this->db->get_where('settings', array('hospital_id' => 'superadmin'))->row();
-        $data['gateway'] = $this->db->get_where('paymentGateway', array('name' => $data['settings1']->payment_gateway, 'hospital_id' => 'superadmin'))->row();
+        $data['gateway'] = $this->db->get_where('paymentgateway', array('name' => $data['settings1']->payment_gateway, 'hospital_id' => 'superadmin'))->row();
         $this->load->view('front_end', $data);
         // $this->load->view('index', $data);
     }
@@ -1656,7 +1656,7 @@ class Frontend extends MX_Controller
             } elseif ($gateway == 'Stripe') {
 
                 $token = $this->input->post('token');
-                $stripe = $this->db->get_where('paymentGateway', array('hospital_id' => 'superadmin', 'name' => 'Stripe'))->row();
+                $stripe = $this->db->get_where('paymentgateway', array('hospital_id' => 'superadmin', 'name' => 'Stripe'))->row();
 
                 \Stripe\Stripe::setApiKey($stripe->secret);
                 $charge = \Stripe\Charge::create(array(
@@ -1700,7 +1700,7 @@ class Frontend extends MX_Controller
                 $this->payu->check4($data, $price, $hospital_user_id, 'frontend');
             } elseif ($gateway == 'Paystack') {
 
-                $paystack = $this->db->get_where('paymentGateway', array('hospital_id' => 'superadmin', 'name' => 'Paystack'))->row();
+                $paystack = $this->db->get_where('paymentgateway', array('hospital_id' => 'superadmin', 'name' => 'Paystack'))->row();
 
                 $ref = date('Y') . '-' . rand() . date('d') . '-' . date('m');
                 $amount_in_kobo = $price;

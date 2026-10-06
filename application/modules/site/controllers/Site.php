@@ -549,7 +549,7 @@ class Site extends MX_Controller
             }
         } elseif ($gateway == 'SSLCOMMERZ') {
 
-            //   $SSLCOMMERZ = $this->db->get_where('paymentGateway', array('name =' => 'SSLCOMMERZ'))->row();
+            //   $SSLCOMMERZ = $this->db->get_where('paymentgateway', array('name =' => 'SSLCOMMERZ'))->row();
 
 
             $this->load->module('sslcommerzpayment');

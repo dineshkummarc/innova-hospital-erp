@@ -799,7 +799,7 @@ class Finance extends MX_Controller
                         $cvv = $this->input->post('cvv');
                         $token = $this->input->post('token');
                         $stripe = $this->pgateway_model->getPaymentGatewaySettingsByName('Stripe');
-                        // $stripe = $this->db->get_where('paymentGateway', array('name =' => 'Stripe','hospital_id', $this->session->userdata('hospital_id')))->row();
+                        // $stripe = $this->db->get_where('paymentgateway', array('name =' => 'Stripe','hospital_id', $this->session->userdata('hospital_id')))->row();
                         \Stripe\Stripe::setApiKey($stripe->secret);
                         $charge = \Stripe\Charge::create(array(
                             "amount" => $amount_received * 100,

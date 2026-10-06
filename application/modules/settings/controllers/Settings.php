@@ -72,7 +72,7 @@ class Settings extends MX_Controller
         $data['deposits'] = !empty($hospital_user_id) ? $this->db->get_where('hospital_deposit', array('hospital_user_id' => $hospital_user_id))->result() : array();
         
         $gateway_name = !empty($data['settings1']->payment_gateway) ? $data['settings1']->payment_gateway : '';
-        $data['gateway'] = !empty($gateway_name) ? $this->db->get_where('paymentGateway', array('name' => $gateway_name, 'hospital_id' => 'superadmin'))->row() : null;
+        $data['gateway'] = !empty($gateway_name) ? $this->db->get_where('paymentgateway', array('name' => $gateway_name, 'hospital_id' => 'superadmin'))->row() : null;
         
         $this->load->view('home/dashboard', $data);
         $this->load->view('subscription', $data);
@@ -719,7 +719,7 @@ if (!defined('BASEPATH'))
 
         $data['package_details'] = $this->package_model->getPackageById($data['hospital']->package);
         $data['settings1'] = $this->db->get_where('settings', array('hospital_id' => 'superadmin'))->row();
-        $data['gateway'] = $this->db->get_where('paymentGateway', array('name' => $data['settings1']->payment_gateway, 'hospital_id' => 'superadmin'))->row();
+        $data['gateway'] = $this->db->get_where('paymentgateway', array('name' => $data['settings1']->payment_gateway, 'hospital_id' => 'superadmin'))->row();
 
         $this->load->view('home/dashboard');
         $this->load->view('change_plan', $data);
@@ -806,7 +806,7 @@ if (!defined('BASEPATH'))
 
                 $token = $this->input->post('token');
 
-                $stripe = $this->db->get_where('paymentGateway', array('hospital_id' => 'superadmin', 'name' => 'Stripe'))->row();
+                $stripe = $this->db->get_where('paymentgateway', array('hospital_id' => 'superadmin', 'name' => 'Stripe'))->row();
 
                 \Stripe\Stripe::setApiKey($stripe->secret);
                 $charge = \Stripe\Charge::create(array(
@@ -833,7 +833,7 @@ if (!defined('BASEPATH'))
                     }
                 }
             } elseif ($gateway == 'Paystack') {
-                $paystack = $this->db->get_where('paymentGateway', array('hospital_id' => 'superadmin', 'name' => 'Paystack'))->row();
+                $paystack = $this->db->get_where('paymentgateway', array('hospital_id' => 'superadmin', 'name' => 'Paystack'))->row();
 
                 $ref = date('Y') . '-' . rand() . date('d') . '-' . date('m');
                 $amount_in_kobo = $price;

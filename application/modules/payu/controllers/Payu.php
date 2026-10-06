@@ -307,7 +307,7 @@ if($from=='backend'){
         ;
         $customer_address = $data['address'];
 
-        $payumoney = $this->db->get_where('paymentGateway', array('hospital_id' => 'superadmin', 'name' => 'Pay U Money'))->row();
+        $payumoney = $this->db->get_where('paymentgateway', array('hospital_id' => 'superadmin', 'name' => 'Pay U Money'))->row();
 
         if ($payumoney->status == 'live') {
             $action = "https://secure.payu.in";

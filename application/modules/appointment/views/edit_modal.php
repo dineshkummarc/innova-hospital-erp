@@ -191,11 +191,11 @@
             <div class="col-md-3 payment_label">
             </div>
             <div class="col-md-9">
-                <?php $twocheckout = $this->db->get_where('paymentGateway', array('name =' => '2Checkout'))->row(); ?>
+                <?php $twocheckout = $this->db->get_where('paymentgateway', array('name =' => '2Checkout'))->row(); ?>
                 <div class="form-group cashsubmit1 payment  right-six col-md-12">
                     <button type="submit" name="submit2" id="submit1" class="btn btn-info row float-right"> <?php echo lang('submit'); ?></button>
                 </div>
-                <?php $twocheckout = $this->db->get_where('paymentGateway', array('name =' => '2Checkout'))->row(); ?>
+                <?php $twocheckout = $this->db->get_where('paymentgateway', array('name =' => '2Checkout'))->row(); ?>
                 <div class="form-group cardsubmit1  right-six col-md-12 hidden">
                     <button type="submit" name="pay_now" id="submit-btn1" class="btn btn-info row float-right" <?php if ($settings->payment_gateway == 'Stripe') {
                                                                                                                 ?>onClick="stripePay1(event);" <?php }

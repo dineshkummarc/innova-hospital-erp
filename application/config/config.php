@@ -29,8 +29,8 @@ $is_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
 $ht = $is_https ? "https://" : "http://";
 $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (getenv('BASE_DOMAIN') ?: 'localhost');
 $script_name = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '';
-$config['base_url'] = $ht . $host;
-$config['base_url'] .= preg_replace('@/+$@', '', dirname($script_name)) . '/'; 
+$subfolder = trim(str_replace('\\', '/', dirname($script_name)), '/.');
+$config['base_url'] = $ht . $host . ($subfolder !== '' ? '/' . $subfolder : '') . '/'; 
 
 /*
 |--------------------------------------------------------------------------

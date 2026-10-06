@@ -418,11 +418,11 @@
                             </div>
                             <div class="btn-block">
                                 <div class="">
-                                    <?php $twocheckout = $this->db->get_where('paymentGateway', array('name =' => '2Checkout'))->row(); ?>
+                                    <?php $twocheckout = $this->db->get_where('paymentgateway', array('name =' => '2Checkout'))->row(); ?>
                                     <div class="form-group cashsubmit payment btn-block">
                                         <button type="submit" name="submit2" id="submit1" class="btn btn-primary btn-block float-right"> <?php echo lang('submit'); ?></button>
                                     </div>
-                                    <?php $twocheckout = $this->db->get_where('paymentGateway', array('name =' => '2Checkout'))->row(); ?>
+                                    <?php $twocheckout = $this->db->get_where('paymentgateway', array('name =' => '2Checkout'))->row(); ?>
                                     <div class="form-group cardsubmit btn-block d-none">
                                         <button type="submit" name="pay_now" id="submit-btn" class="btn btn-primary btn-block float-right" <?php if ($settings->payment_gateway == 'Stripe') { ?>onClick="stripePay(event);" <?php } ?> <?php if ($settings->payment_gateway == '2Checkout' && $twocheckout->status == 'live') { ?>onClick="twoCheckoutPay(event);" <?php } ?>> <?php echo lang('submit'); ?></button>
                                     </div>
@@ -608,11 +608,11 @@
                             </div>
                             <div class="btn-block">
                                 <div class="">
-                                    <?php $twocheckout = $this->db->get_where('paymentGateway', array('name =' => '2Checkout'))->row(); ?>
+                                    <?php $twocheckout = $this->db->get_where('paymentgateway', array('name =' => '2Checkout'))->row(); ?>
                                     <div class="form-group cashsubmit1 payment btn-block">
                                         <button type="submit" name="submit2" id="submit1" class="btn btn-primary btn-block float-right"> <?php echo lang('submit'); ?></button>
                                     </div>
-                                    <?php $twocheckout = $this->db->get_where('paymentGateway', array('name =' => '2Checkout'))->row(); ?>
+                                    <?php $twocheckout = $this->db->get_where('paymentgateway', array('name =' => '2Checkout'))->row(); ?>
                                     <div class="form-group cardsubmit1  btn-block d-none">
                                         <button type="submit" name="pay_now" id="submit-btn1" class="btn btn-primary btn-block float-right" <?php if ($settings->payment_gateway == 'Stripe') { ?>onClick="stripePay1(event);" <?php } ?> <?php if ($settings->payment_gateway == '2Checkout' && $twocheckout->status == 'live') { ?>onClick="twoCheckoutPay1(event);" <?php } ?>> <?php echo lang('submit'); ?></button>
                                     </div>

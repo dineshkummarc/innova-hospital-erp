@@ -522,7 +522,7 @@
                             <button type="submit" name="submit2" id="submit1" class="btn btn-info row float-right mr-0"> <?php echo lang('submit'); ?></button>
                         </div>
                         <div class="form-group cardsubmit right-six col-md-12 d-none">
-                            <?php $twocheckout = $this->db->get_where('paymentGateway', array('name =' => '2Checkout'))->row(); ?>
+                            <?php $twocheckout = $this->db->get_where('paymentgateway', array('name =' => '2Checkout'))->row(); ?>
                             <button type="submit" name="pay_now" id="submit-btn" class="btn btn-info row float-right mr-0" <?php if ($settings->payment_gateway == 'Stripe') {
                                                                                                                             ?>onClick="stripePay(event);" <?php }
                                                                                                                                                             ?><?php if ($settings->payment_gateway == '2Checkout' && $twocheckout->status == 'live') {

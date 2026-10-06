@@ -395,7 +395,7 @@ class Frontend extends MX_Controller
             $cvv = $data['cvv'];
 
             $token = $data['token'];
-            $stripe = $this->db->get_where('paymentGateway', array('name =' => 'Stripe'))->row();
+            $stripe = $this->db->get_where('paymentgateway', array('name =' => 'Stripe'))->row();
             \Stripe\Stripe::setApiKey($stripe->secret);
             $charge = \Stripe\Charge::create(array(
                 "amount" => $data['grand_total'] * 100,
@@ -539,7 +539,7 @@ class Frontend extends MX_Controller
             }
         } elseif ($gateway == 'SSLCOMMERZ') {
 
-            //   $SSLCOMMERZ = $this->db->get_where('paymentGateway', array('name =' => 'SSLCOMMERZ'))->row();
+            //   $SSLCOMMERZ = $this->db->get_where('paymentgateway', array('name =' => 'SSLCOMMERZ'))->row();
 
 
             $this->load->module('sslcommerzpayment');

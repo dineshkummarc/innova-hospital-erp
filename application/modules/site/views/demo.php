@@ -514,7 +514,7 @@ $site_name = $this->db->get('site_settings')->row()->title;
                                                     </div>
                                                 </div>
 
-                                                <?php $twocheckout = $this->db->get_where('paymentGateway', array('name =' => '2Checkout'))->row(); ?>
+                                                <?php $twocheckout = $this->db->get_where('paymentgateway', array('name =' => '2Checkout'))->row(); ?>
                                                 <div class="col-md-12">
                                                     <button type="submit" name="pay_now" id="submit-btn" class="btn btn-primary btn-lg w-100 rounded-pill shadow-lg hover-scale fs-4 py-3"
                                                         <?php if ($settings1->payment_gateway == 'Stripe') { ?>
@@ -964,7 +964,7 @@ $site_name = $this->db->get('site_settings')->row()->title;
         var payment_gateway = "<?php echo $settings1->payment_gateway; ?>";
     </script>
     <?php if ($settings1->payment_gateway == '2Checkout') { ?>
-        <?php $twocheckout = $this->db->get_where('paymentGateway', array('name =' => '2Checkout'))->row(); ?>
+        <?php $twocheckout = $this->db->get_where('paymentgateway', array('name =' => '2Checkout'))->row(); ?>
         <script type="text/javascript">
             var publishable = "<?php echo $twocheckout->publishablekey; ?>";
         </script>

@@ -131,6 +131,9 @@ if command -v mysql >/dev/null 2>&1; then
         else
             echo -e "${GREEN}[✔] Database already contains tables ($((TABLE_COUNT - 1)) tables found). Skipping SQL import.${NC}"
         fi
+
+        # Ensure paymentGateway view exists for Linux MySQL case-sensitivity compatibility
+        mysql $MYSQL_AUTH -D "$DB_NAME" -e "CREATE OR REPLACE VIEW \`paymentGateway\` AS SELECT * FROM \`paymentgateway\`;" 2>/dev/null || true
     else
         echo -e "${RED}[!] Could not connect to MySQL with the credentials in .env.${NC}"
         echo -e "${YELLOW}Please verify DB_USER and DB_PASS in $ENV_FILE or ensure MySQL is running.${NC}"
@@ -163,6 +166,10 @@ else
             " || true
             echo -e "${GREEN}[✔] Import finished.${NC}"
         fi
+        php -r "
+            \$conn = new mysqli('$DB_HOST', '$DB_USER', '$DB_PASS', '$DB_NAME', (int)'$DB_PORT');
+            \$conn->query('CREATE OR REPLACE VIEW \`paymentGateway\` AS SELECT * FROM \`paymentgateway\`;');
+        " 2>/dev/null || true
     else
         echo -e "${YELLOW}[!] Notice: Could not auto-verify MySQL. Please ensure DB credentials are set in .env.${NC}"
     fi
